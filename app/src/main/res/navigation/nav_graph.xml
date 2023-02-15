@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/homeFragment">
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.cumpatomas.brunosrecipes.ui.homefragment.HomeFragment"
+        android:label="Recetas de Bruno"
+        tools:layout="@layout/home_fragment">
+        <action
+            android:id="@+id/action_homeFragment_to_recipesListFragment"
+            app:destination="@id/recipesListFragment"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:popUpTo="@id/homeFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_favoritesFragment"
+            app:destination="@id/historialFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:popUpTo="@id/homeFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_inputcomposeFragment"
+            app:destination="@id/inputComposeFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_inputComposeFragment"
+            app:destination="@id/inputComposeFragment" />
+    </fragment>
+    <action android:id="@+id/action_global_homeFragment" app:destination="@id/homeFragment" />
+    <fragment
+        android:id="@+id/recipesListFragment"
+        android:name="com.cumpatomas.brunosrecipes.ui.recipeslist.RecipesListFragment"
+        android:label="Lista de Recetas"
+        tools:layout="@layout/recipes_list_fragment">
+        <action
+            android:id="@+id/action_recipesListFragment_to_recipeFragment"
+            app:destination="@id/recipeFragment"
+            app:popUpTo="@id/recipesListFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/historialFragment"
+        android:name="com.cumpatomas.brunosrecipes.ui.history.HistoryFragment"
+        android:label="Historial"
+        tools:layout="@layout/history_list_fragment" >
+        <action
+            android:id="@+id/action_historialFragment_to_recipeFragment"
+            app:destination="@id/recipeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/recipeFragment"
+        android:name="com.cumpatomas.brunosrecipes.ui.recipefragment.RecipeFragment"
+        android:label="Tu Receta"
+        tools:layout="@layout/recipe_fragment">
+        <argument
+            android:name="recipeId"
+            app:argType="integer" />
+    </fragment>
+    <fragment
+        android:id="@+id/inputComposeFragment"
+        android:name="com.cumpatomas.brunosrecipes.ui.input.InputComposeFragment"
+        android:label="¿Qué cocino?">
+        <action
+            android:id="@+id/action_inputComposeFragment_to_posibleRecipesListFragment"
+            app:destination="@id/posibleRecipesListFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/posibleRecipesListFragment"
+        android:name="com.cumpatomas.brunosrecipes.ui.input.PosibleRecipesListFragment"
+        android:label="PosibleRecipesListFragment" >
+        <action
+            android:id="@+id/action_posibleRecipesListFragment_to_recipeFragment"
+            app:destination="@id/recipeFragment" />
+    </fragment>
+</navigation>

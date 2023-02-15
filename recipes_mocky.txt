@@ -1,0 +1,183 @@
+[{
+    "category": ["Salado", "Verano"],
+    "id": "1",
+    "ingredients": "atún, tomate, huevo, arroz",
+    "name": "Arroz con atún",
+    "photo": "https://elcomercio.pe/resizer/Zsc8Tj5dQf2kb-LreZ7WUzwxPFU\u003d/580x330/smart/filters:format(jpeg):quality(75)/cloudfront-us-east-1.images.arcpublishing.com/elcomercio/WXYOHEPFURAL7JD24HYEP5UL7A.jpg",
+    "pasos": "
+
+1 taza de arroz cocido
+2 latas de atún
+1 tomate
+2 huevos duros
+1/2 taza de guisantes cocidos
+pimienta
+mayonesa
+
+En 15 minutos cocemos los huevos y el arroz. 
+Quitar la cáscara al tomate y cortarlo en cubos. 
+Podemos escurrir una lata de atún y la otra ponerla con el aceite. 
+Cortamos los huevos en trozos y mezclamos todos los ingredientes restantes. 
+Agregamos mayonesa y pimienta a gusto y listo!"
+}, {
+    "category": ["Salado", "Invierno"],
+    "id": "2",
+    "ingredients": "pollo, cebolla, leche de coco, manzana, curry, arroz",
+    "name": "Pollo al curry",
+    "photo": "https://i.blogs.es/9ea7a4/pollo_curry-copia/1366_2000.jpg",
+    "pasos": "
+
+1 pechuga de pollo
+1 manzana chica
+1 zanahoria
+1 cebolla
+1 lata de leche de coco
+1 taza de arroz cocido
+pimiento verde o rojo
+curry en polvo
+salsa de soja
+azúcar
+vinagre
+pimienta
+
+Ponemos a hervir el arroz.
+Cortar la pechuga en tiras y luego trozos pequeños; sofreir el pollo con el pimiento, la cebolla y la zanahoria cortada bien fina (en cacerola o wok). 
+Agregar una cucharadita de azúcar, una cucharada sopera de vinagre y 2 cucharadas de salsa de soja; dejar destapado para que evapore el vinagre.
+Agregar Curry en polvo a gusto (también se puede usar curry verde que viene fresco pero cuidado porque es bastante picante)
+Agregar pimienta si usamos curry en polvo.
+Agregar 1/2 taza de agua y cocinar con tapa unos 10 minutos a fuego bajo.
+Agregar la leche de coco y cocinar con tapa 5 minutos.
+Pelar la manzana, cortarla en dados y agregar a la cacerola.
+Cocinar con tapa 5 minutos más y listo.
+Se puede mezclar todo con el arroz o servirlo separado en el plato."
+}, {
+    "category": ["Dulce", "Verano", "Invierno"],
+    "id": "3",
+    "ingredients": "avena, leche, huevo, mantequilla",
+    "name": "Pancakes de avena",
+    "photo": "https://www.nattahometaste.com/wp-content/uploads/2020/04/pancakes-de-avena-receta.jpg",
+    "pasos": ""
+}, {
+    "category": ["Salado", "Verano", "Invierno"],
+    "id": "4",
+    "ingredients": "calabacín, requesón, huevo, avena",
+    "name": "Tortitas de calabacín",
+    "photo": "https://d36fw6y2wq3bat.cloudfront.net/recipes/tortitas-de-calabacin-y-queso/900/tortitas-de-calabacin-y-queso_version_1652879955.jpg",
+    "pasos": ""
+}, {
+    "category": ["Salado", "Verano"],
+    "id": "5",
+    "ingredients": "tortillas de trigo, pollo, pimiento, cebolla",
+    "name": "Fajitas de pollo",
+    "photo": "https://libbys.es/wordpress/wp-content/uploads/2016/06/fajitas.jpg",
+    "pasos": ""
+}, {
+    "category": ["Salado", "Verano"],
+    "id": "6",
+    "ingredients": "cebolla, pollo, aguacate, tomate, harina de maíz",
+    "name": "Arepas venezolanas",
+    "photo": "https://d1kxxrc2vqy8oa.cloudfront.net/wp-content/uploads/2019/02/07122110/RFB-31-5-reinapepea.jpg",
+    "pasos": ""
+}, {
+    "category": ["Salado", "Verano"],
+    "id": "7",
+    "ingredients": "espinaca, huevo, cebolla, pimiento",
+    "name": "Tortilla de espinacas",
+    "photo": "https://s1.eestatic.com/2019/10/24/cocinillas/recetas/verduras/espinacas-huevo-cebolla_439217355_136085251_1706x960.jpg",
+    "pasos": "
+
+400 g de espinacas frescas (300 g si son congeladas)
+3 huevos camperos
+2 dientes de ajo
+aceite de oliva
+pimiento rojo
+
+Podemos usar tanto espinacas frescas como congeladas. En este último caso las prepararemos tal y como nos indique el fabricante. En el primer caso lavamos las espinacas y las picamos.
+Calentamos un chorrito de aceite en una sartén amplia y, si es posible, que sea alta, ya que las hojas abultan mucho al principio. Cuando esté caliente, añadimos las espinacas y rehogamos con el pimiento cortado. Con el calor, poco a poco las espinacas empezarán a soltar agua. Seguimos rehogando hasta que las espinacas se hayan cocido y secado. Añadimos el ajo picado y rehogamos 1 o 2 minutos más. Salpimentar. Reservar.
+Escurrimos de nuevo las espinacas. Debemos sacarle el máximo de líquido para que no nos estropeen la tortilla. Para ello, las presionamos bien con la paleta o en un colador. Añadimos las espinacas a los huevos y mezclamos bien. Si lo notamos muy espeso quizá necesite un huevo más. En ese caso lo batimos aparte antes de añadirlo. Salpimentar.
+Calentar una sartén con aceite
+Cuajar la tortilla de espinacas primero por un lado y luego por el otro. Cuando notemos que tanto los bordes como la tortilla están casi cuajados le daremos la vuelta ayudándonos con un plato.
+Ponemos de nuevo a calentar la sartén y cuando haya vuelto a coger temperatura, dejamos que se deslice la tortilla del plato a la sartén. Por último, cuajamos por el otro lado unos 2 o 3 minutos más, dependiendo si nos gusta muy hecha o bien jugosa."
+}, {
+    "category": ["Dulce", "Verano"],
+    "id": "8",
+    "ingredients": "leche, maizena, azúcar, huevo",
+    "name": "Postre de maizena",
+    "photo": "https://www.paulinacocina.net/wp-content/uploads/2022/03/postre-de-maizena-con-leche.jpg",
+    "pasos": ""
+}, {
+    "category": ["Dulce", "Verano", "Invierno"],
+    "id": "9",
+    "ingredients": "yogur, huevo, azúcar, harina",
+    "name": "Bizcocho de yogur",
+    "photo": "https://www.hogarmania.com/archivos/201712/bizcocho-yogur-xl-1280x720x80xX.jpg",
+    "pasos": ""
+}, {
+    "category": ["Salado", "Verano", "Invierno"],
+    "id": "10",
+    "ingredients": "masa de lasaña, calabacín, pimiento, cebolla, atún, queso",
+    "name": "Lasaña de atún y calabacín",
+    "photo": "https://www.annarecetasfaciles.com/files/lasana-de-verduras-2-815x458.jpg",
+    "pasos": ""
+}, {
+    "category": ["Salado", "Invierno", "Verano"],
+    "id": "11",
+    "ingredients": "tomate, brócoli, cebolla",
+    "name": "Salsa de tomate y brócoli",
+    "photo": "https://adaptacionesculinarias.files.wordpress.com/2016/05/pasta_brocoli_tomate2.jpg?w\u003d900",
+    "pasos": "
+
+1 brócoli fresco
+1 lata de tomate triturado
+1 cebolla
+1/2puerro
+1 zanahoria
+1 hoja de laurel
+albahaca fresca
+
+Podemos pasar todas las verduras por la picadora o procesadora, aunque la zanahoria queda mejor rallada fina.
+Ponemos a sofreír en abundante aceite con una hoja de laurel, agregamos pimentón en polvo (dulce o de la vera) y salpimentamos.
+Cocinar unos 10 minutos.
+Agregamos la lata de tomate y una cucharadita de azúcar.
+Si no tenemos albahaca fresca en este momento podemos agregar albahaca seca.
+Cocinar 20 minutos a fuego lento."
+}, {
+    "category": ["Salado", "Invierno"],
+    "id": "12",
+    "ingredients": "crema de leche, bacon, huevo",
+    "name": "Salsa carbonara",
+    "photo": "https://comohacersalsa.com/wp-content/uploads/2019/01/salsa-carbonara-1024x1024.jpg",
+    "pasos": ""
+}, {
+    "category": ["Salado", "Verano", "Invierno"],
+    "id": "13",
+    "ingredients": "masa filo, patata, atún, cebolla",
+    "name": "Samosas de patata y atún",
+    "photo": "https://www.recetasderechupete.com/wp-content/uploads/2022/05/Samosas-antes-de-freir.jpg",
+    "pasos": ""
+}, {
+    "category": ["Salado", "Verano"],
+    "id": "14",
+    "ingredients": "lentejas, tomate, huevo, zanahoria, queso mozzarella",
+    "name": "Ensalada de lentejas y huevo",
+    "photo": "https://1.bp.blogspot.com/-WKIq9jgk030/YPsXjMPbd8I/AAAAAAAAONs/8bjjrhP6Mh0tN9SYkxS4hXF936UgpZIlgCLcBGAsYHQ/s0/ensalada-lentejas-huevo.jpg",
+    "pasos": ""
+}, {
+    "category": ["Salado", "Verano"],
+    "id": "15",
+    "ingredients": "garbanzo, limón, tahini",
+    "name": "Humus de garbanzo",
+    "photo": "https://cdn.elcocinerocasero.com/imagen/receta/1000/2015-10-08-09-53-54/hummus-casero.jpeg",
+    "pasos": "
+
+400 g de garbanzos de bote o cocinados
+1 cucharada de zumo de limón
+1 cucharada de tahini
+1 diente de ajo(opcional)
+½ cucharadita de sal (opcional)
+1 cucharadita de pimentón dulce
+
+Pon la tahina, el diente de ajo, sal, agua, el zumo de limón (también puedes añadir un poco de la cáscara) y el aceite en el vaso de la batidora junto con los garbanzos. 
+Tritura todo hasta conseguir una masa homogénea utilizando tu robot de cocina, batidora o minipimer. Si no tienes, puedes machacarlo todo con un mortero, aunque la textura no será igual.
+Rectifica de sal y especias, y sirve o guarda en la nevera. Para presentarlo, añade un chorrito de aceite, y espolvorea un poquito de pimentón dulce por encima."
+}]

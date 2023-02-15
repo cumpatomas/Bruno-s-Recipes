@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">Brunos Recipes</string>
+    <string name="menutitle">- Menu -</string>
+    <string name="recipesTitle">- Recipes List -</string>
+    <string name="randomTitle">- Random Recipe -</string>
+    <string name="recipes">Recetas</string>
+    <string name="search_recipes">Buscar recetas...</string>
+    <string name="history_title">Has cocinado %1$s receta</string>
+    <string name="history_title2">Has cocinado %1$s recetas</string>
+    <string name="havent_try">"Aún no has probado esta receta"</string>
+    <string name="welcome">"Bienvenid@! a las Recetas de Bruno"</string>
+    <string name="choose_ingredients">"Elige tus ingredientes"</string>
+
+</resources>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/homeFragment"
+        android:enabled="true"
+        android:icon="@drawable/icon_home"
+        android:title="inicio"/>
+
+    <item
+        android:id="@+id/recipesListFragment"
+        android:enabled="true"
+        android:icon="@drawable/ic_list"
+        android:title="lista"/>
+
+    <item
+        android:id="@+id/historialFragment"
+        android:enabled="true"
+        android:icon="@drawable/ic_history_24"
+        android:title="historial"/>
+    <item
+        android:id="@+id/inputComposeFragment"
+        android:enabled="true"
+        android:icon="@drawable/ic_question_mark_24"
+        android:title="qué cocino"/>
+
+</menu>

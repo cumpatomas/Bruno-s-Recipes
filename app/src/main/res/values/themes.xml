@@ -1,0 +1,42 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Theme.BrunosRecipes" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/primaryColor</item>
+        <item name="colorPrimaryVariant">@color/primaryLightColor</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/secondaryColor</item>
+        <item name="colorSecondaryVariant">@color/secondaryLightColor</item>
+        <item name="colorOnSecondary">@color/black</item>
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor" >?attr/colorPrimary</item>
+        <!-- Customize your theme here. -->
+    </style>
+
+    <style name="RatingBar" parent="Widget.AppCompat.RatingBar.Small">
+        <item name="ratingBarStyle">@style/Controls.RatingBar</item>
+        <item name="colorControlActivated">#C9F39E</item>
+
+    </style>
+
+    <style name="Controls.RatingBar" parent="Widget.AppCompat.RatingBar.Small">
+        <item name="android:isIndicator">true</item>
+    </style>
+
+    <style name="RatingBarBig" parent="Widget.AppCompat.RatingBar.Indicator">
+        <item name="ratingBarStyle">@style/Controls.RatingBarBig</item>
+        <item name="colorControlActivated">#C9F39E</item>
+
+    </style>
+
+    <style name="Controls.RatingBarBig" parent="Widget.AppCompat.RatingBar.Indicator">
+        <item name="android:isIndicator">false</item>
+    </style>
+
+    <style name="Colors_Widget_MaterialComponents_Chip_Choice" parent="Widget.MaterialComponents.Chip.Choice">
+        <item name="chipBackgroundColor">@color/chip_background_color</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+</resources>
