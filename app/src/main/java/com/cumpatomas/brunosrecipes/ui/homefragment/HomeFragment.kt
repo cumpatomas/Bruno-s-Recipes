@@ -21,6 +21,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
@@ -40,11 +41,13 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.fragment.findNavController
 import coil.compose.rememberAsyncImagePainter
 import com.cumpatomas.brunosrecipes.R
 import com.cumpatomas.brunosrecipes.components.LoadingAnimation
 import com.cumpatomas.brunosrecipes.domain.model.NewsModel
 import com.cumpatomas.brunosrecipes.domain.model.RecipesModel
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 class HomeFragment : Fragment() {
@@ -68,7 +71,7 @@ class HomeFragment : Fragment() {
             val viewModel = viewModel<HomeViewModel>()
 
             lifecycleScope.launch {
-                repeatOnLifecycle(Lifecycle.State.STARTED) {
+                repeatOnLifecycle(Lifecycle.State.CREATED) {
                     viewModel.getRecipes()
                 }
             }
@@ -102,7 +105,13 @@ class HomeFragment : Fragment() {
             }
             Spacer(modifier = Modifier.height(24.dp))
             if (viewModel.isLoadingState.value) {
-                LoadingAnimation(circleColor = colorResource(id = R.color.white))
+                HomeSection(title = "Últimas recetas agregadas") {
+                    LoadingAnimation(
+                        circleColor = colorResource(id = R.color.white),
+                        circleSize = 12.dp
+                    )
+                }
+
             } else {
                 HomeSection(title = "Últimas recetas agregadas") {
                     NewestRecipesRow(newsestRecipesList)
@@ -121,52 +130,87 @@ class HomeFragment : Fragment() {
     @SuppressLint("SetJavaScriptEnabled")
     @Composable
     fun NewsWebView(new: NewsModel) {
+        val loadingState = remember { mutableStateOf(true) }
+        val coroutineScope = rememberCoroutineScope()
 
-        // Declare a string that contains a url
+        Surface(
+            modifier = Modifier
+                .height(450.dp)
+                .verticalScroll(rememberScrollState())
+        ) {
 
-        // Adding a WebView inside AndroidView
-        // with layout as full screen
-        Surface(modifier = Modifier
-            .height(500.dp)
-            .verticalScroll(rememberScrollState())) {
-            AndroidView(factory = {
-                WebView(it).apply {
-                    layoutParams = ViewGroup.LayoutParams(
-                        ViewGroup.LayoutParams.MATCH_PARENT,
-                        ViewGroup.LayoutParams.MATCH_PARENT
-                    )
-                    webViewClient = WebViewClient()
-                    settings.javaScriptEnabled = true
-                    loadUrl(new.link)
+            AndroidView(
+                factory = {
+                    WebView(it).apply {
+                        coroutineScope.launch {
+                            val job = launch {
+                                layoutParams = ViewGroup.LayoutParams(
+                                    ViewGroup.LayoutParams.MATCH_PARENT,
+                                    ViewGroup.LayoutParams.MATCH_PARENT
+                                )
+                                webViewClient = WebViewClient()
+                                settings.javaScriptEnabled = true
+                                loadUrl(new.link)
 
-                }
-            }, update = {
+                            }
+                            job.join()
+                            delay(2000)
+                            loadingState.value = false
+                        }
+                    }
+                }, /*update = {
                 it.loadUrl(new.link)
 
-            })
 
+            }*/
+            )
 
         }
-        Row(horizontalArrangement = Arrangement.End,
-            modifier = Modifier.padding(8.dp)) {
-            CloseButton(new)
-        }
+        if (loadingState.value) {
+            Row(
+                horizontalArrangement = Arrangement.Center,
+                modifier = Modifier
+                    .fillMaxWidth()
+            ) {
+                LoadingAnimation(
+                    circleColor = colorResource(id = R.color.secondaryColor),
+                    circleSize = 12.dp,
+                    modifier = Modifier
+                        .alpha(0.7f)
+                        .padding(top = 24.dp)
+                )
+            }
+
+        } else
+            Row(
+                horizontalArrangement = Arrangement.End,
+                modifier = Modifier.padding(8.dp)
+            ) {
+                CloseButton(new)
+            }
     }
+
     @Composable
     fun CloseButton(
         new: NewsModel,
     ) {
         val coroutineScope = rememberCoroutineScope()
-        FloatingActionButton(onClick = {
-            coroutineScope.launch {
-                new.state.value = false
-            }
-        })
+        FloatingActionButton(
+            onClick = {
+                coroutineScope.launch {
+                    new.state.value = false
+                }
+            },
+            modifier = Modifier
+                .size(50.dp)
+                .alpha(0.7f)
+        )
         {
             Icon(
                 imageVector = Icons.Default.Close,
                 contentDescription = "Volver",
                 tint = Color.White,
+                modifier = Modifier.padding(0.dp)
             )
         }
     }
@@ -184,15 +228,18 @@ class HomeFragment : Fragment() {
                 for (i in 0..9)
                     NewsItem(newsList[i])
             else {
-                LoadingAnimation(circleColor = colorResource(id = R.color.white))
+                LoadingAnimation(
+                    circleColor = colorResource(id = R.color.white),
+                    circleSize = 12.dp
+                )
             }
-
         }
     }
 
     private @Composable
-    fun NewsItem(new: NewsModel,
-                 viewModel: HomeViewModel = androidx.lifecycle.viewmodel.compose.viewModel()) {
+    fun NewsItem(
+        new: NewsModel,
+    ) {
         Card(
             elevation = 8.dp,
             shape = RoundedCornerShape(10.dp),
@@ -210,9 +257,10 @@ class HomeFragment : Fragment() {
                         fontFamily = FontFamily(Font(R.font.marlin_sans)),
                         color = colorResource(id = R.color.mid_gray),
                         textAlign = TextAlign.Center,
-                        fontSize = 18.sp,
+                        fontSize = 17.sp,
                         fontWeight = FontWeight.Bold,
                         modifier = Modifier.paddingFromBaseline(top = 24.dp)
+                            .padding(horizontal = 8.dp)
                     )
                 }
                 Row(
@@ -236,14 +284,11 @@ class HomeFragment : Fragment() {
                                 new.state.value = true
                             }
                     )
-
                 }
             }
-
-                if (new.state.value)
-                    NewsWebView(new)
+            if (new.state.value)
+                NewsWebView(new)
         }
-
     }
 
     private @Composable
@@ -271,14 +316,20 @@ class HomeFragment : Fragment() {
                 .padding(horizontal = 8.dp, vertical = 16.dp)
                 .width(120.dp)
         ) {
-            Image(
-                painter = painterResource(id = drawable),
-                contentDescription = null,
-                contentScale = Crop,
-                modifier = Modifier
-                    .size(110.dp)
-                    .clip(RoundedCornerShape(16.dp))
-            )
+            Surface(
+                elevation = 14.dp,
+                shape = RoundedCornerShape(16.dp),
+            ) {
+                Image(
+                    painter = painterResource(id = drawable),
+                    contentDescription = null,
+                    contentScale = Crop,
+                    modifier = Modifier
+                        .size(110.dp)
+                        .clip(RoundedCornerShape(16.dp))
+                )
+            }
+
             Text(
                 text = text,
                 fontFamily = FontFamily(Font(R.font.marlin_sans)),
@@ -301,22 +352,34 @@ class HomeFragment : Fragment() {
             contentPadding = PaddingValues(0.dp),
             modifier = modifier
         ) {
-            items(bestRecipesList.value) { item ->
+            items(bestRecipesList.value) { recipe ->
                 BestRatedCard(
-                    photo = item.photo,
-                    text = item.name,
-                    rate = item.rating
+                    photo = recipe.photo,
+                    text = recipe.name,
+                    rate = recipe.rating,
+                    id = recipe.id
                 )
             }
         }
     }
 
     private @Composable
-    fun BestRatedCard(photo: String, text: String, rate: Float, modifier: Modifier = Modifier) {
+    fun BestRatedCard(
+        photo: String,
+        text: String,
+        rate: Float,
+        id: Int,
+        modifier: Modifier = Modifier
+    ) {
         Card(
             modifier = Modifier
                 .width(180.dp)
-                .padding(horizontal = 8.dp, vertical = 16.dp),
+                .padding(horizontal = 8.dp, vertical = 16.dp)
+                .clickable {
+                    val action = HomeFragmentDirections.actionHomeFragmentToRecipeFragment(id)
+                    findNavController().navigate(action)
+                },
+
             elevation = 12.dp,
             shape = RoundedCornerShape(16.dp)
 
@@ -368,20 +431,27 @@ class HomeFragment : Fragment() {
 
     private @Composable
     fun NewestRecipesRow(recipesList: State<List<RecipesModel>>, modifier: Modifier = Modifier) {
-        LazyRow(
-            modifier = modifier
-                .background(color = Color.White)
-                .padding(vertical = 16.dp)
-                .height(140.dp),
+        Surface(
+            elevation = 14.dp,
+        )
+        {
+            LazyRow(
+                modifier = modifier
+                    .background(color = Color.White)
+                    .padding(vertical = 16.dp)
+                    .height(140.dp),
 
-            contentPadding = PaddingValues(horizontal = 16.dp),
-            horizontalArrangement = Arrangement.spacedBy(8.dp),
-        ) {
-            items(recipesList.value) { recipe ->
-                NewestRecipesElement(
-                    photo = recipe.photo,
-                    text = recipe.name
-                )
+                contentPadding = PaddingValues(horizontal = 16.dp),
+                horizontalArrangement = Arrangement.spacedBy(8.dp),
+            ) {
+                items(recipesList.value) { recipe ->
+                    NewestRecipesElement(
+                        photo = recipe.photo,
+                        text = recipe.name,
+                        id = recipe.id
+
+                    )
+                }
             }
         }
     }
@@ -390,12 +460,19 @@ class HomeFragment : Fragment() {
     fun NewestRecipesElement(
         photo: String,
         text: String,
+        id: Int,
         modifier: Modifier = Modifier
     ) {
         Column(
-            modifier = modifier.width(100.dp),
-            horizontalAlignment = Alignment.CenterHorizontally
+            horizontalAlignment = Alignment.CenterHorizontally,
+            modifier = modifier
+                .width(100.dp)
+                .clickable {
+                    val action = HomeFragmentDirections.actionHomeFragmentToRecipeFragment(id)
+                    findNavController().navigate(action)
+                },
         ) {
+
             Image(
                 painter = rememberAsyncImagePainter(photo),
                 contentDescription = null,

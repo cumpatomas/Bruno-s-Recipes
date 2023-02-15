@@ -1,7 +1,6 @@
 package com.cumpatomas.brunosrecipes.ui.input
 
 import android.annotation.SuppressLint
-import android.graphics.drawable.PaintDrawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -29,12 +28,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.ComposeView
-import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.colorResource
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
@@ -42,20 +38,14 @@ import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
-import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.compose.rememberAsyncImagePainter
-import com.airbnb.lottie.compose.LottieAnimation
-import com.airbnb.lottie.compose.LottieAnimationSpec
-import com.airbnb.lottie.compose.LottieCompositionResult.Loading.composition
-import com.airbnb.lottie.compose.rememberLottieComposition
 import com.cumpatomas.brunosrecipes.R
 import com.cumpatomas.brunosrecipes.components.LoadingAnimation
 import com.cumpatomas.brunosrecipes.domain.model.RecipesModel
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 class InputComposeFragment : Fragment() {
@@ -105,8 +95,7 @@ class InputComposeFragment : Fragment() {
         modalSheetState: ModalBottomSheetState
     ) {
 
-        val ingredientsList =
-            viewModel.getIngredientsFlow.collectAsState(initial = emptyList())
+        val ingredientsList = viewModel.ingredientsList
         val firstLettersList = ingredientsList.value.map { it.first() }.distinct()
         val scaffoldState = rememberScaffoldState(rememberDrawerState(DrawerValue.Closed))
         val coroutineScope = rememberCoroutineScope()
@@ -179,7 +168,7 @@ class InputComposeFragment : Fragment() {
                 }
                 IngredientsRecyclerView(
                     firstLettersList,
-                    ingredientsList,
+                    ingredientsList.value,
                     viewModel,
                     loadingState
                 )
@@ -191,7 +180,7 @@ class InputComposeFragment : Fragment() {
     @Composable
     private fun IngredientsRecyclerView(
         firstLettersList: List<Char>,
-        ingredientsList: State<List<String>>,
+        ingredientsList: List<String>,
         viewModel: InputComposeViewModel,
         loadingState: MutableState<Boolean>,
     ) {
@@ -353,7 +342,7 @@ fun BackFloatingActionButton(
 @Composable
 private fun LetterAndChipsRow(
     letter: Char,
-    ingredientsList: State<List<String>>,
+    ingredientsList: List<String>,
     color: Int,
 ) {
     AnimatedVisibility(
@@ -381,7 +370,7 @@ private fun LetterAndChipsRow(
                 color = Color.White,
                 modifier = Modifier.padding(start = 8.dp)
             )
-            ChipRow(ingredientsList.value.filter { it.first() == letter })
+            ChipRow(ingredientsList.filter { it.first() == letter })
         }
     }
 

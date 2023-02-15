@@ -4,7 +4,7 @@ import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.cumpatomas.brunosrecipes.domain.GetNews
+import com.cumpatomas.brunosrecipes.domain.ScrapNews
 import com.cumpatomas.brunosrecipes.domain.SaveRecipesUseCase
 import com.cumpatomas.brunosrecipes.domain.SearchRecipesUseCase
 import com.cumpatomas.brunosrecipes.domain.model.NewsModel
@@ -19,7 +19,7 @@ class HomeViewModel : ViewModel() {
     val newestRecipesList = mutableStateOf<List<RecipesModel>>(emptyList())
     val bestRatedRecipesList = mutableStateOf<List<RecipesModel>>(emptyList())
     val isLoadingState: MutableState<Boolean> = mutableStateOf(true)
-    val getNews = GetNews()
+    val scrapNews = ScrapNews()
     val newsList = mutableStateOf<List<NewsModel>>(emptyList())
 
     init {
@@ -28,13 +28,15 @@ class HomeViewModel : ViewModel() {
             isLoadingState.value = true
             val saveRecipesJob = launch {
                 saveRecipesUseCase.invoke()
-                isLoadingState.value = false
+
             }
             saveRecipesJob.join()
             val newsJob = launch(Default) {
-                newsList.value = getNews.invoke()
+                newsList.value = scrapNews.invoke()
             }
             newsJob.join()
+            getRecipes()
+            isLoadingState.value = false
         }
     }
 

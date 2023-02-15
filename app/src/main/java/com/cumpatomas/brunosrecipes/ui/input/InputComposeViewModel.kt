@@ -6,7 +6,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.cumpatomas.brunosrecipes.domain.SearchRecipesUseCase
 import com.cumpatomas.brunosrecipes.domain.model.RecipesModel
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.launch
 
@@ -17,27 +16,27 @@ class InputComposeViewModel : ViewModel() {
     val posibleRecipesNumber = mutableStateOf<Int>(0)
     var posibleRecipesList = mutableStateOf<List<RecipesModel>>(emptyList())
     private val searchRecipesUseCase = SearchRecipesUseCase()
-    val isLoadingState : MutableState<Boolean> = mutableStateOf(true)
+    val isLoadingState: MutableState<Boolean> = mutableStateOf(true)
+    val ingredientsList: MutableState<List<String>> = mutableStateOf(emptyList())
 
+    init {
+        viewModelScope.launch {
+            searchRecipesUseCase.invoke().also { recipeList ->
+                isLoadingState.value = true
 
-    val getIngredientsFlow = flow<List<String>> {
+                val tempList = recipeList.toMutableList()
+                val splittedIngredients = mutableListOf<String>()
 
-
-        searchRecipesUseCase.invoke().also { recipeList ->
-            isLoadingState.value = true
-
-            val tempList = recipeList.toMutableList()
-            val splittedIngredients = mutableListOf<String>()
-
-            tempList.forEach { recipe ->
-                for (ingredient in recipe.ingredients.split(", "))
-                    if (ingredient !in splittedIngredients && ingredient.isNotBlank())
-                        splittedIngredients.add(ingredient)
+                tempList.forEach { recipe ->
+                    for (ingredient in recipe.ingredients.split(", "))
+                        if (ingredient !in splittedIngredients && ingredient.isNotBlank())
+                            splittedIngredients.add(ingredient)
+                }
+                ingredientsList.value = splittedIngredients.sorted()
+                isLoadingState.value = false
             }
-            isLoadingState.value = false
-            emit(splittedIngredients.sorted())
-
         }
+
     }
 
     fun selectedIngredients(ingredient: String) {

@@ -29,6 +29,9 @@
         <action
             android:id="@+id/action_homeFragment_to_inputComposeFragment"
             app:destination="@id/inputComposeFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_recipeFragment"
+            app:destination="@id/recipeFragment" />
     </fragment>
     <action android:id="@+id/action_global_homeFragment" app:destination="@id/homeFragment" />
     <fragment
