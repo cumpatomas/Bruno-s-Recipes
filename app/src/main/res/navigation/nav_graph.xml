@@ -68,15 +68,7 @@
         android:name="com.cumpatomas.brunosrecipes.ui.input.InputComposeFragment"
         android:label="¿Qué cocino?">
         <action
-            android:id="@+id/action_inputComposeFragment_to_posibleRecipesListFragment"
-            app:destination="@id/posibleRecipesListFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/posibleRecipesListFragment"
-        android:name="com.cumpatomas.brunosrecipes.ui.input.PosibleRecipesListFragment"
-        android:label="PosibleRecipesListFragment" >
-        <action
-            android:id="@+id/action_posibleRecipesListFragment_to_recipeFragment"
+            android:id="@+id/action_inputComposeFragment_to_recipeFragment"
             app:destination="@id/recipeFragment" />
     </fragment>
 </navigation>

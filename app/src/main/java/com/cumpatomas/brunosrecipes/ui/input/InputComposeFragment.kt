@@ -25,7 +25,6 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Alignment.Companion.CenterVertically
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
@@ -42,6 +41,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.fragment.findNavController
 import coil.compose.rememberAsyncImagePainter
 import com.cumpatomas.brunosrecipes.R
 import com.cumpatomas.brunosrecipes.components.LoadingAnimation
@@ -129,7 +129,6 @@ class InputComposeFragment : Fragment() {
                             coroutineScope.launch() {
                                 modalSheetState.animateTo(ModalBottomSheetValue.Expanded)
                             }
-
                         },
                         modifier = Modifier
                             .fillMaxWidth()
@@ -175,7 +174,6 @@ class InputComposeFragment : Fragment() {
             }
         }
     }
-
 
     @Composable
     private fun IngredientsRecyclerView(
@@ -249,290 +247,192 @@ class InputComposeFragment : Fragment() {
         viewModel.posibleRecipesNumber.value = 0
         viewModel.selectedIngredientsListState.value = true
     }
-}
 
-@OptIn(ExperimentalMaterialApi::class)
-@SuppressLint("UnusedMaterialScaffoldPaddingParameter")
-@Composable
-fun PosibleRecipesListScreen(
-    possibleRecipeList: MutableState<List<RecipesModel>>,
-    modalSheetState: ModalBottomSheetState
-) {
-    Scaffold(
-        modifier = Modifier
-            .fillMaxHeight(0.93f),
-        backgroundColor = Color.White,
-        floatingActionButton = {
-            BackFloatingActionButton(
-                modalSheetState
-            )
-        },
+    @OptIn(ExperimentalMaterialApi::class)
+    @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
+    @Composable
+    fun PosibleRecipesListScreen(
+        possibleRecipeList: MutableState<List<RecipesModel>>,
+        modalSheetState: ModalBottomSheetState
     ) {
-        LazyColumn(
-            horizontalAlignment = Alignment.CenterHorizontally,
+        Scaffold(
             modifier = Modifier
-                .padding(16.dp)
-                .fillMaxWidth()
+                .fillMaxHeight(0.93f),
+            backgroundColor = Color.White,
+            floatingActionButton = {
+                BackFloatingActionButton(
+                    modalSheetState
+                )
+            },
         ) {
-            item { 
-                Text(text = "Puedes cocinar...",
-                    modifier = Modifier.padding(8.dp),
-                    fontFamily = FontFamily(Font(R.font.marlin_sans)),
-                    textAlign = TextAlign.Center,
-                    fontSize = 18.sp,
-                textDecoration = TextDecoration.Underline)
-            }
+            LazyColumn(
+                horizontalAlignment = Alignment.CenterHorizontally,
+                modifier = Modifier
+                    .padding(16.dp)
+                    .fillMaxWidth()
+            ) {
+                item {
+                    Text(
+                        text = "Puedes cocinar...",
+                        modifier = Modifier.padding(8.dp),
+                        fontFamily = FontFamily(Font(R.font.marlin_sans)),
+                        textAlign = TextAlign.Center,
+                        fontSize = 18.sp,
+                    )
+                    Spacer(modifier = Modifier.height(12.dp))
+                }
 
-            items(possibleRecipeList.value) { recipe ->
-                Column() {
-                    Card(
-                        modifier = Modifier
-                            .height(60.dp)
-                            .fillMaxWidth()
-                            .clickable { },
-                        shape = RoundedCornerShape(8.dp),
-                        backgroundColor = colorResource(id = R.color.primaryLightColor2)
-                    ) {
-                        Row(verticalAlignment = Alignment.CenterVertically) {
-                            Image(
-                                painter = rememberAsyncImagePainter(recipe.photo),
-                                contentDescription = null,
-                                contentScale = ContentScale.Crop,
-                                modifier = Modifier
-                                    .padding(4.dp)
-                                    .size(50.dp)
-                                    .clip(CircleShape)
-                            )
-                            Text(
-                                text = recipe.name,
-                                modifier = Modifier.padding(8.dp),
-                                fontFamily = FontFamily(Font(R.font.marlin_sans)),
-                                textAlign = TextAlign.Center,
-                                fontSize = 18.sp,
-                                color = Color.White
-                            )
+                items(possibleRecipeList.value) { recipe ->
+                    Column() {
+                        Card(
+                            modifier = Modifier
+                                .height(60.dp)
+                                .fillMaxWidth()
+                                .clickable {
+                                    val action =
+                                        InputComposeFragmentDirections.actionInputComposeFragmentToRecipeFragment(
+                                            recipe.id
+                                        )
+                                    findNavController().navigate(action)
+                                },
+                            shape = RoundedCornerShape(8.dp),
+                            backgroundColor = colorResource(id = R.color.primaryLightColor2)
+                        ) {
+                            Row(verticalAlignment = CenterVertically) {
+                                Image(
+                                    painter = rememberAsyncImagePainter(recipe.photo),
+                                    contentDescription = null,
+                                    contentScale = ContentScale.Crop,
+                                    modifier = Modifier
+                                        .padding(4.dp)
+                                        .size(50.dp)
+                                        .clip(CircleShape)
+                                )
+                                Text(
+                                    text = recipe.name,
+                                    modifier = Modifier.padding(8.dp),
+                                    fontFamily = FontFamily(Font(R.font.marlin_sans)),
+                                    textAlign = TextAlign.Center,
+                                    fontSize = 18.sp,
+                                    color = Color.White
+                                )
+                            }
                         }
+                        Spacer(modifier = Modifier.height(8.dp))
                     }
-                    Spacer(modifier = Modifier.height(8.dp))
+
                 }
 
             }
-
         }
     }
-}
 
-@OptIn(ExperimentalMaterialApi::class)
-@Composable
-fun BackFloatingActionButton(
-    modalSheetState: ModalBottomSheetState
-) {
-    val coroutineScope = rememberCoroutineScope()
-    FloatingActionButton(onClick = {
-        coroutineScope.launch {
-            modalSheetState.hide()
-        }
-    })
-    {
-        Icon(imageVector = Icons.Default.ArrowBack, contentDescription = "Volver", tint = Color.White)
-    }
-}
-
-@OptIn(ExperimentalAnimationApi::class)
-@Composable
-private fun LetterAndChipsRow(
-    letter: Char,
-    ingredientsList: List<String>,
-    color: Int,
-) {
-    AnimatedVisibility(
-        visible = true,
-        enter = fadeIn(initialAlpha = 0.3f),
-        exit = fadeOut(),
+    @OptIn(ExperimentalMaterialApi::class)
+    @Composable
+    fun BackFloatingActionButton(
+        modalSheetState: ModalBottomSheetState
     ) {
-        Row(
-            verticalAlignment = CenterVertically,
+        val coroutineScope = rememberCoroutineScope()
+        FloatingActionButton(onClick = {
+            coroutineScope.launch {
+                modalSheetState.hide()
+            }
+        })
+        {
+            Icon(
+                imageVector = Icons.Default.ArrowBack,
+                contentDescription = "Volver",
+                tint = Color.White
+            )
+        }
+    }
+
+    @OptIn(ExperimentalAnimationApi::class)
+    @Composable
+    private fun LetterAndChipsRow(
+        letter: Char,
+        ingredientsList: List<String>,
+        color: Int,
+    ) {
+        AnimatedVisibility(
+            visible = true,
+            enter = fadeIn(initialAlpha = 0.3f),
+            exit = fadeOut(),
+        ) {
+            Row(
+                verticalAlignment = CenterVertically,
+                modifier = Modifier
+                    .animateEnterExit(
+                        // Slide in/out the inner box.
+                        enter = slideInHorizontally(),
+                        exit = slideOutHorizontally()
+                    )
+                    .padding()
+                    .background(
+                        color = colorResource(id = color),
+                        shape = RoundedCornerShape(8.dp)
+                    )
+            ) {
+                Text(
+                    text = " ${letter.uppercase()} :  ",
+                    fontWeight = FontWeight.Bold,
+                    color = Color.White,
+                    modifier = Modifier.padding(start = 8.dp)
+                )
+                ChipRow(ingredientsList.filter { it.first() == letter })
+            }
+        }
+
+    }
+
+    @Composable
+    private fun ChipRow(ingredientsList: List<String>) {
+
+        LazyRow(
             modifier = Modifier
-                .animateEnterExit(
-                    // Slide in/out the inner box.
-                    enter = slideInHorizontally(),
-                    exit = slideOutHorizontally()
-                )
-                .padding()
-                .background(
-                    color = colorResource(id = color),
-                    shape = RoundedCornerShape(8.dp)
-                )
+                .fillMaxWidth(),
+            contentPadding = PaddingValues(horizontal = 4.dp)
+        ) {
+            items(ingredientsList) { ingredient ->
+                IngredientChip(ingredient)
+            }
+        }
+    }
+
+    @OptIn(ExperimentalMaterialApi::class)
+    @Composable
+    private fun IngredientChip(
+        ingredient: String,
+        viewModel: InputComposeViewModel = viewModel()
+    ) {
+
+        val isSelected =
+            if (viewModel.selectedIngredientsListState.value) remember { mutableStateOf(false) }
+            else if (ingredient in viewModel.selectedIngredientsList) remember { mutableStateOf(true) }
+            else remember { mutableStateOf(false) }
+
+        FilterChip(
+            selected = isSelected.value,
+            onClick = {
+                isSelected.value = !isSelected.value
+                viewModel.selectedIngredients(ingredient)
+            },
+            modifier = Modifier.padding(0.dp),
+            shape = RoundedCornerShape(8.dp),
+            colors = filterChipColors(
+                backgroundColor = Color.Transparent,
+                selectedBackgroundColor = Color.Transparent
+            )
         ) {
             Text(
-                text = " ${letter.uppercase()} :  ",
-                fontWeight = FontWeight.Bold,
-                color = Color.White,
-                modifier = Modifier.padding(start = 8.dp)
-            )
-            ChipRow(ingredientsList.filter { it.first() == letter })
-        }
-    }
-
-}
-
-@Composable
-private fun ChipRow(ingredientsList: List<String>) {
-
-    LazyRow(
-        modifier = Modifier
-            .fillMaxWidth(),
-        contentPadding = PaddingValues(horizontal = 4.dp)
-    ) {
-        items(ingredientsList) { ingredient ->
-            IngredientChip(ingredient)
-        }
-    }
-}
-
-@OptIn(ExperimentalMaterialApi::class)
-@Composable
-private fun IngredientChip(
-    ingredient: String,
-    viewModel: InputComposeViewModel = androidx.lifecycle.viewmodel.compose.viewModel()
-) {
-
-    val isSelected =
-        if (viewModel.selectedIngredientsListState.value) remember { mutableStateOf(false) }
-        else if (ingredient in viewModel.selectedIngredientsList) remember { mutableStateOf(true) }
-        else remember { mutableStateOf(false) }
-
-    FilterChip(
-        selected = isSelected.value,
-        onClick = {
-            isSelected.value = !isSelected.value
-            viewModel.selectedIngredients(ingredient)
-        },
-        modifier = Modifier.padding(0.dp),
-        shape = RoundedCornerShape(8.dp),
-        colors = filterChipColors(
-            backgroundColor = Color.Transparent,
-            selectedBackgroundColor = Color.Transparent
-        )
-    ) {
-        Text(
-            text = ingredient,
-            fontFamily = FontFamily(Font(R.font.marlin_sans)),
-            fontWeight = if (isSelected.value) FontWeight.Bold else FontWeight.Normal,
-            textDecoration = if (isSelected.value) TextDecoration.Underline else TextDecoration.None,
-            fontSize = if (isSelected.value) 16.sp else 15.sp,
-            color = if (isSelected.value) Color.Black else Color.DarkGray
-        )
-    }
-}
-
-@Composable
-fun DotsFlashing() {
-    val dotSize = 24.dp // made it bigger for demo
-    val delayUnit = 200 // you can change delay to change animation speed
-    val minAlpha = 0.1f
-
-    @Composable
-    fun Dot(
-        alpha: Float
-    ) = Spacer(
-        Modifier
-            .size(dotSize)
-            .alpha(alpha)
-            .background(
-                color = colorResource(id = R.color.primaryLightColor2),
-                shape = CircleShape
-            )
-    )
-
-    val infiniteTransition = rememberInfiniteTransition()
-
-    @Composable
-    fun animateAlphaWithDelay(delay: Int) = infiniteTransition.animateFloat(
-        initialValue = minAlpha,
-        targetValue = 1f,
-        animationSpec = infiniteRepeatable(
-            animation = keyframes {
-                durationMillis = delayUnit * 4
-                minAlpha at delay with LinearEasing
-                1f at delay + delayUnit with LinearEasing
-                minAlpha at delay + delayUnit * 2
-            }
-        )
-    )
-
-    val alpha1 by animateAlphaWithDelay(0)
-    val alpha2 by animateAlphaWithDelay(delayUnit)
-    val alpha3 by animateAlphaWithDelay(delayUnit * 2)
-
-    Row(
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.Center
-    ) {
-        val spaceSize = 2.dp
-
-        Dot(alpha1)
-        Spacer(Modifier.width(spaceSize))
-        Dot(alpha2)
-        Spacer(Modifier.width(spaceSize))
-        Dot(alpha3)
-    }
-}
-
-
-/*
-@Composable
-fun LoadingAnimation(
-    modifier: Modifier = Modifier,
-    circleSize: Dp = 15.dp,
-    circleColor: Color = colorResource(id = R.color.primaryColor),
-    spaceBetween: Dp = 10.dp,
-    travelDistance: Dp = 10.dp
-) {
-    val circles = listOf(
-        remember { Animatable(initialValue = 0f) },
-        remember { Animatable(initialValue = 0f) },
-        remember { Animatable(initialValue = 0f) }
-    )
-
-    circles.forEachIndexed { index, animatable ->
-        LaunchedEffect(key1 = animatable) {
-            delay(index * 100L)
-            animatable.animateTo(
-                targetValue = 1f,
-                animationSpec = infiniteRepeatable(
-                    animation = keyframes {
-                        durationMillis = 1200
-                        0.0f at 0 with LinearOutSlowInEasing
-                        1.0f at 300 with LinearOutSlowInEasing
-                        0.0f at 600 with LinearOutSlowInEasing
-                        0.0f at 1200 with LinearOutSlowInEasing
-                    },
-                    repeatMode = RepeatMode.Restart
-                )
+                text = ingredient,
+                fontFamily = FontFamily(Font(R.font.marlin_sans)),
+                fontWeight = if (isSelected.value) FontWeight.Bold else FontWeight.Normal,
+                textDecoration = if (isSelected.value) TextDecoration.Underline else TextDecoration.None,
+                fontSize = if (isSelected.value) 16.sp else 15.sp,
+                color = if (isSelected.value) Color.Black else Color.DarkGray
             )
         }
     }
 
-    val circleValues = circles.map { it.value }
-    val distance = with(LocalDensity.current) { travelDistance.toPx() }
-
-    Row(
-        modifier = modifier,
-        horizontalArrangement = Arrangement.spacedBy(spaceBetween)
-    ) {
-        circleValues.forEach { value ->
-            Box(
-                modifier = Modifier
-                    .size(circleSize)
-                    .graphicsLayer {
-                        translationY = -value * distance
-                    }
-                    .background(
-                        color = circleColor,
-                        shape = CircleShape
-                    )
-            )
-        }
-    }
-}*/
+}

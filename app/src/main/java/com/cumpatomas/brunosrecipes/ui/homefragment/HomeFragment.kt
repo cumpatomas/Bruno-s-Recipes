@@ -24,7 +24,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.layout.ContentScale.Companion.Crop
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.res.colorResource
@@ -88,7 +87,7 @@ class HomeFragment : Fragment() {
         val newsestRecipesList = viewModel.newestRecipesList
         val bestRecipesList = viewModel.bestRatedRecipesList
         Column(
-            horizontalAlignment = Alignment.CenterHorizontally,
+            horizontalAlignment = CenterHorizontally,
             modifier = modifier
                 .padding(horizontal = 0.dp)
                 .verticalScroll(ScrollState(0))
@@ -160,8 +159,6 @@ class HomeFragment : Fragment() {
                     }
                 }, /*update = {
                 it.loadUrl(new.link)
-
-
             }*/
             )
 
@@ -219,7 +216,7 @@ class HomeFragment : Fragment() {
     fun NewsColumn(newsList: List<NewsModel>) {
 
         Column(
-            horizontalAlignment = Alignment.CenterHorizontally,
+            horizontalAlignment = CenterHorizontally,
             verticalArrangement = Arrangement.Center
         )
 
@@ -236,8 +233,8 @@ class HomeFragment : Fragment() {
         }
     }
 
-    private @Composable
-    fun NewsItem(
+    @Composable
+    private fun NewsItem(
         new: NewsModel,
     ) {
         Card(
@@ -291,8 +288,8 @@ class HomeFragment : Fragment() {
         }
     }
 
-    private @Composable
-    fun StartRow() {
+    @Composable
+    private fun StartRow() {
         Row(
             Modifier
                 .horizontalScroll(rememberScrollState())
@@ -304,14 +301,13 @@ class HomeFragment : Fragment() {
         }
     }
 
-
-    private @Composable
-    fun StartRowElement(
+    @Composable
+    private fun StartRowElement(
         text: String,
         @DrawableRes drawable: Int,
     ) {
         Column(
-            horizontalAlignment = Alignment.CenterHorizontally,
+            horizontalAlignment = CenterHorizontally,
             modifier = Modifier
                 .padding(horizontal = 8.dp, vertical = 16.dp)
                 .width(120.dp)
@@ -363,8 +359,8 @@ class HomeFragment : Fragment() {
         }
     }
 
-    private @Composable
-    fun BestRatedCard(
+    @Composable
+    private fun BestRatedCard(
         photo: String,
         text: String,
         rate: Float,
@@ -379,10 +375,8 @@ class HomeFragment : Fragment() {
                     val action = HomeFragmentDirections.actionHomeFragmentToRecipeFragment(id)
                     findNavController().navigate(action)
                 },
-
             elevation = 12.dp,
             shape = RoundedCornerShape(16.dp)
-
 
         ) {
             Column(
@@ -411,7 +405,7 @@ class HomeFragment : Fragment() {
                 Image(
                     painter = rememberAsyncImagePainter(photo),
                     contentDescription = null,
-                    contentScale = ContentScale.Crop,
+                    contentScale = Crop,
                     modifier = Modifier
                         .size(70.dp)
                         .clip(CircleShape)
@@ -429,8 +423,8 @@ class HomeFragment : Fragment() {
         }
     }
 
-    private @Composable
-    fun NewestRecipesRow(recipesList: State<List<RecipesModel>>, modifier: Modifier = Modifier) {
+    @Composable
+    private fun NewestRecipesRow(recipesList: State<List<RecipesModel>>, modifier: Modifier = Modifier) {
         Surface(
             elevation = 14.dp,
         )
@@ -456,15 +450,15 @@ class HomeFragment : Fragment() {
         }
     }
 
-    private @Composable
-    fun NewestRecipesElement(
+    @Composable
+    private fun NewestRecipesElement(
         photo: String,
         text: String,
         id: Int,
         modifier: Modifier = Modifier
     ) {
         Column(
-            horizontalAlignment = Alignment.CenterHorizontally,
+            horizontalAlignment = CenterHorizontally,
             modifier = modifier
                 .width(100.dp)
                 .clickable {
@@ -476,7 +470,7 @@ class HomeFragment : Fragment() {
             Image(
                 painter = rememberAsyncImagePainter(photo),
                 contentDescription = null,
-                contentScale = ContentScale.Crop,
+                contentScale = Crop,
                 modifier = Modifier
                     .size(88.dp)
                     .clip(CircleShape)
@@ -493,7 +487,7 @@ class HomeFragment : Fragment() {
     }
 
     @Composable
-    fun HomeSection(title: String, modifier: Modifier = Modifier, content: @Composable () -> Unit) {
+    fun HomeSection(title: String, content: @Composable () -> Unit) {
 
         Text(
             text = title.uppercase(),
