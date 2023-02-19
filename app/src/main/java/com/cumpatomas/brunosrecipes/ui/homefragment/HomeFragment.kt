@@ -45,12 +45,18 @@ import androidx.navigation.fragment.findNavController
 import coil.compose.rememberAsyncImagePainter
 import com.cumpatomas.brunosrecipes.R
 import com.cumpatomas.brunosrecipes.components.LoadingAnimation
+import com.cumpatomas.brunosrecipes.components.NoInternetMge
+import com.cumpatomas.brunosrecipes.data.network.ConnectivityObserver
+import com.cumpatomas.brunosrecipes.data.network.NetworkConnectivityObserver
 import com.cumpatomas.brunosrecipes.domain.model.NewsModel
 import com.cumpatomas.brunosrecipes.domain.model.RecipesModel
+import com.cumpatomas.brunosrecipes.manualdi.ApplicationModule.applicationContext
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 class HomeFragment : Fragment() {
+
+    private lateinit var connectivityObserver: ConnectivityObserver
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -58,6 +64,9 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         val view = inflater.inflate(R.layout.home_fragment, container, false)
+
+        connectivityObserver = NetworkConnectivityObserver(applicationContext)
+
         view.findViewById<ComposeView>(R.id.composeView).setContent {
         }
 
@@ -68,23 +77,29 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         view.findViewById<ComposeView>(R.id.composeView).setContent {
+
+            val internetStatus by connectivityObserver.observe().collectAsState(
+                initial = ConnectivityObserver.Status.Unavailable
+            )
             val viewModel = viewModel<HomeViewModel>()
 
             lifecycleScope.launch {
                 repeatOnLifecycle(Lifecycle.State.CREATED) {
+                    connectivityObserver = NetworkConnectivityObserver(applicationContext)
                     viewModel.getRecipes()
                     viewModel.closeNewsCard()
+                    viewModel.getNews()
                     viewModel.helpSurfaceState.value = false
                 }
             }
-
-            HomeScreen(viewModel)
+            HomeScreen(viewModel, internetStatus)
         }
     }
 
     @Composable
     fun HomeScreen(
         viewModel: HomeViewModel,
+        internetStatus: ConnectivityObserver.Status,
         modifier: Modifier = Modifier
     ) {
         val newsestRecipesList = viewModel.newestRecipesList
@@ -120,6 +135,20 @@ class HomeFragment : Fragment() {
                     .padding(horizontal = 0.dp)
                     .verticalScroll(ScrollState(0))
             ) {
+                if (internetStatus == ConnectivityObserver.Status.Lost) {
+                    Surface(
+                        color = colorResource(id = R.color.superlightred),
+                        shape = RoundedCornerShape(12.dp),
+                    ) {
+
+                        Text(
+                            text = "No hay conexión de red",
+                            fontSize = 14.sp,
+                            modifier = Modifier.padding(8.dp),
+                        )
+
+                    }
+                }
                 TitleText()
 
                 if (bestRecipesList.value.isNotEmpty()) {
@@ -132,23 +161,30 @@ class HomeFragment : Fragment() {
                     }
                 }
                 Spacer(modifier = Modifier.height(24.dp))
-                if (viewModel.isLoadingState.value) {
-                    HomeSection(title = "Últimas recetas agregadas") {
-                        LoadingAnimation(
-                            circleColor = colorResource(id = R.color.white),
-                            circleSize = 12.dp
-                        )
+                if (internetStatus == ConnectivityObserver.Status.Unavailable) {
+                    if(newsestRecipesList.value.isEmpty()) {
+
                     }
 
                 } else {
-                    HomeSection(title = "Últimas recetas agregadas") {
-                        NewestRecipesRow(newsestRecipesList)
+                    if (viewModel.isLoadingState.value) {
+                        HomeSection(title = "Últimas recetas agregadas") {
+                            LoadingAnimation(
+                                circleColor = colorResource(id = R.color.white),
+                                circleSize = 12.dp
+                            )
+                        }
+
+                    } else {
+                        HomeSection(title = "Últimas recetas agregadas") {
+                            NewestRecipesRow(newsestRecipesList)
+                        }
                     }
                 }
 
                 Spacer(modifier = Modifier.height(32.dp))
                 HomeSection(title = "Noticias") {
-                    NewsColumn(viewModel.newsList.value)
+                    NewsColumn(viewModel.newsList.value, internetStatus)
                 }
             }
     }
@@ -199,7 +235,7 @@ class HomeFragment : Fragment() {
                     color = Color.DarkGray,
                     modifier = Modifier.padding(16.dp),
                 )
-        }
+            }
         }
     }
 
@@ -305,7 +341,11 @@ class HomeFragment : Fragment() {
     }
 
     @Composable
-    fun NewsColumn(newsList: List<NewsModel>) {
+    fun NewsColumn(
+        newsList: List<NewsModel>,
+        internetStatus: ConnectivityObserver.Status,
+        viewModel: HomeViewModel = androidx.lifecycle.viewmodel.compose.viewModel()
+    ) {
 
         Column(
             horizontalAlignment = CenterHorizontally,
@@ -313,16 +353,23 @@ class HomeFragment : Fragment() {
         )
 
         {
-
-            YukaCard()
-            if (newsList.isNotEmpty())
+            if (newsList.isNotEmpty()) {
+                YukaCard()
                 for (i in 0..9)
                     NewsItem(newsList[i])
-            else {
-                LoadingAnimation(
-                    circleColor = colorResource(id = R.color.white),
-                    circleSize = 12.dp
-                )
+            }
+            if (internetStatus == ConnectivityObserver.Status.Unavailable
+                || internetStatus == ConnectivityObserver.Status.Lost
+                ) {
+                if (newsList.isEmpty()) {
+                    NoInternetMge()
+                }
+            } else{
+                if (newsList.isNotEmpty()) {
+                    for (i in 0..9)
+                        NewsItem(newsList[i])
+                }
+
             }
         }
     }
@@ -360,8 +407,6 @@ class HomeFragment : Fragment() {
                             .paddingFromBaseline(top = 28.dp)
                             .padding(horizontal = 8.dp)
                     )
-
-
                     Image(
                         painter = painterResource(id = R.drawable.yuka_logo),
                         contentDescription = "Yuka",
@@ -456,7 +501,6 @@ class HomeFragment : Fragment() {
             }
         }
     }
-
 
     @Composable
     private fun NewsItem(
@@ -663,8 +707,6 @@ class HomeFragment : Fragment() {
                     maxLines = 1,
                     textAlign = TextAlign.Center,
                     fontFamily = FontFamily(Font(R.font.marlin_sans))
-                    //style = MaterialTheme.typography.body2,
-//                modifier = Modifier.paddingFromBaseline(top = 24.dp)
                 )
             }
 
@@ -745,9 +787,6 @@ class HomeFragment : Fragment() {
             color = Color.White,
             textAlign = TextAlign.Center,
             fontSize = 25.sp,
-            //textDecoration = TextDecoration.Underline
-            //fontWeight = FontWeight.Bold,
-            //fontStyle = FontStyle.Italic,
         )
         Spacer(modifier = Modifier.height(4.dp))
         content()

@@ -23,7 +23,7 @@ class HomeViewModel : ViewModel() {
     val isLoadingState: MutableState<Boolean> = mutableStateOf(true)
     val scrapNews = ScrapNews()
     val newsList = mutableStateOf<List<NewsModel>>(emptyList())
-    val helpSurfaceState =  mutableStateOf(false)
+    val helpSurfaceState = mutableStateOf(false)
     var helpSurfaceText: String? = null
 
     init {
@@ -35,12 +35,17 @@ class HomeViewModel : ViewModel() {
 
             }
             saveRecipesJob.join()
-            val newsJob = launch(Default) {
-                newsList.value = scrapNews.invoke()
-            }
-            newsJob.join()
+             val newsJob = launch(Default) {
+                 newsList.value = scrapNews.invoke()
+             }
+             newsJob.join()
             getRecipes()
             isLoadingState.value = false
+        }
+    }
+    suspend fun getNews() {
+        viewModelScope.launch(Default) {
+            newsList.value = scrapNews.invoke()
         }
     }
 
@@ -53,8 +58,9 @@ class HomeViewModel : ViewModel() {
         }
     }
 
+
     fun closeNewsCard() {
-        for(i in newsList.value)
+        for (i in newsList.value)
             i.state.value = false
     }
 
