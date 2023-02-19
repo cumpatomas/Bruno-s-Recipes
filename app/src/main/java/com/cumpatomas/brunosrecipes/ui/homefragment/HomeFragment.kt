@@ -17,6 +17,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
+import androidx.compose.material.icons.filled.Star
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Alignment.Companion.CenterHorizontally
@@ -72,11 +73,13 @@ class HomeFragment : Fragment() {
             lifecycleScope.launch {
                 repeatOnLifecycle(Lifecycle.State.CREATED) {
                     viewModel.getRecipes()
+                    viewModel.closeNewsCard()
+                    viewModel.helpSurfaceState.value = false
                 }
             }
+
             HomeScreen(viewModel)
         }
-
     }
 
     @Composable
@@ -86,44 +89,133 @@ class HomeFragment : Fragment() {
     ) {
         val newsestRecipesList = viewModel.newestRecipesList
         val bestRecipesList = viewModel.bestRatedRecipesList
-        Column(
-            horizontalAlignment = CenterHorizontally,
-            modifier = modifier
-                .padding(horizontal = 0.dp)
-                .verticalScroll(ScrollState(0))
-        ) {
-            Spacer(modifier = Modifier.height(16.dp))
-            if (bestRecipesList.value.isNotEmpty()) {
-                HomeSection(title = "Tus recetas mejor valoradas") {
-                    BestRatedRecipes(bestRecipesList)
+
+        if (viewModel.helpSurfaceState.value) {
+            Column(
+                modifier = Modifier.fillMaxSize(),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                Row {
+                    TitleText()
                 }
-            } else {
-                HomeSection(title = "Empecemos!") {
-                    StartRow()
-                }
-            }
-            Spacer(modifier = Modifier.height(24.dp))
-            if (viewModel.isLoadingState.value) {
-                HomeSection(title = "Últimas recetas agregadas") {
-                    LoadingAnimation(
-                        circleColor = colorResource(id = R.color.white),
-                        circleSize = 12.dp
-                    )
+                Row() {
+                    Surface(
+                        modifier = Modifier
+                            .fillMaxWidth(0.9f)
+                            .fillMaxHeight(0.95f)
+                            .padding(8.dp),
+                        shape = RoundedCornerShape(12.dp),
+                        color = Color.White
+                    ) {
+                        HelpSurfaceItem(viewModel.helpSurfaceText ?: "")
+                    }
                 }
 
-            } else {
-                HomeSection(title = "Últimas recetas agregadas") {
-                    NewestRecipesRow(newsestRecipesList)
+            }
+        } else
+
+            Column(
+                horizontalAlignment = CenterHorizontally,
+                modifier = modifier
+                    .padding(horizontal = 0.dp)
+                    .verticalScroll(ScrollState(0))
+            ) {
+                TitleText()
+
+                if (bestRecipesList.value.isNotEmpty()) {
+                    HomeSection(title = "Tus recetas mejor valoradas") {
+                        BestRatedRecipes(bestRecipesList)
+                    }
+                } else {
+                    HomeSection(title = "Comencemos!") {
+                        StartRow()
+                    }
+                }
+                Spacer(modifier = Modifier.height(24.dp))
+                if (viewModel.isLoadingState.value) {
+                    HomeSection(title = "Últimas recetas agregadas") {
+                        LoadingAnimation(
+                            circleColor = colorResource(id = R.color.white),
+                            circleSize = 12.dp
+                        )
+                    }
+
+                } else {
+                    HomeSection(title = "Últimas recetas agregadas") {
+                        NewestRecipesRow(newsestRecipesList)
+                    }
+                }
+
+                Spacer(modifier = Modifier.height(32.dp))
+                HomeSection(title = "Noticias") {
+                    NewsColumn(viewModel.newsList.value)
                 }
             }
+    }
 
-            Spacer(modifier = Modifier.height(24.dp))
-            HomeSection(title = "Noticias Relacionadas") {
-                NewsColumn(viewModel.newsList.value)
+    private @Composable
+    fun HelpSurfaceItem(title: String) {
+        when (title) {
+            "Buscador de recetas" -> {
+
+                Text(
+                    text = title,
+                    fontSize = 25.sp,
+                    fontFamily = FontFamily(Font(R.font.beautiful_people)),
+                    textAlign = TextAlign.Center,
+                    color = Color.DarkGray,
+                    modifier = Modifier.padding(16.dp),
+                )
             }
+            "Marcar tus recetas" -> {
 
-            Spacer(modifier = Modifier.height(8.dp))
+                Text(
+                    text = title,
+                    fontSize = 25.sp,
+                    fontFamily = FontFamily(Font(R.font.beautiful_people)),
+                    textAlign = TextAlign.Center,
+                    color = Color.DarkGray,
+                    modifier = Modifier.padding(16.dp),
+                )
+            }
+            "Puntúa tus recetas" -> {
+
+                Text(
+                    text = title,
+                    fontSize = 25.sp,
+                    fontFamily = FontFamily(Font(R.font.beautiful_people)),
+                    textAlign = TextAlign.Center,
+                    color = Color.DarkGray,
+                    modifier = Modifier.padding(16.dp),
+                )
+            }
+            "¿Qué puedo cocinar?" -> {
+
+                Text(
+                    text = title,
+                    fontSize = 25.sp,
+                    fontFamily = FontFamily(Font(R.font.beautiful_people)),
+                    textAlign = TextAlign.Center,
+                    color = Color.DarkGray,
+                    modifier = Modifier.padding(16.dp),
+                )
         }
+        }
+    }
+
+
+    private @Composable
+    fun TitleText() {
+        Text(
+            text = "- Recetas de Bruno -",
+            fontFamily = FontFamily(Font(R.font.beautiful_people)),
+            color = Color.White,
+            textAlign = TextAlign.Center,
+            fontSize = 38.sp,
+            modifier = Modifier
+                .paddingFromBaseline(top = 24.dp)
+                .padding(horizontal = 8.dp, vertical = 16.dp)
+        )
     }
 
     @SuppressLint("SetJavaScriptEnabled")
@@ -217,10 +309,12 @@ class HomeFragment : Fragment() {
 
         Column(
             horizontalAlignment = CenterHorizontally,
-            verticalArrangement = Arrangement.Center
+            verticalArrangement = Arrangement.Center,
         )
 
         {
+
+            YukaCard()
             if (newsList.isNotEmpty())
                 for (i in 0..9)
                     NewsItem(newsList[i])
@@ -234,6 +328,137 @@ class HomeFragment : Fragment() {
     }
 
     @Composable
+    private fun YukaCard() {
+        val YukaWebViewState = remember { mutableStateOf(false) }
+
+        Card(
+            elevation = 8.dp,
+            shape = RoundedCornerShape(10.dp),
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 8.dp)
+                .padding(bottom = 16.dp)
+                .clickable {
+                    YukaWebViewState.value = !YukaWebViewState.value
+                }
+        ) {
+            if (YukaWebViewState.value)
+                YucaWebView(YukaWebViewState)
+            else {
+                Row(
+                    horizontalArrangement = Arrangement.Center,
+                    modifier = Modifier.padding(vertical = 8.dp)
+                ) {
+                    Text(
+                        text = "Conoce la app de",
+                        fontFamily = FontFamily(Font(R.font.marlin_sans)),
+                        color = colorResource(id = R.color.mid_gray),
+                        textAlign = TextAlign.Center,
+                        fontSize = 17.sp,
+                        fontWeight = FontWeight.Bold,
+                        modifier = Modifier
+                            .paddingFromBaseline(top = 28.dp)
+                            .padding(horizontal = 8.dp)
+                    )
+
+
+                    Image(
+                        painter = painterResource(id = R.drawable.yuka_logo),
+                        contentDescription = "Yuka",
+                    )
+                }
+            }
+        }
+    }
+
+    @SuppressLint("SetJavaScriptEnabled")
+    @Composable
+    private fun YucaWebView(YukaWebViewState: MutableState<Boolean>) {
+        val coroutineScope = rememberCoroutineScope()
+        val loadingState = remember { mutableStateOf(true) }
+        Surface(
+            shape = RoundedCornerShape(10.dp),
+            modifier = Modifier
+                .padding(horizontal = 8.dp)
+                .padding(bottom = 8.dp)
+                .height(450.dp)
+                .fillMaxWidth()
+                .verticalScroll(rememberScrollState())
+
+        ) {
+
+            AndroidView(
+                factory = {
+                    WebView(it).apply {
+                        coroutineScope.launch {
+                            val job = launch {
+
+                                layoutParams = ViewGroup.LayoutParams(
+                                    ViewGroup.LayoutParams.MATCH_PARENT,
+                                    ViewGroup.LayoutParams.MATCH_PARENT
+                                )
+                                webViewClient = WebViewClient()
+                                settings.javaScriptEnabled = true
+                                loadUrl("https://yuka.io/es/aplicacion/")
+                            }
+                            job.join()
+                            delay(3000)
+                            loadingState.value = false
+                        }
+
+                    }
+                },
+                update = {
+                    it.loadUrl("https://yuka.io/es/aplicacion/")
+                }
+
+            )
+        }
+        if (loadingState.value) {
+            Row(
+                horizontalArrangement = Arrangement.Center,
+                modifier = Modifier
+                    .fillMaxWidth()
+            ) {
+                LoadingAnimation(
+                    circleColor = colorResource(id = R.color.secondaryColor),
+                    circleSize = 12.dp,
+                    modifier = Modifier
+                        .alpha(0.7f)
+                        .padding(top = 24.dp)
+                )
+            }
+
+        } else {
+            Row(
+                horizontalArrangement = Arrangement.End,
+                modifier = Modifier.padding(8.dp)
+            ) {
+
+                FloatingActionButton(
+                    onClick = {
+                        coroutineScope.launch {
+                            YukaWebViewState.value = false
+                        }
+                    },
+                    modifier = Modifier
+                        .size(50.dp)
+                        .alpha(0.7f)
+                )
+                {
+                    Icon(
+                        imageVector = Icons.Default.Close,
+                        contentDescription = "Volver",
+                        tint = Color.White,
+                        modifier = Modifier.padding(0.dp)
+                    )
+                }
+            }
+        }
+    }
+
+
+    @Composable
     private fun NewsItem(
         new: NewsModel,
     ) {
@@ -242,7 +467,8 @@ class HomeFragment : Fragment() {
             shape = RoundedCornerShape(10.dp),
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(horizontal = 8.dp, vertical = 16.dp)
+                .padding(horizontal = 8.dp)
+                .padding(bottom = 16.dp)
         ) {
             Column(verticalArrangement = Arrangement.Center) {
                 Row(
@@ -256,7 +482,8 @@ class HomeFragment : Fragment() {
                         textAlign = TextAlign.Center,
                         fontSize = 17.sp,
                         fontWeight = FontWeight.Bold,
-                        modifier = Modifier.paddingFromBaseline(top = 24.dp)
+                        modifier = Modifier
+                            .paddingFromBaseline(top = 24.dp)
                             .padding(horizontal = 8.dp)
                     )
                 }
@@ -291,7 +518,8 @@ class HomeFragment : Fragment() {
     @Composable
     private fun StartRow() {
         Row(
-            Modifier
+            verticalAlignment = Alignment.Top,
+            modifier = Modifier
                 .horizontalScroll(rememberScrollState())
         ) {
             StartRowElement("Buscador de recetas", R.drawable.recipe_list_image)
@@ -305,23 +533,31 @@ class HomeFragment : Fragment() {
     private fun StartRowElement(
         text: String,
         @DrawableRes drawable: Int,
+        viewModel: HomeViewModel = androidx.lifecycle.viewmodel.compose.viewModel()
     ) {
         Column(
             horizontalAlignment = CenterHorizontally,
             modifier = Modifier
-                .padding(horizontal = 8.dp, vertical = 16.dp)
-                .width(120.dp)
+                .padding(horizontal = 8.dp)
+                .padding(top = 0.dp, bottom = 16.dp)
+                .width(110.dp)
         ) {
             Surface(
                 elevation = 14.dp,
                 shape = RoundedCornerShape(16.dp),
+                modifier = Modifier.clickable {
+
+                    viewModel.helpSurfaceText = text
+                    viewModel.helpSurfaceState.value = true
+
+                }
             ) {
                 Image(
                     painter = painterResource(id = drawable),
                     contentDescription = null,
                     contentScale = Crop,
                     modifier = Modifier
-                        .size(110.dp)
+                        .size(100.dp)
                         .clip(RoundedCornerShape(16.dp))
                 )
             }
@@ -370,7 +606,8 @@ class HomeFragment : Fragment() {
         Card(
             modifier = Modifier
                 .width(180.dp)
-                .padding(horizontal = 8.dp, vertical = 16.dp)
+                .padding(horizontal = 8.dp)
+                .padding(bottom = 16.dp, top = 8.dp)
                 .clickable {
                     val action = HomeFragmentDirections.actionHomeFragmentToRecipeFragment(id)
                     findNavController().navigate(action)
@@ -384,30 +621,41 @@ class HomeFragment : Fragment() {
                 verticalArrangement = Arrangement.Center,
                 modifier = modifier.padding(vertical = 8.dp)
             ) {
-                Text(
-                    text = when (rate) {
-                        1.0f -> "1/5"
-                        2.0f ->
-                            "2/5"
-                        3.0f ->
-                            "3/5"
-                        4.0f ->
-                            "4/5"
-                        else ->
-                            "5/5"
-                    },
-                    fontSize = 22.sp,
-                    color = colorResource(id = R.color.superlightgreen),
-                    fontFamily = FontFamily(Font(R.font.marlin_sans)),
-                    fontWeight = FontWeight.Bold,
-                )
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    Text(
+                        text = when (rate) {
+                            1.0f -> "1/5"
+                            2.0f ->
+                                "2/5"
+                            3.0f ->
+                                "3/5"
+                            4.0f ->
+                                "4/5"
+                            else ->
+                                "5/5"
+                        },
+                        fontSize = 20.sp,
+                        color = colorResource(id = R.color.superlightgreen),
+                        fontFamily = FontFamily(Font(R.font.marlin_sans)),
+                        fontWeight = FontWeight.Bold,
+                    )
+                    Icon(
+                        imageVector = Icons.Default.Star,
+                        contentDescription = null,
+                        tint = colorResource(id = R.color.superlightgreen),
+                        modifier = Modifier
+                            .size(20.dp)
+                            .clip(CircleShape)
+                    )
+                }
+
                 Spacer(modifier = Modifier.height(4.dp))
                 Image(
                     painter = rememberAsyncImagePainter(photo),
                     contentDescription = null,
                     contentScale = Crop,
                     modifier = Modifier
-                        .size(70.dp)
+                        .size(90.dp)
                         .clip(CircleShape)
                 )
                 Text(
@@ -424,7 +672,10 @@ class HomeFragment : Fragment() {
     }
 
     @Composable
-    private fun NewestRecipesRow(recipesList: State<List<RecipesModel>>, modifier: Modifier = Modifier) {
+    private fun NewestRecipesRow(
+        recipesList: State<List<RecipesModel>>,
+        modifier: Modifier = Modifier
+    ) {
         Surface(
             elevation = 14.dp,
         )
@@ -479,7 +730,6 @@ class HomeFragment : Fragment() {
                 text = text,
                 color = Color.DarkGray,
                 textAlign = TextAlign.Center,
-                //style = MaterialTheme.typography.h6,
                 fontFamily = FontFamily(Font(R.font.marlin_sans)),
                 modifier = Modifier.paddingFromBaseline(top = 24.dp)
             )
@@ -490,16 +740,16 @@ class HomeFragment : Fragment() {
     fun HomeSection(title: String, content: @Composable () -> Unit) {
 
         Text(
-            text = title.uppercase(),
-            fontFamily = FontFamily(Font(R.font.marlin_sans)),
+            text = title,
+            fontFamily = FontFamily(Font(R.font.beautiful_people)),
             color = Color.White,
             textAlign = TextAlign.Center,
-            fontSize = 16.sp,
+            fontSize = 25.sp,
+            //textDecoration = TextDecoration.Underline
             //fontWeight = FontWeight.Bold,
             //fontStyle = FontStyle.Italic,
-
         )
-        Spacer(modifier = Modifier.height(8.dp))
+        Spacer(modifier = Modifier.height(4.dp))
         content()
     }
 }

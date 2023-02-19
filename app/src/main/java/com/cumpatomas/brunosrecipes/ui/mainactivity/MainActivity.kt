@@ -3,6 +3,7 @@ package com.cumpatomas.brunosrecipes.ui.mainactivity
 import  android.os.Bundle
 import android.view.MenuItem
 import androidx.activity.viewModels
+import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.core.view.isGone
@@ -25,11 +26,14 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         installSplashScreen()
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         ApplicationModule.initialiseApplicationContext(this.application)
         setSupportActionBar(binding.toolBar)
+        getSupportActionBar()?.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+        getSupportActionBar()?.setCustomView(R.layout.home_fragment);
         setNavHostFragment()
         setAppBarConfig()
         setupActionBarWithNavController(navController, appBarConfiguration)

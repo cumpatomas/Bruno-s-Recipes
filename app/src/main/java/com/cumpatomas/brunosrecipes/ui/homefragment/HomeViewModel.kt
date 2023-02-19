@@ -2,8 +2,10 @@ package com.cumpatomas.brunosrecipes.ui.homefragment
 
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.bumptech.glide.Glide.init
 import com.cumpatomas.brunosrecipes.domain.ScrapNews
 import com.cumpatomas.brunosrecipes.domain.SaveRecipesUseCase
 import com.cumpatomas.brunosrecipes.domain.SearchRecipesUseCase
@@ -21,6 +23,8 @@ class HomeViewModel : ViewModel() {
     val isLoadingState: MutableState<Boolean> = mutableStateOf(true)
     val scrapNews = ScrapNews()
     val newsList = mutableStateOf<List<NewsModel>>(emptyList())
+    val helpSurfaceState =  mutableStateOf(false)
+    var helpSurfaceText: String? = null
 
     init {
         viewModelScope.launch {
@@ -44,9 +48,14 @@ class HomeViewModel : ViewModel() {
 
         searchRecipesUseCase.invoke().also { list ->
             newestRecipesList.value = list.sortedBy { it.id }.reversed()
-            val tempList = list.filter { it.rating != 0.0f }
+            val tempList = list.filter { it.rating > 2.0f }
             bestRatedRecipesList.value = tempList.sortedBy { it.rating }.reversed()
         }
+    }
+
+    fun closeNewsCard() {
+        for(i in newsList.value)
+            i.state.value = false
     }
 
 }
