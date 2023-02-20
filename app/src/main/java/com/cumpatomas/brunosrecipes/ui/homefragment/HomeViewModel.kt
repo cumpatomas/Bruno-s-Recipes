@@ -2,12 +2,10 @@ package com.cumpatomas.brunosrecipes.ui.homefragment
 
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.bumptech.glide.Glide.init
-import com.cumpatomas.brunosrecipes.domain.ScrapNews
 import com.cumpatomas.brunosrecipes.domain.SaveRecipesUseCase
+import com.cumpatomas.brunosrecipes.domain.ScrapNews
 import com.cumpatomas.brunosrecipes.domain.SearchRecipesUseCase
 import com.cumpatomas.brunosrecipes.domain.model.NewsModel
 import com.cumpatomas.brunosrecipes.domain.model.RecipesModel
@@ -57,7 +55,6 @@ class HomeViewModel : ViewModel() {
             bestRatedRecipesList.value = tempList.sortedBy { it.rating }.reversed()
         }
     }
-
 
     fun closeNewsCard() {
         for (i in newsList.value)

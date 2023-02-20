@@ -24,6 +24,7 @@ import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale.Companion.Crop
 import androidx.compose.ui.platform.ComposeView
@@ -96,6 +97,7 @@ class HomeFragment : Fragment() {
         }
     }
 
+    @SuppressLint("UnrememberedMutableState")
     @Composable
     fun HomeScreen(
         viewModel: HomeViewModel,
@@ -105,66 +107,31 @@ class HomeFragment : Fragment() {
         val newsestRecipesList = viewModel.newestRecipesList
         val bestRecipesList = viewModel.bestRatedRecipesList
 
-        if (viewModel.helpSurfaceState.value) {
-            Column(
-                modifier = Modifier.fillMaxSize(),
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                Row {
-                    TitleText()
-                }
-                Row() {
-                    Surface(
-                        modifier = Modifier
-                            .fillMaxWidth(0.9f)
-                            .fillMaxHeight(0.95f)
-                            .padding(8.dp),
-                        shape = RoundedCornerShape(12.dp),
-                        color = Color.White
-                    ) {
-                        HelpSurfaceItem(viewModel.helpSurfaceText ?: "")
-                    }
-                }
+        Column(
+            horizontalAlignment = CenterHorizontally,
+            modifier = modifier
+                .padding(horizontal = 0.dp)
+                .verticalScroll(ScrollState(0))
+        ) {
 
+            TitleText()
+
+            if (bestRecipesList.value.isNotEmpty()) {
+                HomeSection(title = "Tus recetas mejor valoradas") {
+                    BestRatedRecipes(bestRecipesList)
+                }
+            } else {
+                HomeSection(title = "Comencemos!") {
+                    StartRow()
+                }
             }
-        } else
-
-            Column(
-                horizontalAlignment = CenterHorizontally,
-                modifier = modifier
-                    .padding(horizontal = 0.dp)
-                    .verticalScroll(ScrollState(0))
+            Spacer(modifier = Modifier.height(24.dp))
+            if (internetStatus == ConnectivityObserver.Status.Unavailable
+                || internetStatus == ConnectivityObserver.Status.Lost
             ) {
-                if (internetStatus == ConnectivityObserver.Status.Lost) {
-                    Surface(
-                        color = colorResource(id = R.color.superlightred),
-                        shape = RoundedCornerShape(12.dp),
-                    ) {
+                if (newsestRecipesList.value.isEmpty()) {
 
-                        Text(
-                            text = "No hay conexión de red",
-                            fontSize = 14.sp,
-                            modifier = Modifier.padding(8.dp),
-                        )
-
-                    }
-                }
-                TitleText()
-
-                if (bestRecipesList.value.isNotEmpty()) {
-                    HomeSection(title = "Tus recetas mejor valoradas") {
-                        BestRatedRecipes(bestRecipesList)
-                    }
-                } else {
-                    HomeSection(title = "Comencemos!") {
-                        StartRow()
-                    }
-                }
-                Spacer(modifier = Modifier.height(24.dp))
-                if (internetStatus == ConnectivityObserver.Status.Unavailable) {
-                    if(newsestRecipesList.value.isEmpty()) {
-
-                    }
+                    // Shows Nothing
 
                 } else {
                     if (viewModel.isLoadingState.value) {
@@ -182,59 +149,256 @@ class HomeFragment : Fragment() {
                     }
                 }
 
-                Spacer(modifier = Modifier.height(32.dp))
-                HomeSection(title = "Noticias") {
-                    NewsColumn(viewModel.newsList.value, internetStatus)
+            } else {
+                if (viewModel.isLoadingState.value) {
+                    HomeSection(title = "Últimas recetas agregadas") {
+                        LoadingAnimation(
+                            circleColor = colorResource(id = R.color.white),
+                            circleSize = 12.dp
+                        )
+                    }
+
+                } else {
+                    HomeSection(title = "Últimas recetas agregadas") {
+                        NewestRecipesRow(newsestRecipesList)
+                    }
                 }
             }
+
+            Spacer(modifier = Modifier.height(32.dp))
+            HomeSection(title = "Noticias") {
+                NewsColumn(viewModel.newsList.value, internetStatus)
+            }
+        }
+        if (viewModel.helpSurfaceState.value) {
+            Column(
+                modifier = Modifier.fillMaxSize(),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.Center
+            ) {
+                Row() {
+                    Surface(
+                        modifier = Modifier
+                            .fillMaxWidth(0.8f)
+                            //.fillMaxHeight(0.8f)
+                            .padding(8.dp),
+                        shape = RoundedCornerShape(12.dp),
+                        color = colorResource(id = R.color.superlightgray),
+                        elevation = 20.dp,
+
+                        ) {
+                        Row(
+                            horizontalArrangement = Arrangement.End,
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(8.dp)
+                        ) {
+                            HelpSurfaceCloseButton()
+                        }
+                        HelpSurfaceItem(viewModel.helpSurfaceText ?: "")
+                    }
+                }
+            }
+        }
+
+        if (internetStatus == ConnectivityObserver.Status.Lost
+            || internetStatus == ConnectivityObserver.Status.Unavailable
+            && newsestRecipesList.value.isEmpty()) {
+            Column(
+                modifier = Modifier.fillMaxSize(),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.Center
+            ) {
+                Row() {
+                    Surface(
+                        modifier = Modifier
+                            .fillMaxWidth(0.8f)
+                            //.fillMaxHeight(0.8f)
+                            .padding(8.dp),
+                        shape = RoundedCornerShape(12.dp),
+                        color = colorResource(id = R.color.superlightgray),
+                        elevation = 20.dp,
+
+                        ) {
+                        Row(
+                            horizontalArrangement = Arrangement.End,
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(8.dp)
+                        ) {
+                            HelpSurfaceCloseButton()
+                        }
+                        HelpSurfaceItem("Sin conexión de red")
+                    }
+                }
+            }
+        }
     }
 
     private @Composable
     fun HelpSurfaceItem(title: String) {
         when (title) {
             "Buscador de recetas" -> {
+                Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                    Text(
+                        text = title,
+                        fontSize = 25.sp,
+                        fontFamily = FontFamily(Font(R.font.beautiful_people)),
+                        textAlign = TextAlign.Center,
+                        color = Color.DarkGray,
+                        modifier = Modifier.padding(16.dp),
+                    )
+                    Text(
+                        text = "Usa nuestro buscador de recetas en el Menú/lista.\n\n" +
+                                "Puedes buscar por nombre y filtrar las recetas por categorías dulces, saladas, de verano o de invierno. ",
+                        fontSize = 16.sp,
+                        fontFamily = FontFamily(Font(R.font.marlin_sans)),
+                        textAlign = TextAlign.Center,
+                        color = Color.DarkGray,
+                        modifier = Modifier.padding(16.dp),
+                    )
 
-                Text(
-                    text = title,
-                    fontSize = 25.sp,
-                    fontFamily = FontFamily(Font(R.font.beautiful_people)),
-                    textAlign = TextAlign.Center,
-                    color = Color.DarkGray,
-                    modifier = Modifier.padding(16.dp),
-                )
+                    Image(
+                        painter = painterResource(id = R.drawable.recipe_list_image),
+                        contentDescription = null,
+                        contentScale = Crop,
+                        modifier = Modifier
+                            .size(200.dp, 150.dp)
+                            .padding(16.dp)
+                            .clip(RoundedCornerShape(8.dp))
+                    )
+                }
+
+
             }
             "Marcar tus recetas" -> {
 
-                Text(
-                    text = title,
-                    fontSize = 25.sp,
-                    fontFamily = FontFamily(Font(R.font.beautiful_people)),
-                    textAlign = TextAlign.Center,
-                    color = Color.DarkGray,
-                    modifier = Modifier.padding(16.dp),
-                )
+                Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                    Text(
+                        text = title,
+                        fontSize = 25.sp,
+                        fontFamily = FontFamily(Font(R.font.beautiful_people)),
+                        textAlign = TextAlign.Center,
+                        color = Color.DarkGray,
+                        modifier = Modifier.padding(16.dp),
+                    )
+                    Text(
+                        text = "Puedes marcar tus recetas cada vez que las cocinas usando el botón verde.\n\n" +
+                                "Luego en el Menú/Historial tendrás una lista con las recetas y las fechas en que fueron hechas. ",
+                        fontSize = 16.sp,
+                        fontFamily = FontFamily(Font(R.font.marlin_sans)),
+                        textAlign = TextAlign.Center,
+                        color = Color.DarkGray,
+                        modifier = Modifier.padding(16.dp),
+                    )
+
+                    Image(
+                        painter = painterResource(id = R.drawable.cooked_recipe_image),
+                        contentDescription = null,
+                        contentScale = Crop,
+                        modifier = Modifier
+                            .size(200.dp, 150.dp)
+                            .padding(16.dp)
+                            .clip(RoundedCornerShape(8.dp))
+                    )
+                }
             }
             "Puntúa tus recetas" -> {
 
-                Text(
-                    text = title,
-                    fontSize = 25.sp,
-                    fontFamily = FontFamily(Font(R.font.beautiful_people)),
-                    textAlign = TextAlign.Center,
-                    color = Color.DarkGray,
-                    modifier = Modifier.padding(16.dp),
-                )
+                Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                    Text(
+                        text = title,
+                        fontSize = 25.sp,
+                        fontFamily = FontFamily(Font(R.font.beautiful_people)),
+                        textAlign = TextAlign.Center,
+                        color = Color.DarkGray,
+                        modifier = Modifier.padding(16.dp),
+                    )
+                    Text(
+                        text = "Puedes puntuar las recetas dándoles estrellas.\n\n" +
+                                "Luego podrás encontrar tus recetas mejor valoradas en la pantalla de inicio . ",
+                        fontSize = 16.sp,
+                        fontFamily = FontFamily(Font(R.font.marlin_sans)),
+                        textAlign = TextAlign.Center,
+                        color = Color.DarkGray,
+                        modifier = Modifier.padding(16.dp),
+                    )
+
+                    Image(
+                        painter = painterResource(id = R.drawable.rate_recipe),
+                        contentDescription = null,
+                        contentScale = Crop,
+                        modifier = Modifier
+                            .size(200.dp, 150.dp)
+                            .padding(16.dp)
+                            .clip(RoundedCornerShape(8.dp))
+                    )
+                }
             }
             "¿Qué puedo cocinar?" -> {
 
-                Text(
-                    text = title,
-                    fontSize = 25.sp,
-                    fontFamily = FontFamily(Font(R.font.beautiful_people)),
-                    textAlign = TextAlign.Center,
-                    color = Color.DarkGray,
-                    modifier = Modifier.padding(16.dp),
-                )
+                Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                    Text(
+                        text = title,
+                        fontSize = 25.sp,
+                        fontFamily = FontFamily(Font(R.font.beautiful_people)),
+                        textAlign = TextAlign.Center,
+                        color = Color.DarkGray,
+                        modifier = Modifier.padding(16.dp),
+                    )
+                    Text(
+                        text = "¿No sabes qué cocinar?\n\n" +
+                                "En el Menú/¿qué cocino? podrás ingresar los ingredientes que tienes en casa y obtendrás un listado de posibles recetas.",
+                        fontSize = 16.sp,
+                        fontFamily = FontFamily(Font(R.font.marlin_sans)),
+                        textAlign = TextAlign.Center,
+                        color = Color.DarkGray,
+                        modifier = Modifier.padding(16.dp),
+                    )
+
+                    Image(
+                        painter = painterResource(id = R.drawable.input_ingredients),
+                        contentDescription = null,
+                        contentScale = Crop,
+                        modifier = Modifier
+                            .size(200.dp, 150.dp)
+                            .padding(16.dp)
+                            .clip(RoundedCornerShape(8.dp))
+                    )
+                }
+            }
+
+            "Sin conexión de red" -> {
+
+                Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                    Text(
+                        text = title,
+                        fontSize = 25.sp,
+                        fontFamily = FontFamily(Font(R.font.beautiful_people)),
+                        textAlign = TextAlign.Center,
+                        color = Color.DarkGray,
+                        modifier = Modifier.padding(16.dp),
+                    )
+                    Text(
+                        text = "¿No sabes qué cocinar?\n\n" +
+                                "En el Menú/¿qué cocino? podrás ingresar los ingredientes que tienes en casa y obtendrás un listado de posibles recetas.",
+                        fontSize = 16.sp,
+                        fontFamily = FontFamily(Font(R.font.marlin_sans)),
+                        textAlign = TextAlign.Center,
+                        color = Color.DarkGray,
+                        modifier = Modifier.padding(16.dp),
+                    )
+
+                    Image(
+                        painter = painterResource(id = R.drawable.no_connection),
+                        contentDescription = null,
+                        contentScale = Crop,
+                        modifier = Modifier
+                            .size(200.dp, 150.dp)
+                            .padding(16.dp)
+                            .clip(RoundedCornerShape(8.dp))
+                    )
+                }
             }
         }
     }
@@ -311,12 +475,12 @@ class HomeFragment : Fragment() {
                 horizontalArrangement = Arrangement.End,
                 modifier = Modifier.padding(8.dp)
             ) {
-                CloseButton(new)
+                NewsCloseButton(new)
             }
     }
 
     @Composable
-    fun CloseButton(
+    fun NewsCloseButton(
         new: NewsModel,
     ) {
         val coroutineScope = rememberCoroutineScope()
@@ -329,6 +493,31 @@ class HomeFragment : Fragment() {
             modifier = Modifier
                 .size(50.dp)
                 .alpha(0.7f)
+        )
+        {
+            Icon(
+                imageVector = Icons.Default.Close,
+                contentDescription = "Volver",
+                tint = Color.White,
+                modifier = Modifier.padding(0.dp)
+            )
+        }
+    }
+
+    @Composable
+    fun HelpSurfaceCloseButton(
+        viewModel: HomeViewModel = androidx.lifecycle.viewmodel.compose.viewModel()
+    ) {
+        val coroutineScope = rememberCoroutineScope()
+        FloatingActionButton(
+            onClick = {
+                coroutineScope.launch {
+                    viewModel.helpSurfaceState.value = false
+                }
+            },
+            modifier = Modifier
+                .size(40.dp)
+                .alpha(0.5f)
         )
         {
             Icon(
@@ -360,11 +549,11 @@ class HomeFragment : Fragment() {
             }
             if (internetStatus == ConnectivityObserver.Status.Unavailable
                 || internetStatus == ConnectivityObserver.Status.Lost
-                ) {
+            ) {
                 if (newsList.isEmpty()) {
                     NoInternetMge()
                 }
-            } else{
+            } else {
                 if (newsList.isNotEmpty()) {
                     for (i in 0..9)
                         NewsItem(newsList[i])
@@ -397,19 +586,30 @@ class HomeFragment : Fragment() {
                     modifier = Modifier.padding(vertical = 8.dp)
                 ) {
                     Text(
-                        text = "Conoce la app de",
+                        text = "Prueba la app de",
                         fontFamily = FontFamily(Font(R.font.marlin_sans)),
                         color = colorResource(id = R.color.mid_gray),
                         textAlign = TextAlign.Center,
                         fontSize = 17.sp,
                         fontWeight = FontWeight.Bold,
                         modifier = Modifier
-                            .paddingFromBaseline(top = 28.dp)
-                            .padding(horizontal = 8.dp)
+//                            .paddingFromBaseline(top = 28.dp)
+                            .padding(horizontal = 8.dp, vertical = 8.dp)
                     )
                     Image(
                         painter = painterResource(id = R.drawable.yuka_logo),
                         contentDescription = "Yuka",
+                    )
+                    Text(
+                        text = "gratis!",
+                        fontFamily = FontFamily(Font(R.font.marlin_sans)),
+                        color = colorResource(id = R.color.secondaryColor),
+                        textAlign = TextAlign.Center,
+                        fontSize = 14.sp,
+                        fontWeight = FontWeight.Bold,
+                        modifier = Modifier
+                            .rotate(-35f)
+                            .padding(vertical = 8.dp)
                     )
                 }
             }
@@ -590,12 +790,11 @@ class HomeFragment : Fragment() {
                 elevation = 14.dp,
                 shape = RoundedCornerShape(16.dp),
                 modifier = Modifier.clickable {
-
                     viewModel.helpSurfaceText = text
                     viewModel.helpSurfaceState.value = true
-
                 }
             ) {
+
                 Image(
                     painter = painterResource(id = drawable),
                     contentDescription = null,
