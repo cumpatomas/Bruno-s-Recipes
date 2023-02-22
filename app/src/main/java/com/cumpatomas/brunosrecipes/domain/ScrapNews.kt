@@ -1,7 +1,11 @@
 package com.cumpatomas.brunosrecipes.domain
 
 import android.annotation.SuppressLint
+import com.cumpatomas.brunosrecipes.data.localdb.entities.NewsEntity
+import com.cumpatomas.brunosrecipes.data.localdb.entities.toEntity
 import com.cumpatomas.brunosrecipes.domain.model.NewsModel
+import com.cumpatomas.brunosrecipes.domain.model.toDomain
+import com.cumpatomas.brunosrecipes.manualdi.LocalDatabaseModule
 import kotlinx.coroutines.coroutineScope
 import org.jsoup.Jsoup
 
@@ -29,7 +33,12 @@ class ScrapNews {
                     )
                 }
             }
-            return newsList
+            val newsListEntity: List<NewsEntity> = newsList.map { it.toEntity() }
+            LocalDatabaseModule.db.getNewsDao().insertNews(newsListEntity)
+            val outputList = LocalDatabaseModule.db.getNewsDao().getNewsList().map { it.toDomain() }
+
+            return outputList.shuffled()
+
         } catch (e: Exception) {
 
             return emptyList()

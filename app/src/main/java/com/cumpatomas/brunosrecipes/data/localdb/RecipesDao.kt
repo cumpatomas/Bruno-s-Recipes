@@ -2,7 +2,6 @@ package com.cumpatomas.brunosrecipes.data.localdb
 
 import androidx.room.Dao
 import androidx.room.Insert
-import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.cumpatomas.brunosrecipes.data.localdb.entities.RecipeEntity
 import kotlinx.coroutines.flow.Flow

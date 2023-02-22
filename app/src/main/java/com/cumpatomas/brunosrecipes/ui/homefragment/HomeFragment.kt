@@ -250,7 +250,7 @@ class HomeFragment : Fragment() {
                     )
                     Text(
                         text = "Usa nuestro buscador de recetas en el Menú/lista.\n\n" +
-                                "Puedes buscar por nombre y filtrar las recetas por categorías dulces, saladas, de verano o de invierno. ",
+                                "Puedes buscar por nombre y filtrar las recetas por categorías dulces, saladas, de verano o de invierno.",
                         fontSize = 16.sp,
                         fontFamily = FontFamily(Font(R.font.marlin_sans)),
                         textAlign = TextAlign.Center,
@@ -284,7 +284,7 @@ class HomeFragment : Fragment() {
                     )
                     Text(
                         text = "Puedes marcar tus recetas cada vez que las cocinas usando el botón verde.\n\n" +
-                                "Luego en el Menú/Historial tendrás una lista con las recetas y las fechas en que fueron hechas. ",
+                                "Luego en el Menú/Historial tendrás una lista con las recetas y las fechas en que fueron hechas.",
                         fontSize = 16.sp,
                         fontFamily = FontFamily(Font(R.font.marlin_sans)),
                         textAlign = TextAlign.Center,
