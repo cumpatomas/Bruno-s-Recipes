@@ -125,7 +125,7 @@ class HomeFragment : Fragment() {
                     StartRow()
                 }
             }
-            Spacer(modifier = Modifier.height(24.dp))
+            Spacer(modifier = Modifier.height(16.dp))
             if (internetStatus == ConnectivityObserver.Status.Unavailable
                 || internetStatus == ConnectivityObserver.Status.Lost
             ) {
@@ -165,7 +165,7 @@ class HomeFragment : Fragment() {
                 }
             }
 
-            Spacer(modifier = Modifier.height(32.dp))
+            Spacer(modifier = Modifier.height(24.dp))
             HomeSection(title = "Noticias") {
                 NewsColumn(viewModel.newsList.value, internetStatus)
             }
@@ -204,6 +204,9 @@ class HomeFragment : Fragment() {
         if (internetStatus == ConnectivityObserver.Status.Lost
             || internetStatus == ConnectivityObserver.Status.Unavailable
             && newsestRecipesList.value.isEmpty()) {
+
+            viewModel.helpSurfaceState.value = !viewModel.helpSurfaceState.value
+
             Column(
                 modifier = Modifier.fillMaxSize(),
                 horizontalAlignment = Alignment.CenterHorizontally,
@@ -220,14 +223,14 @@ class HomeFragment : Fragment() {
                         elevation = 20.dp,
 
                         ) {
-                        Row(
+/*                        Row(
                             horizontalArrangement = Arrangement.End,
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .padding(8.dp)
                         ) {
                             HelpSurfaceCloseButton()
-                        }
+                        }*/
                         HelpSurfaceItem("Sin conexión de red")
                     }
                 }
@@ -380,8 +383,7 @@ class HomeFragment : Fragment() {
                         modifier = Modifier.padding(16.dp),
                     )
                     Text(
-                        text = "¿No sabes qué cocinar?\n\n" +
-                                "En el Menú/¿qué cocino? podrás ingresar los ingredientes que tienes en casa y obtendrás un listado de posibles recetas.",
+                        text = "Ups parece que no hay conexión de red.\n\nAlgunas de las funciones en la app pueden no estar disponibles.\n\nVerifica tu conexión.",
                         fontSize = 16.sp,
                         fontFamily = FontFamily(Font(R.font.marlin_sans)),
                         textAlign = TextAlign.Center,
@@ -544,8 +546,8 @@ class HomeFragment : Fragment() {
         {
             if (newsList.isNotEmpty()) {
                 YukaCard()
-                for (i in 0..9)
-                    NewsItem(newsList[i])
+/*                for (i in 0..9)
+                    NewsItem(newsList[i])*/
             }
             if (internetStatus == ConnectivityObserver.Status.Unavailable
                 || internetStatus == ConnectivityObserver.Status.Lost
