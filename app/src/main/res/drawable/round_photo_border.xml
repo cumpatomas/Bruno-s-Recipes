@@ -1,8 +1,8 @@
 <shape android:shape="oval"
     xmlns:android="http://schemas.android.com/apk/res/android" >
     <stroke
-        android:width="10dp"
-        android:color="#D4F3B4"
+        android:width="0dp"
+        android:color="@color/primaryLightColor2"
         />
     <size android:height="180dp"
         android:width="180dp"/>

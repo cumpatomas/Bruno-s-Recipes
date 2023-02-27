@@ -10,6 +10,7 @@ import com.cumpatomas.brunosrecipes.domain.SearchRecipesUseCase
 import com.cumpatomas.brunosrecipes.domain.model.NewsModel
 import com.cumpatomas.brunosrecipes.domain.model.RecipesModel
 import kotlinx.coroutines.Dispatchers.Default
+import kotlinx.coroutines.joinAll
 import kotlinx.coroutines.launch
 
 class HomeViewModel : ViewModel() {
@@ -54,6 +55,19 @@ class HomeViewModel : ViewModel() {
             val tempList = list.filter { it.rating > 2.0f }
             bestRatedRecipesList.value = tempList.sortedBy { it.rating }.reversed()
         }
+    }
+
+    suspend fun saveRecipes() {
+        viewModelScope.launch {
+            isLoadingState.value = true
+            val saveRecipesJob = launch {
+                saveRecipesUseCase.invoke()
+            }
+            saveRecipesJob.join()
+            getRecipes()
+            isLoadingState.value = false
+        }
+
     }
 
     fun closeNewsCard() {

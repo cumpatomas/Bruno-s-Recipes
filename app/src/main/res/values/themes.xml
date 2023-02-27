@@ -9,6 +9,7 @@
         <item name="colorSecondary">@color/secondaryColor</item>
         <item name="colorSecondaryVariant">@color/secondaryLightColor</item>
         <item name="colorOnSecondary">@color/black</item>
+        <item name="android:textColor">@color/mid_gray</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor" >?attr/colorPrimary</item>
         <!-- Customize your theme here. -->
@@ -26,7 +27,7 @@
 
     <style name="RatingBarBig" parent="Widget.AppCompat.RatingBar.Indicator">
         <item name="ratingBarStyle">@style/Controls.RatingBarBig</item>
-        <item name="colorControlActivated">#C9F39E</item>
+        <item name="colorControlActivated">#59CCC0</item>
 
     </style>
 
@@ -36,7 +37,7 @@
 
     <style name="Colors_Widget_MaterialComponents_Chip_Choice" parent="Widget.MaterialComponents.Chip.Choice">
         <item name="chipBackgroundColor">@color/chip_background_color</item>
-        <item name="android:textColor">@color/black</item>
+        <item name="android:textColor">#383838</item>
     </style>
 
 </resources>

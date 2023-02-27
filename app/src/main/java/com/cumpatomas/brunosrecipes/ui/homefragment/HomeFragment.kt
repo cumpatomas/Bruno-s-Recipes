@@ -8,10 +8,14 @@ import android.view.ViewGroup
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import androidx.annotation.DrawableRes
+import androidx.compose.animation.animateContentSize
+import androidx.compose.animation.core.*
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
@@ -33,6 +37,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.font.FontWeight.Companion.Normal
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -137,7 +142,7 @@ class HomeFragment : Fragment() {
                     if (viewModel.isLoadingState.value) {
                         HomeSection(title = "Últimas recetas agregadas") {
                             LoadingAnimation(
-                                circleColor = colorResource(id = R.color.white),
+                                circleColor = colorResource(id = R.color.secondaryColor),
                                 circleSize = 12.dp
                             )
                         }
@@ -166,8 +171,19 @@ class HomeFragment : Fragment() {
             }
 
             Spacer(modifier = Modifier.height(24.dp))
-            HomeSection(title = "Noticias") {
-                NewsColumn(viewModel.newsList.value, internetStatus)
+            if (viewModel.isLoadingState.value) {
+                HomeSection(title = "Noticias") {
+
+                    LoadingAnimation(
+                        circleColor = colorResource(id = R.color.white),
+                        circleSize = 12.dp
+                    )
+                }
+
+            } else {
+                HomeSection(title = "Noticias") {
+                    NewsColumn(viewModel.newsList.value, internetStatus)
+                }
             }
         }
         if (viewModel.helpSurfaceState.value) {
@@ -202,8 +218,8 @@ class HomeFragment : Fragment() {
         }
 
         if (internetStatus == ConnectivityObserver.Status.Lost
-            || internetStatus == ConnectivityObserver.Status.Unavailable
-            && newsestRecipesList.value.isEmpty()) {
+            && newsestRecipesList.value.isEmpty()
+        ) {
 
             viewModel.helpSurfaceState.value = !viewModel.helpSurfaceState.value
 
@@ -411,7 +427,7 @@ class HomeFragment : Fragment() {
         Text(
             text = "- Recetas de Bruno -",
             fontFamily = FontFamily(Font(R.font.beautiful_people)),
-            color = Color.White,
+            color = colorResource(id = R.color.white),
             textAlign = TextAlign.Center,
             fontSize = 38.sp,
             modifier = Modifier
@@ -487,6 +503,7 @@ class HomeFragment : Fragment() {
     ) {
         val coroutineScope = rememberCoroutineScope()
         FloatingActionButton(
+            backgroundColor = colorResource(id = R.color.secondaryColor),
             onClick = {
                 coroutineScope.launch {
                     new.state.value = false
@@ -494,13 +511,13 @@ class HomeFragment : Fragment() {
             },
             modifier = Modifier
                 .size(50.dp)
-                .alpha(0.7f)
+                .alpha(0.6f)
         )
         {
             Icon(
                 imageVector = Icons.Default.Close,
                 contentDescription = "Volver",
-                tint = Color.White,
+                tint = colorResource(id = R.color.white),
                 modifier = Modifier.padding(0.dp)
             )
         }
@@ -508,10 +525,11 @@ class HomeFragment : Fragment() {
 
     @Composable
     fun HelpSurfaceCloseButton(
-        viewModel: HomeViewModel = androidx.lifecycle.viewmodel.compose.viewModel()
+        viewModel: HomeViewModel = viewModel()
     ) {
         val coroutineScope = rememberCoroutineScope()
         FloatingActionButton(
+            backgroundColor = colorResource(id = R.color.secondaryColor),
             onClick = {
                 coroutineScope.launch {
                     viewModel.helpSurfaceState.value = false
@@ -525,7 +543,7 @@ class HomeFragment : Fragment() {
             Icon(
                 imageVector = Icons.Default.Close,
                 contentDescription = "Volver",
-                tint = Color.White,
+                tint = colorResource(id = R.color.white),
                 modifier = Modifier.padding(0.dp)
             )
         }
@@ -535,7 +553,7 @@ class HomeFragment : Fragment() {
     fun NewsColumn(
         newsList: List<NewsModel>,
         internetStatus: ConnectivityObserver.Status,
-        viewModel: HomeViewModel = androidx.lifecycle.viewmodel.compose.viewModel()
+        viewModel: HomeViewModel = viewModel()
     ) {
 
         Column(
@@ -546,8 +564,6 @@ class HomeFragment : Fragment() {
         {
             if (newsList.isNotEmpty()) {
                 YukaCard()
-/*                for (i in 0..9)
-                    NewsItem(newsList[i])*/
             }
             if (internetStatus == ConnectivityObserver.Status.Unavailable
                 || internetStatus == ConnectivityObserver.Status.Lost
@@ -683,6 +699,7 @@ class HomeFragment : Fragment() {
             ) {
 
                 FloatingActionButton(
+                    backgroundColor = colorResource(id = R.color.secondaryColor),
                     onClick = {
                         coroutineScope.launch {
                             YukaWebViewState.value = false
@@ -690,13 +707,13 @@ class HomeFragment : Fragment() {
                     },
                     modifier = Modifier
                         .size(50.dp)
-                        .alpha(0.7f)
+                        .alpha(0.5f)
                 )
                 {
                     Icon(
                         imageVector = Icons.Default.Close,
                         contentDescription = "Volver",
-                        tint = Color.White,
+                        tint = colorResource(id = R.color.white),
                         modifier = Modifier.padding(0.dp)
                     )
                 }
@@ -711,6 +728,7 @@ class HomeFragment : Fragment() {
         Card(
             elevation = 8.dp,
             shape = RoundedCornerShape(10.dp),
+            backgroundColor = colorResource(id = R.color.white),
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(horizontal = 8.dp)
@@ -763,15 +781,47 @@ class HomeFragment : Fragment() {
 
     @Composable
     private fun StartRow() {
-        Row(
+        val lazyState = rememberLazyListState(initialFirstVisibleItemIndex = 1)
+
+        val centerPosition by remember { // caching position for prevent recomposition
+            derivedStateOf {
+                val visibleInfo = lazyState.layoutInfo.visibleItemsInfo
+                if (visibleInfo.isEmpty()) -1
+                else {
+                    //TODO: enhance calculate logic for specific position
+//                    val offset = (visibleInfo.last().index - visibleInfo.first().index) / 2
+                    visibleInfo.first().index + 1
+                }
+            }
+        }
+        LazyRow(
             verticalAlignment = Alignment.Top,
+            state = lazyState,
             modifier = Modifier
-                .horizontalScroll(rememberScrollState())
+                .fillMaxWidth(0.9f)
         ) {
-            StartRowElement("Buscador de recetas", R.drawable.recipe_list_image)
-            StartRowElement("Marcar tus recetas", R.drawable.cooked_recipe_image)
-            StartRowElement("Puntúa tus recetas", R.drawable.rate_recipe)
-            StartRowElement("¿Qué puedo cocinar?", R.drawable.input_ingredients)
+
+            val SratRowElementsTexts = listOf<Pair<String, Int>>(
+                Pair(" ", R.drawable.recipe_list_image),
+                Pair("Puntúa tus recetas", R.drawable.rate_recipe),
+                Pair("Buscador de recetas", R.drawable.recipe_list_image),
+                Pair("¿Qué puedo cocinar?", R.drawable.input_ingredients),
+                Pair("Marcar tus recetas", R.drawable.cooked_recipe_image),
+                Pair("Puntúa tus recetas", R.drawable.rate_recipe),
+                Pair("Buscador de recetas", R.drawable.recipe_list_image),
+                Pair("¿Qué puedo cocinar?", R.drawable.input_ingredients),
+                Pair("Marcar tus recetas", R.drawable.cooked_recipe_image),
+                Pair(" ", R.drawable.recipe_list_image),
+            )
+
+
+            itemsIndexed(SratRowElementsTexts) { index, textAndImage ->
+                StartRowElement(
+                    textAndImage.first,
+                    textAndImage.second,
+                    expanded = index == centerPosition
+                )
+            }
         }
     }
 
@@ -779,41 +829,74 @@ class HomeFragment : Fragment() {
     private fun StartRowElement(
         text: String,
         @DrawableRes drawable: Int,
-        viewModel: HomeViewModel = androidx.lifecycle.viewmodel.compose.viewModel()
+        viewModel: HomeViewModel = viewModel(),
+        expanded: Boolean
     ) {
+
         Column(
             horizontalAlignment = CenterHorizontally,
             modifier = Modifier
                 .padding(horizontal = 8.dp)
                 .padding(top = 0.dp, bottom = 16.dp)
                 .width(110.dp)
+                .height(150.dp)
         ) {
+
             Surface(
-                elevation = 14.dp,
-                shape = RoundedCornerShape(16.dp),
-                modifier = Modifier.clickable {
-                    viewModel.helpSurfaceText = text
-                    viewModel.helpSurfaceState.value = true
-                }
+                elevation = if (text.isBlank()) 0.dp else 14.dp,
+                color = Color.Transparent,
+                shape = CircleShape,
+                modifier = Modifier
+                    .clickable {
+                        viewModel.helpSurfaceText = text
+                        viewModel.helpSurfaceState.value = true
+                    }
             ) {
 
-                Image(
-                    painter = painterResource(id = drawable),
-                    contentDescription = null,
-                    contentScale = Crop,
-                    modifier = Modifier
-                        .size(100.dp)
-                        .clip(RoundedCornerShape(16.dp))
-                )
+                if (text.isBlank()) {
+                    Image(
+                        painter = painterResource(id = drawable),
+                        contentDescription = null,
+                        contentScale = Crop,
+                        alpha = 0f,
+                    )
+                } else {
+                    Image(
+                        painter = painterResource(id = drawable),
+                        contentDescription = null,
+                        contentScale = Crop,
+                        modifier = Modifier
+                            .animateContentSize(
+                                animationSpec = tween(
+                                    durationMillis = 400,
+                                    easing = LinearOutSlowInEasing
+                                )
+                            )
+                            .size(if (expanded) 110.dp else 80.dp)
+                            //.clip(RoundedCornerShape(16.dp))
+                            .clip(CircleShape)
+                    )
+                }
+
+
             }
 
             Text(
                 text = text,
                 fontFamily = FontFamily(Font(R.font.marlin_sans)),
-                color = Color.White,
+                color = colorResource(id = R.color.white),
                 textAlign = TextAlign.Center,
-                fontSize = 15.sp,
-                modifier = Modifier.paddingFromBaseline(20.dp)
+                fontSize = if (expanded) 16.sp else 13.sp,
+                fontWeight = if (expanded) FontWeight.Bold else Normal,
+                modifier = Modifier
+                    .animateContentSize(
+                        animationSpec = tween(
+                            durationMillis = 400,
+                            easing = LinearOutSlowInEasing
+                        )
+                    )
+                    .paddingFromBaseline(20.dp)
+
             )
         }
     }
@@ -925,7 +1008,7 @@ class HomeFragment : Fragment() {
         {
             LazyRow(
                 modifier = modifier
-                    .background(color = Color.White)
+                    .background(color = colorResource(id = R.color.white))
                     .padding(vertical = 16.dp)
                     .height(140.dp),
 
@@ -985,7 +1068,7 @@ class HomeFragment : Fragment() {
         Text(
             text = title,
             fontFamily = FontFamily(Font(R.font.beautiful_people)),
-            color = Color.White,
+            color = colorResource(id = R.color.white),
             textAlign = TextAlign.Center,
             fontSize = 25.sp,
         )

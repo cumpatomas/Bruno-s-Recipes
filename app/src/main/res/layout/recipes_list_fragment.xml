@@ -20,29 +20,45 @@
         app:lottie_loop="true"
         app:lottie_speed="1" />
 
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/tilSearchRecipe"
-        style="@style/Search_style"
-        android:layout_width="0dp"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/searchContainer"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="16dp"
-        android:background="@color/white"
-        android:hint="@string/search_recipes"
+        android:background="@color/another_gray"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/chipGroup">
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/etSearchRecipe"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:fontFamily="@font/marlin_sans"
-            android:inputType="text" />
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilSearchRecipe"
+            style="@style/Search_style"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="16dp"
+            android:background="@color/another_gray"
+            android:hint="@string/search_recipes"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-    </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etSearchRecipe"
+                android:background="@color/another_gray"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fontFamily="@font/marlin_sans"
+                android:inputType="text"
+                />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
 
     <com.google.android.material.chip.ChipGroup
         android:id="@+id/chipGroup"
@@ -53,9 +69,9 @@
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
         android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="@+id/tilSearchRecipe"
-        app:layout_constraintStart_toStartOf="@+id/tilSearchRecipe"
-        app:layout_constraintTop_toBottomOf="@id/tilSearchRecipe" />
+        app:layout_constraintEnd_toEndOf="@+id/searchContainer"
+        app:layout_constraintStart_toStartOf="@+id/searchContainer"
+        app:layout_constraintTop_toBottomOf="@id/searchContainer" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recipesRecyclerView"

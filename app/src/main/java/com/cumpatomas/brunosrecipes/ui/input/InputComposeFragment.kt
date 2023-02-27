@@ -105,20 +105,34 @@ class InputComposeFragment : Fragment() {
             scaffoldState = scaffoldState,
         ) {
 
-            Column(horizontalAlignment = Alignment.CenterHorizontally) {
+            Column(horizontalAlignment = Alignment.CenterHorizontally,
+            modifier = Modifier.background(colorResource(id = R.color.superlightgray))) {
 
                 Row(horizontalArrangement = Arrangement.Center) {
+                    if (viewModel.posibleRecipesNumber.value == 1)
                     Text(
-                        text = if (viewModel.posibleRecipesNumber.value == 1) "Hay ${viewModel.posibleRecipesNumber.value} receta posible!!"
-                        else if ((viewModel.posibleRecipesNumber.value > 1)) "Hay ${viewModel.posibleRecipesNumber.value} recetas posibles!!"
-                        else "Aún no hay recetas posibles",
+                        text =  "Hay ${viewModel.posibleRecipesNumber.value} receta posible!!",
                         fontFamily = FontFamily(Font(R.font.marlin_sans)),
                         textAlign = TextAlign.Center,
-                        fontWeight = FontWeight.Bold,
+//                        fontWeight = FontWeight.Bold,
                         fontSize = 20.sp,
                         modifier = Modifier
                             .padding(top = 8.dp)
                     )
+                    else if ((viewModel.posibleRecipesNumber.value > 1))
+                    Text(
+                        text =  "Hay ${viewModel.posibleRecipesNumber.value} recetas posibles!!",
+                        fontFamily = FontFamily(Font(R.font.marlin_sans)),
+                        textAlign = TextAlign.Center,
+//                        fontWeight = FontWeight.Bold,
+                        fontSize = 20.sp,
+                        modifier = Modifier
+                            .padding(top = 8.dp)
+                    )
+                    else {
+                       // no text
+                    }
+
                 }
                 Spacer(modifier = Modifier.height(8.dp))
 
@@ -136,7 +150,7 @@ class InputComposeFragment : Fragment() {
                         shape = RoundedCornerShape(8.dp),
                         colors = ButtonDefaults.buttonColors(
                             backgroundColor = colorResource(
-                                id = R.color.superlightgreen
+                                id = R.color.superlightgreenbutton
                             ),
                             contentColor = colorResource(id = R.color.white)
                         ),
