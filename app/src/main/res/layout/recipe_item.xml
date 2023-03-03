@@ -64,22 +64,14 @@
         app:layout_constraintTop_toBottomOf="@id/tvItemName"
         tools:text="Subtitle" />-->
 
-<!--    <ImageView
-        android:id="@+id/tvIsCooked"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="2dp"
-        android:background="@drawable/ic_dining_24"
-        app:layout_constraintBottom_toTopOf="@+id/tvItemIngredients"
-        app:layout_constraintEnd_toStartOf="@+id/ivCookedIcon"
-        app:layout_constraintTop_toTopOf="parent" />-->
 
     <ImageView
         android:id="@+id/ivCookedIcon"
         android:layout_width="25dp"
         android:layout_height="25dp"
         android:layout_marginEnd="8dp"
-        android:background="@drawable/chef_vector3_inverted"
+        android:background="@drawable/cooked_icon_circle_bold"
+        android:backgroundTint="@color/light_green"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

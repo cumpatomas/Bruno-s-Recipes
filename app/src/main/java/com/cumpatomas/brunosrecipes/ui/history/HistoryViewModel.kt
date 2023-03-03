@@ -3,6 +3,7 @@ package com.cumpatomas.brunosrecipes.ui.history
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.cumpatomas.brunosrecipes.domain.GetTimesRecipesHaveBeenCooked
+import com.cumpatomas.brunosrecipes.domain.DeleteRecipeFromHistory
 import com.cumpatomas.brunosrecipes.domain.model.RecipesModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -12,6 +13,7 @@ import kotlinx.coroutines.launch
 class HistoryViewModel : ViewModel() {
 
     private val getTimesRecipesHaveBeenCooked = GetTimesRecipesHaveBeenCooked()
+    private val deleteRecipeFromHistory = DeleteRecipeFromHistory()
 
     private val _recipesCooked = MutableStateFlow<List<RecipesModel>>(emptyList())
     val recipesCooked = _recipesCooked.asStateFlow()
@@ -22,13 +24,12 @@ class HistoryViewModel : ViewModel() {
                 _recipesCooked.value = recipesCooked
             }
         }
-        checkOldRecipes()
     }
 
-    private fun checkOldRecipes() {
-
+    fun deleteRecipeFromList(id: Int, date: String) {
+        viewModelScope.launch {
+            deleteRecipeFromHistory.invoke(id, date)
+        }
     }
-
-
 }
 

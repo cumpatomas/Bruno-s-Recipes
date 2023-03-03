@@ -290,7 +290,7 @@ class HomeFragment : Fragment() {
 
 
             }
-            "Marcar tus recetas" -> {
+            "Marca tus recetas" -> {
 
                 Column(horizontalAlignment = Alignment.CenterHorizontally) {
                     Text(
@@ -312,7 +312,7 @@ class HomeFragment : Fragment() {
                     )
 
                     Image(
-                        painter = painterResource(id = R.drawable.cooked_recipe_image),
+                        painter = painterResource(id = R.drawable.mark_your_recipe),
                         contentDescription = null,
                         contentScale = Crop,
                         modifier = Modifier
@@ -443,12 +443,14 @@ class HomeFragment : Fragment() {
         val coroutineScope = rememberCoroutineScope()
 
         Surface(
+            color = Color.White,
             modifier = Modifier
                 .height(450.dp)
                 .verticalScroll(rememberScrollState())
         ) {
 
             AndroidView(
+                modifier = Modifier.background(Color.White),
                 factory = {
                     WebView(it).apply {
                         coroutineScope.launch {
@@ -640,13 +642,15 @@ class HomeFragment : Fragment() {
         val coroutineScope = rememberCoroutineScope()
         val loadingState = remember { mutableStateOf(true) }
         Surface(
+            color = Color.White,
             shape = RoundedCornerShape(10.dp),
             modifier = Modifier
-                .padding(horizontal = 8.dp)
+                .padding(horizontal = 0.dp)
                 .padding(bottom = 8.dp)
                 .height(450.dp)
                 .fillMaxWidth()
                 .verticalScroll(rememberScrollState())
+
 
         ) {
 
@@ -798,7 +802,7 @@ class HomeFragment : Fragment() {
             verticalAlignment = Alignment.Top,
             state = lazyState,
             modifier = Modifier
-                .fillMaxWidth(0.9f)
+                .fillMaxWidth()
         ) {
 
             val SratRowElementsTexts = listOf<Pair<String, Int>>(
@@ -806,11 +810,11 @@ class HomeFragment : Fragment() {
                 Pair("Puntúa tus recetas", R.drawable.rate_recipe),
                 Pair("Buscador de recetas", R.drawable.recipe_list_image),
                 Pair("¿Qué puedo cocinar?", R.drawable.input_ingredients),
-                Pair("Marcar tus recetas", R.drawable.cooked_recipe_image),
+                Pair("Marca tus recetas", R.drawable.mark_your_recipe),
                 Pair("Puntúa tus recetas", R.drawable.rate_recipe),
                 Pair("Buscador de recetas", R.drawable.recipe_list_image),
                 Pair("¿Qué puedo cocinar?", R.drawable.input_ingredients),
-                Pair("Marcar tus recetas", R.drawable.cooked_recipe_image),
+                Pair("Marca tus recetas", R.drawable.mark_your_recipe),
                 Pair(" ", R.drawable.recipe_list_image),
             )
 
@@ -836,7 +840,7 @@ class HomeFragment : Fragment() {
         Column(
             horizontalAlignment = CenterHorizontally,
             modifier = Modifier
-                .padding(horizontal = 8.dp)
+                .padding(end = 8.dp)
                 .padding(top = 0.dp, bottom = 16.dp)
                 .width(110.dp)
                 .height(150.dp)
@@ -859,6 +863,9 @@ class HomeFragment : Fragment() {
                         contentDescription = null,
                         contentScale = Crop,
                         alpha = 0f,
+                        modifier = Modifier
+                            .size(80.dp)
+                            .clip(CircleShape)
                     )
                 } else {
                     Image(

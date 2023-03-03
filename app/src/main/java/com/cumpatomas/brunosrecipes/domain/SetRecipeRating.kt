@@ -12,6 +12,5 @@ class SetRecipeRating {
         val currentRatingFromLocalDB = dao.getLastRating(id)
         currentRatingFromLocalDB.rating = rating
         dao.insertRating(id = id, rating = currentRatingFromLocalDB.rating)
-
     }
 }

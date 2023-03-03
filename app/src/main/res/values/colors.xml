@@ -9,13 +9,13 @@
     <color name="white">#FFFFFFFF</color>
     <color name="light_green">#D4F3B4</color>
     <color name="mid_gray">#878787</color>
-    <color name="another_gray">#D8D7D7</color>
+    <color name="another_gray">#B1C6EF</color>
     <color name="dark_gray">#404040</color>
-    <color name="recipe_background">#F3F1F1</color>
+    <color name="recipe_background">#F2F5FB</color>
 
     <!--Theme custom-->
-    <color name="primaryColor">#6AB7FF</color>
-    <color name="primaryLightColor">#6ab7ff</color>
+    <color name="primaryColor">#79A5FB</color>
+    <color name="primaryLightColor">#79A5FB</color>
     <color name="primaryLightColor2">#7FBCF4</color>
     <color name="primaryDarkColor">#005cb2</color>
     <color name="secondaryColor">#59CCC0</color>

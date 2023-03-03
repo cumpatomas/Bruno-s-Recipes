@@ -11,6 +11,7 @@ class HistoryListAdapter: RecyclerView.Adapter<HistoryListViewHolder>() {
     private var historyList = mutableListOf<RecipesModel>()
 
     var onItemClickListener: (Int) -> Unit = {}
+    var deleteBtnonItemClickListener: (Int, String) -> Unit={ _, _ ->}
 
     fun setList(list: List<RecipesModel>) {
         historyList = list.toMutableList()
@@ -29,7 +30,7 @@ class HistoryListAdapter: RecyclerView.Adapter<HistoryListViewHolder>() {
 
     override fun onBindViewHolder(holder: HistoryListViewHolder, position: Int) {
         val item = historyList[position]
-        holder.display(item, onItemClickListener)
+        holder.display(item, onItemClickListener, deleteBtnonItemClickListener)
 
     }
 

@@ -9,7 +9,7 @@
     <color name="white">#DDDDDD</color>
     <color name="light_green">@color/primaryLightColor2</color>
     <color name="mid_gray">#9C9B9B</color>
-    <color name="another_gray">#939292</color>
+    <color name="another_gray">#93936F</color>
     <color name="dark_gray">#404040</color>
     <color name="recipe_background">#515151</color>
 

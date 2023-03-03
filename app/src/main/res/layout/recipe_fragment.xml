@@ -30,9 +30,9 @@
             android:layout_marginEnd="16dp"
             android:textAlignment="center"
             android:textColor="@color/black"
-            android:textSize="22sp"
+            android:textSize="26sp"
             android:textStyle="italic"
-            app:fontFamily="@font/marlin_sans"
+            app:fontFamily="@font/beautiful_people"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/ivRecipeImage" />
@@ -68,7 +68,11 @@
                 android:id="@+id/tvIngredientsPlaceholder"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:textColor="@color/primaryLightColor2"
                 android:text="Ingredientes:"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                app:fontFamily="@font/marlin_sans"
                 android:textAlignment="textStart"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -76,6 +80,8 @@
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/tvIngredients"
+                app:fontFamily="@font/marlin_sans"
+                android:textSize="15sp"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
@@ -103,7 +109,11 @@
                 android:id="@+id/tvCategoriesPlaceholder"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:textColor="@color/primaryLightColor2"
                 android:text="Categorias:"
+                app:fontFamily="@font/marlin_sans"
+                android:textStyle="bold"
+                android:textSize="16sp"
                 android:textAlignment="textStart"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -111,6 +121,8 @@
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/tvCategories"
+                app:fontFamily="@font/marlin_sans"
+                android:textSize="15sp"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:textColor="@color/black"
@@ -137,7 +149,11 @@
                 android:id="@+id/tvLastDatePlaceholder"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:textColor="@color/primaryLightColor2"
                 android:text="Cocinada por última vez:"
+                app:fontFamily="@font/marlin_sans"
+                android:textStyle="bold"
+                android:textSize="16sp"
                 android:textAlignment="textStart"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -145,6 +161,8 @@
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/tvLastDateText"
+                app:fontFamily="@font/marlin_sans"
+                android:textSize="15sp"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:textColor="@color/black"
@@ -171,7 +189,11 @@
                 android:id="@+id/tvPasosPlaceholder"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:textColor="@color/primaryLightColor2"
                 android:text="Pasos:"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                app:fontFamily="@font/marlin_sans"
                 android:textAlignment="textStart"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -179,11 +201,12 @@
 
             <TextView
                 android:id="@+id/tvPasosTexto"
+                android:textSize="15sp"
+                app:fontFamily="@font/marlin_sans"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:justificationMode="inter_word"
                 android:textColor="@color/black"
-                android:textStyle="italic"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -199,23 +222,28 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:layout_marginBottom="16dp"
+            android:textColor="@color/primaryLightColor2"
             android:text="Marca tu receta cada vez que la cocinas:"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            app:fontFamily="@font/marlin_sans"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/clPasosContainer" />
 
         <ImageButton
             android:id="@+id/btnMarkedAsCooked"
-            android:layout_width="45dp"
-            android:layout_height="45dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginBottom="16dp"
-            android:background="@drawable/chef_vector3_inverted"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:background="@drawable/cooked_icon_circle_bold"
+            android:backgroundTint="@color/superlightgreenbutton"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/tvProbada"
             app:layout_constraintTop_toBottomOf="@+id/clPasosContainer" />
-
+        <!--            -->
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

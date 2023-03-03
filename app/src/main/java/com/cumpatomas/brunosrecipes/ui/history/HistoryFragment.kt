@@ -13,7 +13,6 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.cumpatomas.brunosrecipes.R
 import com.cumpatomas.brunosrecipes.databinding.HistoryListFragmentBinding
-import com.cumpatomas.brunosrecipes.domain.SearchRecipesUseCase
 import com.cumpatomas.brunosrecipes.domain.model.RecipesModel
 import com.cumpatomas.brunosrecipes.ui.adapter.HistoryListAdapter
 import kotlinx.coroutines.flow.collectLatest
@@ -50,6 +49,13 @@ class HistoryFragment : Fragment() {
             val action = HistoryFragmentDirections.actionHistorialFragmentToRecipeFragment(id)
             findNavController().navigate(action)
         }
+
+        adapter.deleteBtnonItemClickListener = { id, date ->
+                viewModel.deleteRecipeFromList(id, date)
+        }
+
+
+
     }
 
     private fun initCollectors() {

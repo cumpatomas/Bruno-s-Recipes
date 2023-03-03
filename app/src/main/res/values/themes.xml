@@ -27,7 +27,7 @@
 
     <style name="RatingBarBig" parent="Widget.AppCompat.RatingBar.Indicator">
         <item name="ratingBarStyle">@style/Controls.RatingBarBig</item>
-        <item name="colorControlActivated">#59CCC0</item>
+        <item name="colorControlActivated">@color/light_green</item>
 
     </style>
 
