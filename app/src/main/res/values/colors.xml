@@ -3,7 +3,7 @@
     <color name="purple_200">#FFBB86FC</color>
     <color name="purple_500">#FF6200EE</color>
     <color name="purple_700">#FF3700B3</color>
-    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_200">#59CCC0</color>
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
@@ -25,7 +25,7 @@
     <color name="primaryTextColor">#000000</color>
     <color name="secondaryTextColor">#FFFFFF</color>
     <color name="superlightgray">#EBEAEA</color>
-    <color name="superlightred">#FAA1A1</color>
+    <color name="superlightred">#DA8B8B</color>
     <color name="superlightgreen">#59CCC0</color>
     <color name="superlightgreenbutton">#7FD896</color>
     <color name="primaryLightColorAlpha">#26555353</color>

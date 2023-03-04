@@ -1,9 +1,13 @@
 package com.cumpatomas.brunosrecipes.ui.history
 
+import android.content.pm.ActivityInfo
+import android.content.res.Configuration
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.compose.ui.unit.dp
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
@@ -53,6 +57,32 @@ class HistoryFragment : Fragment() {
         adapter.deleteBtnonItemClickListener = { id, date ->
                 viewModel.deleteRecipeFromList(id, date)
         }
+        when (resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) {
+            Configuration.UI_MODE_NIGHT_NO -> {
+
+                if(resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+                    binding.ivHistoryLandscapeBackground.isVisible = true
+                }
+
+            } // Night mode is not active, we're using the light theme
+            Configuration.UI_MODE_NIGHT_YES -> {
+                if(resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+                    binding.ivHistoryLandscapeBackgrounddark.isVisible = true
+                } else
+
+                binding.ivHistoryBackgroundDark.isVisible = true
+
+            } // Night mode is active, we're using dark theme
+        }
+/*
+        if(resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT) {
+
+            binding.ivHistoryBackground.isVisible = true
+            binding.ivHistoryLandscapeBackground.isVisible = false
+        } else {
+            binding.ivHistoryBackground.isVisible = false
+            binding.ivHistoryLandscapeBackground.isVisible = true
+        }*/
 
 
 

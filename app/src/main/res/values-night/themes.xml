@@ -3,7 +3,7 @@
     <style name="Theme.BrunosRecipes" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/light_green</item>
-        <item name="colorPrimaryVariant">#2C2C2C</item>
+        <item name="colorPrimaryVariant">#28649C</item>
         <item name="colorOnPrimary">@color/mid_gray</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/teal_200</item>

@@ -105,36 +105,57 @@ class InputComposeFragment : Fragment() {
             scaffoldState = scaffoldState,
         ) {
 
-            Column(horizontalAlignment = Alignment.CenterHorizontally,
-            modifier = Modifier.background(colorResource(id = R.color.superlightgray))) {
+
+            Column(
+                horizontalAlignment = Alignment.CenterHorizontally,
+                modifier = Modifier.background(colorResource(id = R.color.superlightgray))
+            ) {
+                Row(
+                    horizontalArrangement = Arrangement.Center,
+                    modifier = Modifier
+                        .background(colorResource(id = R.color.primaryLightColor))
+                        .fillMaxWidth()
+                ) {
+
+                    Text(
+                        text = "¿Qué cocino?",
+                        fontFamily = FontFamily(Font(R.font.beautiful_people)),
+                        textAlign = TextAlign.Center,
+                        color = colorResource(id = R.color.white),
+                        fontSize = 30.sp,
+                        modifier = Modifier
+                            .padding(bottom = 8.dp)
+                    )
+
+                }
 
                 Row(horizontalArrangement = Arrangement.Center) {
                     if (viewModel.posibleRecipesNumber.value == 1)
-                    Text(
-                        text =  "Hay ${viewModel.posibleRecipesNumber.value} receta posible!!",
-                        fontFamily = FontFamily(Font(R.font.marlin_sans)),
-                        textAlign = TextAlign.Center,
+                        Text(
+                            text = "Hay ${viewModel.posibleRecipesNumber.value} receta posible!!",
+                            fontFamily = FontFamily(Font(R.font.marlin_sans)),
+                            textAlign = TextAlign.Center,
 //                        fontWeight = FontWeight.Bold,
-                        fontSize = 20.sp,
-                        modifier = Modifier
-                            .padding(top = 8.dp)
-                    )
+                            fontSize = 20.sp,
+                            modifier = Modifier
+                                .padding(vertical = 8.dp)
+                        )
                     else if ((viewModel.posibleRecipesNumber.value > 1))
-                    Text(
-                        text =  "Hay ${viewModel.posibleRecipesNumber.value} recetas posibles!!",
-                        fontFamily = FontFamily(Font(R.font.marlin_sans)),
-                        textAlign = TextAlign.Center,
+                        Text(
+                            text = "Hay ${viewModel.posibleRecipesNumber.value} recetas posibles!!",
+                            fontFamily = FontFamily(Font(R.font.marlin_sans)),
+                            textAlign = TextAlign.Center,
 //                        fontWeight = FontWeight.Bold,
-                        fontSize = 20.sp,
-                        modifier = Modifier
-                            .padding(top = 8.dp)
-                    )
+                            fontSize = 20.sp,
+                            modifier = Modifier
+                                .padding(vertical = 8.dp)
+                        )
                     else {
-                       // no text
+                        // no text
                     }
 
                 }
-                Spacer(modifier = Modifier.height(8.dp))
+
 
                 if (viewModel.posibleRecipesNumber.value != 0) {
 
@@ -165,16 +186,18 @@ class InputComposeFragment : Fragment() {
                                 .padding(8.dp)
                         )
                     }
-                }
-                Row(horizontalArrangement = Arrangement.Center) {
-                    Text(
-                        text = stringResource(id = R.string.choose_ingredients),
-                        fontFamily = FontFamily(Font(R.font.marlin_sans)),
-                        textAlign = TextAlign.Center,
-                        fontSize = 18.sp,
-                        modifier = Modifier
-                            .padding(vertical = 4.dp)
-                    )
+                    Spacer(modifier = Modifier.height(8.dp))
+                } else {
+                    Row(horizontalArrangement = Arrangement.Center) {
+                        Text(
+                            text = stringResource(id = R.string.choose_ingredients),
+                            fontFamily = FontFamily(Font(R.font.marlin_sans)),
+                            textAlign = TextAlign.Center,
+                            fontSize = 18.sp,
+                            modifier = Modifier
+                                .padding(vertical = 8.dp)
+                        )
+                    }
                 }
                 if (loadingState.value) {
                     LoadingAnimation()
@@ -242,7 +265,7 @@ class InputComposeFragment : Fragment() {
                 ) {
 
                     Text(
-                        text = "Borrar Ingredientes Seleccionados",
+                        text = "Borrar Ingredientes",
                         fontStyle = FontStyle.Normal,
                         fontSize = 16.sp,
                         modifier = Modifier
@@ -272,11 +295,11 @@ class InputComposeFragment : Fragment() {
         Scaffold(
             modifier = Modifier
                 .fillMaxHeight(0.93f),
-            backgroundColor = Color.White,
+            backgroundColor = colorResource(id = R.color.white),
             floatingActionButton = {
-                BackFloatingActionButton(
+/*                BackFloatingActionButton(
                     modalSheetState
-                )
+                )*/
             },
         ) {
             LazyColumn(
@@ -310,7 +333,7 @@ class InputComposeFragment : Fragment() {
                                     findNavController().navigate(action)
                                 },
                             shape = RoundedCornerShape(8.dp),
-                            backgroundColor = colorResource(id = R.color.primaryLightColor2)
+                            backgroundColor = colorResource(id = R.color.primaryColor)
                         ) {
                             Row(verticalAlignment = CenterVertically) {
                                 Image(
@@ -357,6 +380,7 @@ class InputComposeFragment : Fragment() {
                 imageVector = Icons.Default.ArrowBack,
                 contentDescription = "Volver",
                 tint = Color.White
+            
             )
         }
     }
