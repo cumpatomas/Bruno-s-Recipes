@@ -214,22 +214,27 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="8.dp"
+            app:layout_constraintTop_toBottomOf="@+id/clPasosContainer">
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tvProbada"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
+            android:layout_marginStart="8dp"
             android:layout_marginTop="16dp"
             android:layout_marginBottom="16dp"
             android:textColor="@color/primaryLightColor2"
-            android:text="Marca tu receta cada vez que la cocinas:"
+            android:text="Marcar receta como cocinada"
             android:textSize="15sp"
             android:textStyle="bold"
             app:fontFamily="@font/marlin_sans"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/clPasosContainer" />
+             />
 
         <ImageButton
             android:id="@+id/btnMarkedAsCooked"
@@ -243,7 +248,9 @@
             android:backgroundTint="@color/superlightgreenbutton"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/tvProbada"
-            app:layout_constraintTop_toBottomOf="@+id/clPasosContainer" />
+            />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
         <!--            -->
 
     </androidx.constraintlayout.widget.ConstraintLayout>
