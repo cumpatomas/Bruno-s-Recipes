@@ -793,19 +793,21 @@ class HomeFragment : Fragment() {
                 if (visibleInfo.isEmpty()) -1
                 else {
                     //TODO: enhance calculate logic for specific position
-//                    val offset = (visibleInfo.last().index - visibleInfo.first().index) / 2
+//val offset = (visibleInfo.last().index - visibleInfo.first().index) / 2
                     visibleInfo.first().index + 1
                 }
             }
         }
         LazyRow(
             verticalAlignment = Alignment.Top,
+            horizontalArrangement = Arrangement.Center,
             state = lazyState,
             modifier = Modifier
                 .fillMaxWidth()
+
         ) {
 
-            val SratRowElementsTexts = listOf<Pair<String, Int>>(
+            val sratRowElementsTexts = listOf<Pair<String, Int>>(
                 Pair(" ", R.drawable.recipe_list_image),
                 Pair("Puntúa tus recetas", R.drawable.rate_recipe),
                 Pair("Buscador de recetas", R.drawable.recipe_list_image),
@@ -819,7 +821,7 @@ class HomeFragment : Fragment() {
             )
 
 
-            itemsIndexed(SratRowElementsTexts) { index, textAndImage ->
+            itemsIndexed(sratRowElementsTexts) { index, textAndImage ->
                 StartRowElement(
                     textAndImage.first,
                     textAndImage.second,
@@ -842,7 +844,7 @@ class HomeFragment : Fragment() {
             modifier = Modifier
                 .padding(end = 8.dp)
                 .padding(top = 0.dp, bottom = 16.dp)
-                .width(110.dp)
+                .width(120.dp)
                 .height(150.dp)
         ) {
 

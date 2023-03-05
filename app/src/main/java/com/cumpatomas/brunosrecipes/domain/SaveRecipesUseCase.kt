@@ -20,22 +20,35 @@ class SaveRecipesUseCase {
                 result.exception
             }
             is ResponseEvent.Success -> {
+                val localList = LocalDatabaseModule.db.getRecipesDao().getRecipesList()
+                val localListNames = localList.map { it.name }
                 val recipesList: List<RecipeModel> = result.data
                 val recipesListEntity: List<RecipeEntity> = recipesList.map { it.toEntity() }
                 if (preferences.isVirgin()) {
                     LocalDatabaseModule.db.getRecipesDao().insertRecipesList(recipesListEntity)
                     preferences.setIsNotVirgin()
                 } else {
-                    recipesList.map { recipeModel ->
-                        LocalDatabaseModule.db.getRecipesDao().updateRecipes(
-                            id = recipeModel.id.toIntOrNull() ?: 0,
-                            updatedCategory = recipeModel.category,
-                            updatedName = recipeModel.name.orEmpty(),
-                            updatedIngredients = recipeModel.ingredients.orEmpty(),
-                            updatedPhoto = recipeModel.photo.orEmpty(),
-                            updatedPasos = recipeModel.pasos
-                        )
+
+                    if (recipesListEntity.size != localList.size) {
+                        for (i in recipesListEntity) {
+                            if (i.name !in localListNames) {
+                                LocalDatabaseModule.db.getRecipesDao().insertRecipe(i)
+                            } else continue
+                        }
+
+                    } else {
+                        recipesList.map { recipeModel ->
+                            LocalDatabaseModule.db.getRecipesDao().updateRecipes(
+                                id = recipeModel.id.toIntOrNull() ?: 0,
+                                updatedCategory = recipeModel.category,
+                                updatedName = recipeModel.name.orEmpty(),
+                                updatedIngredients = recipeModel.ingredients.orEmpty(),
+                                updatedPhoto = recipeModel.photo.orEmpty(),
+                                updatedPasos = recipeModel.pasos
+                            )
+                        }
                     }
+
                 }
             }
         }

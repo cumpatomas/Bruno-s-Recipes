@@ -12,6 +12,9 @@ interface RecipesDao {
     @Insert
     suspend fun insertRecipesList(recipesList: List<RecipeEntity>)
 
+    @Insert
+    suspend fun insertRecipe(recipe: RecipeEntity)
+
     @Query("SELECT * FROM recipes_entity")
     suspend fun getRecipesList(): List<RecipeEntity>
 
