@@ -7,8 +7,40 @@
     <string name="search_recipes">Buscar recetas...</string>
     <string name="history_title">Has cocinado %1$s receta</string>
     <string name="history_title2">Has cocinado %1$s recetas</string>
-    <string name="havent_try">"Aún no has probado esta receta"</string>
-    <string name="welcome">"Bienvenid@! a las Recetas de Bruno"</string>
-    <string name="choose_ingredients">"Elige tus ingredientes"</string>
+    <string name="havent_try">Aún no has probado esta receta</string>
+    <string name="welcome">Bienvenid@! a las Recetas de Bruno</string>
+    <string name="choose_ingredients">Elige tus ingredientes</string>
+    <string name="your_best_rated_recipes">Tus recetas mejor valoradas</string>
+    <string name="lets_start">Comencemos!</string>
+    <string name="newest_recipes">Últimas recetas agregadas</string>
+    <string name="news">Noticias</string>
+    <string name="no_internet_conection">Sin conexión de red</string>
+    <string name="recipes_searcher">Buscador de recetas</string>
+    <string name="mark_your_recipes">Marca tus recetas</string>
+    <string name="rate_your_recipes">Puntúa tus recetas</string>
+    <string name="what_can_i_cook">¿Qué puedo cocinar?</string>
+    <string name="try_the_app">Prueba la app de</string>
+    <string name="for_free">gratis!</string>
+    <string name="read_dots">leer...</string>
+    <string name="go_back">Volver</string>
+    <string name="brunos_recipes_dashes">- Recetas de Bruno -</string>
+    <string name="no_conection_message">Ups parece que no hay conexión de red.
+
+Algunas de las funciones en la app pueden no estar disponibles.
+
+Verifica tu conexión.</string>
+    <string name="dont_know_what_to_cook">¿No sabes qué cocinar?
+
+En el Menú/¿qué cocino? podrás ingresar los ingredientes que tienes en casa y obtendrás un listado de posibles recetas.</string>
+    <string name="you_can_rate_your_recipes">Puedes puntuar las recetas dándoles estrellas.
+
+Luego podrás encontrar tus recetas mejor valoradas en la pantalla de inicio.</string>
+    <string name="you_can_mark_your_recipes">Puedes marcar tus recetas cada vez que las cocinas usando el botón verde.
+
+Luego en el Menú/Historial tendrás una lista con las recetas y las fechas en que fueron hechas.</string>
+    <string name="use_the_searchbar">Usa nuestro buscador de recetas en el Menú/lista.
+
+Puedes buscar por nombre y filtrar las recetas por categorías dulces, saladas, de verano o de invierno.</string>
+
 
 </resources>

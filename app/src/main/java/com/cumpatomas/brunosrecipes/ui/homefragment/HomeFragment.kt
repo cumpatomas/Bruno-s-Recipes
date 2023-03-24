@@ -34,6 +34,7 @@ import androidx.compose.ui.layout.ContentScale.Companion.Crop
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
@@ -122,11 +123,11 @@ class HomeFragment : Fragment() {
             TitleText()
 
             if (bestRecipesList.value.isNotEmpty()) {
-                HomeSection(title = "Tus recetas mejor valoradas") {
+                HomeSection(title = stringResource(id = R.string.your_best_rated_recipes)) {
                     BestRatedRecipes(bestRecipesList)
                 }
             } else {
-                HomeSection(title = "Comencemos!") {
+                HomeSection(title = stringResource(id = R.string.lets_start)) {
                     StartRow()
                 }
             }
@@ -140,7 +141,7 @@ class HomeFragment : Fragment() {
 
                 } else {
                     if (viewModel.isLoadingState.value) {
-                        HomeSection(title = "Últimas recetas agregadas") {
+                        HomeSection(title = stringResource(id = R.string.newest_recipes)) {
                             LoadingAnimation(
                                 circleColor = colorResource(id = R.color.secondaryColor),
                                 circleSize = 12.dp
@@ -148,7 +149,7 @@ class HomeFragment : Fragment() {
                         }
 
                     } else {
-                        HomeSection(title = "Últimas recetas agregadas") {
+                        HomeSection(title = stringResource(id = R.string.newest_recipes)) {
                             NewestRecipesRow(newsestRecipesList)
                         }
                     }
@@ -156,7 +157,7 @@ class HomeFragment : Fragment() {
 
             } else {
                 if (viewModel.isLoadingState.value) {
-                    HomeSection(title = "Últimas recetas agregadas") {
+                    HomeSection(title = stringResource(id = R.string.newest_recipes)) {
                         LoadingAnimation(
                             circleColor = colorResource(id = R.color.white),
                             circleSize = 12.dp
@@ -164,7 +165,7 @@ class HomeFragment : Fragment() {
                     }
 
                 } else {
-                    HomeSection(title = "Últimas recetas agregadas") {
+                    HomeSection(title = stringResource(id = R.string.newest_recipes)) {
                         NewestRecipesRow(newsestRecipesList)
                     }
                 }
@@ -172,7 +173,7 @@ class HomeFragment : Fragment() {
 
             Spacer(modifier = Modifier.height(24.dp))
             if (viewModel.isLoadingState.value) {
-                HomeSection(title = "Noticias") {
+                HomeSection(title = stringResource(id = R.string.news)) {
 
                     LoadingAnimation(
                         circleColor = colorResource(id = R.color.white),
@@ -181,7 +182,7 @@ class HomeFragment : Fragment() {
                 }
 
             } else {
-                HomeSection(title = "Noticias") {
+                HomeSection(title = stringResource(id = R.string.news)) {
                     NewsColumn(viewModel.newsList.value, internetStatus)
                 }
             }
@@ -189,7 +190,7 @@ class HomeFragment : Fragment() {
         if (viewModel.helpSurfaceState.value) {
             Column(
                 modifier = Modifier.fillMaxSize(),
-                horizontalAlignment = Alignment.CenterHorizontally,
+                horizontalAlignment = CenterHorizontally,
                 verticalArrangement = Arrangement.Center
             ) {
                 Row() {
@@ -225,7 +226,7 @@ class HomeFragment : Fragment() {
 
             Column(
                 modifier = Modifier.fillMaxSize(),
-                horizontalAlignment = Alignment.CenterHorizontally,
+                horizontalAlignment = CenterHorizontally,
                 verticalArrangement = Arrangement.Center
             ) {
                 Row() {
@@ -247,7 +248,7 @@ class HomeFragment : Fragment() {
                         ) {
                             HelpSurfaceCloseButton()
                         }*/
-                        HelpSurfaceItem("Sin conexión de red")
+                        HelpSurfaceItem(title = stringResource(id = R.string.no_internet_conection))
                     }
                 }
             }
@@ -257,8 +258,8 @@ class HomeFragment : Fragment() {
     private @Composable
     fun HelpSurfaceItem(title: String) {
         when (title) {
-            "Buscador de recetas" -> {
-                Column(horizontalAlignment = Alignment.CenterHorizontally) {
+            stringResource(id = R.string.recipes_searcher) -> {
+                Column(horizontalAlignment = CenterHorizontally) {
                     Text(
                         text = title,
                         fontSize = 25.sp,
@@ -268,8 +269,7 @@ class HomeFragment : Fragment() {
                         modifier = Modifier.padding(16.dp),
                     )
                     Text(
-                        text = "Usa nuestro buscador de recetas en el Menú/lista.\n\n" +
-                                "Puedes buscar por nombre y filtrar las recetas por categorías dulces, saladas, de verano o de invierno.",
+                        text = stringResource(id =R.string.use_the_searchbar),
                         fontSize = 16.sp,
                         fontFamily = FontFamily(Font(R.font.marlin_sans)),
                         textAlign = TextAlign.Center,
@@ -290,9 +290,9 @@ class HomeFragment : Fragment() {
 
 
             }
-            "Marca tus recetas" -> {
+            stringResource(id = R.string.mark_your_recipes) -> {
 
-                Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                Column(horizontalAlignment = CenterHorizontally) {
                     Text(
                         text = title,
                         fontSize = 25.sp,
@@ -302,8 +302,7 @@ class HomeFragment : Fragment() {
                         modifier = Modifier.padding(16.dp),
                     )
                     Text(
-                        text = "Puedes marcar tus recetas cada vez que las cocinas usando el botón verde.\n\n" +
-                                "Luego en el Menú/Historial tendrás una lista con las recetas y las fechas en que fueron hechas.",
+                        text = stringResource(id = R.string.you_can_mark_your_recipes),
                         fontSize = 16.sp,
                         fontFamily = FontFamily(Font(R.font.marlin_sans)),
                         textAlign = TextAlign.Center,
@@ -322,9 +321,9 @@ class HomeFragment : Fragment() {
                     )
                 }
             }
-            "Puntúa tus recetas" -> {
+            stringResource(id = R.string.rate_your_recipes) -> {
 
-                Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                Column(horizontalAlignment = CenterHorizontally) {
                     Text(
                         text = title,
                         fontSize = 25.sp,
@@ -334,8 +333,7 @@ class HomeFragment : Fragment() {
                         modifier = Modifier.padding(16.dp),
                     )
                     Text(
-                        text = "Puedes puntuar las recetas dándoles estrellas.\n\n" +
-                                "Luego podrás encontrar tus recetas mejor valoradas en la pantalla de inicio . ",
+                        text = stringResource(id = R.string.you_can_rate_your_recipes),
                         fontSize = 16.sp,
                         fontFamily = FontFamily(Font(R.font.marlin_sans)),
                         textAlign = TextAlign.Center,
@@ -354,9 +352,9 @@ class HomeFragment : Fragment() {
                     )
                 }
             }
-            "¿Qué puedo cocinar?" -> {
+            stringResource(id = R.string.what_can_i_cook) -> {
 
-                Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                Column(horizontalAlignment = CenterHorizontally) {
                     Text(
                         text = title,
                         fontSize = 25.sp,
@@ -366,8 +364,7 @@ class HomeFragment : Fragment() {
                         modifier = Modifier.padding(16.dp),
                     )
                     Text(
-                        text = "¿No sabes qué cocinar?\n\n" +
-                                "En el Menú/¿qué cocino? podrás ingresar los ingredientes que tienes en casa y obtendrás un listado de posibles recetas.",
+                        text = stringResource(id = R.string.dont_know_what_to_cook),
                         fontSize = 16.sp,
                         fontFamily = FontFamily(Font(R.font.marlin_sans)),
                         textAlign = TextAlign.Center,
@@ -387,9 +384,9 @@ class HomeFragment : Fragment() {
                 }
             }
 
-            "Sin conexión de red" -> {
+            stringResource(id = R.string.no_internet_conection) -> {
 
-                Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                Column(horizontalAlignment = CenterHorizontally) {
                     Text(
                         text = title,
                         fontSize = 25.sp,
@@ -399,7 +396,7 @@ class HomeFragment : Fragment() {
                         modifier = Modifier.padding(16.dp),
                     )
                     Text(
-                        text = "Ups parece que no hay conexión de red.\n\nAlgunas de las funciones en la app pueden no estar disponibles.\n\nVerifica tu conexión.",
+                        text = stringResource(id = R.string.no_conection_message),
                         fontSize = 16.sp,
                         fontFamily = FontFamily(Font(R.font.marlin_sans)),
                         textAlign = TextAlign.Center,
@@ -425,7 +422,7 @@ class HomeFragment : Fragment() {
     private @Composable
     fun TitleText() {
         Text(
-            text = "- Recetas de Bruno -",
+            text = stringResource(id = R.string.brunos_recipes_dashes),
             fontFamily = FontFamily(Font(R.font.beautiful_people)),
             color = colorResource(id = R.color.white),
             textAlign = TextAlign.Center,
@@ -518,7 +515,7 @@ class HomeFragment : Fragment() {
         {
             Icon(
                 imageVector = Icons.Default.Close,
-                contentDescription = "Volver",
+                contentDescription = stringResource(id = R.string.go_back),
                 tint = colorResource(id = R.color.white),
                 modifier = Modifier.padding(0.dp)
             )
@@ -544,7 +541,7 @@ class HomeFragment : Fragment() {
         {
             Icon(
                 imageVector = Icons.Default.Close,
-                contentDescription = "Volver",
+                contentDescription = stringResource(id = R.string.go_back),
                 tint = colorResource(id = R.color.white),
                 modifier = Modifier.padding(0.dp)
             )
@@ -606,7 +603,7 @@ class HomeFragment : Fragment() {
                     modifier = Modifier.padding(vertical = 8.dp)
                 ) {
                     Text(
-                        text = "Prueba la app de",
+                        text = stringResource(id = R.string.try_the_app),
                         fontFamily = FontFamily(Font(R.font.marlin_sans)),
                         color = colorResource(id = R.color.mid_gray),
                         textAlign = TextAlign.Center,
@@ -618,10 +615,10 @@ class HomeFragment : Fragment() {
                     )
                     Image(
                         painter = painterResource(id = R.drawable.yuka_logo),
-                        contentDescription = "Yuka",
+                        contentDescription = "Yuka Logo",
                     )
                     Text(
-                        text = "gratis!",
+                        text = stringResource(id = R.string.for_free),
                         fontFamily = FontFamily(Font(R.font.marlin_sans)),
                         color = colorResource(id = R.color.secondaryColor),
                         textAlign = TextAlign.Center,
@@ -716,7 +713,7 @@ class HomeFragment : Fragment() {
                 {
                     Icon(
                         imageVector = Icons.Default.Close,
-                        contentDescription = "Volver",
+                        contentDescription = stringResource(id = R.string.go_back),
                         tint = colorResource(id = R.color.white),
                         modifier = Modifier.padding(0.dp)
                     )
@@ -762,7 +759,7 @@ class HomeFragment : Fragment() {
                         .padding(top = 8.dp)
                 ) {
                     Text(
-                        text = "leer...",
+                        text = stringResource(id = R.string.read_dots),
                         fontFamily = FontFamily(Font(R.font.marlin_sans)),
                         color = colorResource(id = R.color.secondaryColor),
                         textAlign = TextAlign.Center,
@@ -842,7 +839,7 @@ class HomeFragment : Fragment() {
         Column(
             horizontalAlignment = CenterHorizontally,
             modifier = Modifier
-                .padding(end = 8.dp)
+                .padding(horizontal = 8.dp)
                 .padding(top = 0.dp, bottom = 16.dp)
                 .width(120.dp)
                 .height(150.dp)
@@ -898,6 +895,7 @@ class HomeFragment : Fragment() {
                 fontSize = if (expanded) 16.sp else 13.sp,
                 fontWeight = if (expanded) FontWeight.Bold else Normal,
                 modifier = Modifier
+                    .padding(horizontal = 4.dp)
                     .animateContentSize(
                         animationSpec = tween(
                             durationMillis = 400,
