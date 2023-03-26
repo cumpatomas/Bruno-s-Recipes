@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Brunos Recipes</string>
+    <string name="app_name">Real Food</string>
     <string name="menutitle">- Menu -</string>
     <string name="recipesTitle">- Recipes List -</string>
     <string name="randomTitle">- Random Recipe -</string>

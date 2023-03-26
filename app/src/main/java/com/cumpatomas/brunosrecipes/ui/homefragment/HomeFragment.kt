@@ -587,6 +587,7 @@ class HomeFragment : Fragment() {
         Card(
             elevation = 8.dp,
             shape = RoundedCornerShape(10.dp),
+            backgroundColor = colorResource(id = R.color.white),
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(horizontal = 8.dp)
