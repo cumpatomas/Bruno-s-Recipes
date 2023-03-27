@@ -601,6 +601,7 @@ class HomeFragment : Fragment() {
             else {
                 Row(
                     horizontalArrangement = Arrangement.Center,
+                    verticalAlignment = Alignment.CenterVertically,
                     modifier = Modifier.padding(vertical = 8.dp)
                 ) {
                     Text(

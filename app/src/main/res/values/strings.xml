@@ -1,14 +1,9 @@
 <resources>
-    <string name="app_name">Real Food</string>
-    <string name="menutitle">- Menu -</string>
-    <string name="recipesTitle">- Recipes List -</string>
-    <string name="randomTitle">- Random Recipe -</string>
-    <string name="recipes">Recetas</string>
+    <string name="app_name">Recetas de Bruno</string>
     <string name="search_recipes">Buscar recetas...</string>
     <string name="history_title">Has cocinado %1$s receta</string>
     <string name="history_title2">Has cocinado %1$s recetas</string>
     <string name="havent_try">Aún no has probado esta receta</string>
-    <string name="welcome">Bienvenid@! a las Recetas de Bruno</string>
     <string name="choose_ingredients">Elige tus ingredientes</string>
     <string name="your_best_rated_recipes">Tus recetas mejor valoradas</string>
     <string name="lets_start">Comencemos!</string>
@@ -24,6 +19,10 @@
     <string name="read_dots">leer...</string>
     <string name="go_back">Volver</string>
     <string name="brunos_recipes_dashes">- Recetas de Bruno -</string>
+    <string name="what_to_cook">¿Qué cocino?</string>
+    <string name="see_recipes">Ver Recetas</string>
+    <string name="clear_ingredients">Borrar Ingredientes</string>
+    <string name="you_can_cook">Puedes cocinar...</string>
     <string name="no_conection_message">Ups parece que no hay conexión de red.
 
 Algunas de las funciones en la app pueden no estar disponibles.

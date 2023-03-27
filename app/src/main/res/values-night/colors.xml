@@ -1,10 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="purple_200">#FFBB86FC</color>
-    <color name="purple_500">#FF6200EE</color>
-    <color name="purple_700">#FF3700B3</color>
     <color name="teal_200">#59CCC0</color>
-    <color name="teal_700">#FF018786</color>
     <color name="black">#FBF9F9</color>
     <color name="white">#DDDDDD</color>
     <color name="light_green">@color/primaryLightColor2</color>
@@ -17,17 +13,12 @@
     <color name="primaryColor">#104B81</color>
     <color name="primaryLightColor">#28649C</color>
     <color name="primaryLightColor2">#B8AA63</color>
-    <color name="primaryDarkColor">#005cb2</color>
     <color name="secondaryColor">#9F9043</color>
     <color name="secondaryLightColor">#9F9043</color>
-    <color name="secondaryDarkColor">#00b2cc</color>
     <color name="secondaryDarkColor2">#6A94BB</color>
-    <color name="primaryTextColor">#000000</color>
-    <color name="secondaryTextColor">#FFFFFF</color>
     <color name="superlightgray">#CAC9C9</color>
     <color name="superlightred">#D58A8A</color>
     <color name="superlightgreen">#CCBC6C</color>
     <color name="superlightgreenbutton">#71AC80</color>
-    <color name="primaryLightColorAlpha">#26555353</color>
 
 </resources>

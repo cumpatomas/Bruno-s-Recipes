@@ -19,8 +19,6 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.ChipDefaults.filterChipColors
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Alignment.Companion.CenterVertically
@@ -75,7 +73,6 @@ class InputComposeFragment : Fragment() {
                     sheetContent = {
                         PosibleRecipesListScreen(
                             possibleRecipeList,
-                            modalSheetState
                         )
                     },
                     content = {
@@ -118,7 +115,7 @@ class InputComposeFragment : Fragment() {
                 ) {
 
                     Text(
-                        text = "¿Qué cocino?",
+                        text = stringResource(id = R.string.what_to_cook),
                         fontFamily = FontFamily(Font(R.font.beautiful_people)),
                         textAlign = TextAlign.Center,
                         color = colorResource(id = R.color.white),
@@ -178,7 +175,7 @@ class InputComposeFragment : Fragment() {
                         enabled = viewModel.posibleRecipesNumber.value > 0
                     ) {
                         Text(
-                            text = "Ver Recetas",
+                            text = stringResource(id = R.string.see_recipes),
                             fontFamily = FontFamily(Font(R.font.marlin_sans)),
                             textAlign = TextAlign.Center,
                             fontSize = 16.sp,
@@ -265,7 +262,7 @@ class InputComposeFragment : Fragment() {
                 ) {
 
                     Text(
-                        text = "Borrar Ingredientes",
+                        text = stringResource(id = R.string.clear_ingredients),
                         fontStyle = FontStyle.Normal,
                         fontSize = 16.sp,
                         modifier = Modifier
@@ -285,12 +282,10 @@ class InputComposeFragment : Fragment() {
         viewModel.selectedIngredientsListState.value = true
     }
 
-    @OptIn(ExperimentalMaterialApi::class)
     @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
     @Composable
     fun PosibleRecipesListScreen(
         possibleRecipeList: MutableState<List<RecipesModel>>,
-        modalSheetState: ModalBottomSheetState
     ) {
         Scaffold(
             modifier = Modifier
@@ -310,7 +305,7 @@ class InputComposeFragment : Fragment() {
             ) {
                 item {
                     Text(
-                        text = "Puedes cocinar...",
+                        text = stringResource(id = R.string.you_can_cook),
                         modifier = Modifier.padding(8.dp),
                         fontFamily = FontFamily(Font(R.font.marlin_sans)),
                         textAlign = TextAlign.Center,
@@ -348,40 +343,19 @@ class InputComposeFragment : Fragment() {
                                 Text(
                                     text = recipe.name,
                                     modifier = Modifier.padding(8.dp),
-                                    fontFamily = FontFamily(Font(R.font.marlin_sans)),
-                                    textAlign = TextAlign.Center,
                                     fontSize = 18.sp,
-                                    color = Color.White
+                                    color = Color.White,
+                                    fontFamily = FontFamily(Font(R.font.marlin_sans)),
+                                    maxLines = 1
                                 )
                             }
                         }
-                        Spacer(modifier = Modifier.height(8.dp))
+                        Spacer(modifier = Modifier.height(16.dp))
                     }
 
                 }
 
             }
-        }
-    }
-
-    @OptIn(ExperimentalMaterialApi::class)
-    @Composable
-    fun BackFloatingActionButton(
-        modalSheetState: ModalBottomSheetState
-    ) {
-        val coroutineScope = rememberCoroutineScope()
-        FloatingActionButton(onClick = {
-            coroutineScope.launch {
-                modalSheetState.hide()
-            }
-        })
-        {
-            Icon(
-                imageVector = Icons.Default.ArrowBack,
-                contentDescription = "Volver",
-                tint = Color.White
-            
-            )
         }
     }
 
