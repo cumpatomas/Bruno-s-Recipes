@@ -217,38 +217,38 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
             android:padding="8.dp"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/clPasosContainer">
 
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/tvProbada"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginBottom="16dp"
-            android:textColor="@color/primaryLightColor2"
-            android:text="Marcar receta como cocinada"
-            android:textSize="15sp"
-            android:textStyle="bold"
-            app:fontFamily="@font/marlin_sans"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-             />
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tvProbada"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="16dp"
+                android:text="@string/mark_recipe_as_cooked"
+                android:textColor="@color/primaryLightColor2"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                app:fontFamily="@font/marlin_sans"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
 
-        <ImageButton
-            android:id="@+id/btnMarkedAsCooked"
-            android:layout_width="45dp"
-            android:layout_height="45dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp"
-            android:background="@drawable/cooked_icon_circle_bold"
-            android:backgroundTint="@color/superlightgreenbutton"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/tvProbada"
-            />
+            <ImageButton
+                android:id="@+id/btnMarkedAsCooked"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"
+                android:background="@drawable/cooked_icon_circle_bold"
+                android:backgroundTint="@color/superlightgreenbutton"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/tvProbada" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
         <!--            -->

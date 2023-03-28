@@ -1,9 +1,13 @@
 package com.cumpatomas.brunosrecipes.ui.recipeslist
 
+import android.graphics.Typeface.NORMAL
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.compose.ui.text.font.Typeface
+import androidx.compose.ui.unit.sp
+import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.isVisible
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
@@ -18,6 +22,7 @@ import com.cumpatomas.brunosrecipes.R
 import com.cumpatomas.brunosrecipes.core.ex.hideKeyboard
 import com.cumpatomas.brunosrecipes.databinding.RecipesListFragmentBinding
 import com.cumpatomas.brunosrecipes.domain.model.RecipesModel
+import com.cumpatomas.brunosrecipes.manualdi.ApplicationModule.applicationContext
 import com.cumpatomas.brunosrecipes.ui.adapter.RecipeListAdapter
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipDrawable
@@ -132,7 +137,10 @@ class RecipesListFragment : Fragment() {
             )
             val chip = Chip(requireContext())
             chip.setChipDrawable(chipDrawable)
+            chip.textSize = 16.0f
             chip.text = category
+            chip.typeface = android.graphics.Typeface.create(ResourcesCompat.getFont(applicationContext,R.font.marlin_sans),
+                NORMAL)
             binding.chipGroup.addView(chip)
         }
     }

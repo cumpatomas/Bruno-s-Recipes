@@ -40,6 +40,7 @@ Luego en el Menú/Historial tendrás una lista con las recetas y las fechas en q
     <string name="use_the_searchbar">Usa nuestro buscador de recetas en el Menú/lista.
 
 Puedes buscar por nombre y filtrar las recetas por categorías dulces, saladas, de verano o de invierno.</string>
+    <string name="mark_recipe_as_cooked">Marcar receta como cocinada</string>
 
 
 </resources>
