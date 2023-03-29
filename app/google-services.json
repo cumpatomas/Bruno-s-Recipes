@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "360315121683",
+    "project_id": "recetas-de-bruno",
+    "storage_bucket": "recetas-de-bruno.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:360315121683:android:5987ea34e4158490db8fe6",
+        "android_client_info": {
+          "package_name": "com.cumpatomas.brunosrecipes"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "360315121683-igo4t2tarsgogtsefk0jbbma1v7kepvj.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.cumpatomas.brunosrecipes",
+            "certificate_hash": "22cf202d7396a2f7f2e4e51e9936a952ea093ed6"
+          }
+        },
+        {
+          "client_id": "360315121683-pkh20e63sck5icle51rth97v7lilk59m.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA_42cvUlz1k5csXkG7k7t5ZQpGOws2nik"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "360315121683-pkh20e63sck5icle51rth97v7lilk59m.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

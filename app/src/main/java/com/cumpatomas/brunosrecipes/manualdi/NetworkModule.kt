@@ -16,7 +16,7 @@ object NetworkModule {
         return Retrofit.Builder()
             .addConverterFactory(GsonConverterFactory.create())
             .client(okHttpClient)
-            .baseUrl("https://run.mocky.io/v3/")
+            .baseUrl("https://recetas-de-bruno.web.app/")
             .build()
     }
 

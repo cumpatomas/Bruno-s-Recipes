@@ -5,8 +5,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.compose.ui.text.font.Typeface
-import androidx.compose.ui.unit.sp
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.isVisible
 import androidx.core.widget.addTextChangedListener
@@ -137,7 +135,7 @@ class RecipesListFragment : Fragment() {
             )
             val chip = Chip(requireContext())
             chip.setChipDrawable(chipDrawable)
-            chip.textSize = 16.0f
+            chip.textSize = 15.5f
             chip.text = category
             chip.typeface = android.graphics.Typeface.create(ResourcesCompat.getFont(applicationContext,R.font.marlin_sans),
                 NORMAL)
