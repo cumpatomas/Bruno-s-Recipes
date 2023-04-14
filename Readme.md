@@ -11,6 +11,7 @@ el usuario al puntuar una receta ya esta al tanto de cómo funciona la app. En c
 de todas las recetas volverá a aparecer el menú de ayuda.
 
 
+https://user-images.githubusercontent.com/102058754/231946102-1fb81bfb-30e1-46ed-95da-1e1c2845c86b.mp4
 
 
 
