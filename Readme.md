@@ -11,10 +11,11 @@ el usuario al puntuar una receta ya esta al tanto de cómo funciona la app. En c
 de todas las recetas volverá a aparecer el menú de ayuda.
 
 
+
 https://user-images.githubusercontent.com/102058754/231946102-1fb81bfb-30e1-46ed-95da-1e1c2845c86b.mp4
 
-Más abajo en la sección Noticias he utilizado la librería Jsoup para hacer scrapping de los títulos de los artículos de un blog público sobre nutrición
-siendo el orden aleatorio cada vez que se ingresa a la app.
+
+Más abajo en la sección Noticias he utilizado la librería Jsoup para hacer scrapping (en tiempo real) de los títulos de los artículos y el link de un blog público sobre nutrición haciendo el orden aleatorio cada vez que se ingresa a la app.
 Para desplegar la noticia utilicé un WebView con un Loading Animation hecho en Compose mientras carga la URL y un Close Button una vez cargada.
 
 
