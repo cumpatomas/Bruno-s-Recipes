@@ -1,24 +1,19 @@
 ## Recetas de Bruno
-Aplicación de recetas real food que ayudará al usuario a saber qué cocinar según los ingredientes que tiene en casa.
 
-Esta app fue diseñada primeramente en Views y XML pero al descubrir Jetpack Compose he hecho la migración de algunos 
-screens por lo que ha resultado en una app híbrida.
+This is a Real Food recipes app that will help the user to decide what to cook according to the ingredients he has at home.
 
-En la pantalla principal he implementado un scroll menu horizontal usando Lazy Row y magnificando el ítem central.
+This app was designed first in classical Views and XML style but later, after descovering the great framework JetPack Compose
+I migrated some of the screens to this wonderful new tool and ended up been a hybrid app.
 
-Este menú desaparecerá dando lugar a las recetas mejor valoradas. Lo hice para implementar un reactive menú suponiendo que 
-el usuario al puntuar una receta ya esta al tanto de cómo funciona la app. En caso de que quite la puntuación
-de todas las recetas volverá a aparecer el menú de ayuda.
+In the Home Screen I implemented a horizontal Help scroll menu using a Lazy Row and zooming the central main item to help the user understand the app main functions.
 
-
+This reactive menu will be replaced by the best rated recipes once the user puts rating stars to a recipe, suposing the user has already understood the app flow.
 
 https://user-images.githubusercontent.com/102058754/231946102-1fb81bfb-30e1-46ed-95da-1e1c2845c86b.mp4
 
+In the lower part of the Home Screen in the News Section I've used the Jsoup library to scrap in real time the articles titles and links. This content is from a public blog about nutrition and healthy food and the order of the titles is in a random mode.
 
-
-Más abajo en la sección Noticias he utilizado la librería Jsoup para hacer scrapping (en tiempo real) de los títulos de los artículos y el link de un blog público sobre nutrición haciendo el orden aleatorio cada vez que se ingresa a la app.
-Para desplegar la noticia utilicé un WebView con un Loading Animation hecho en Compose mientras carga la URL y un Close Button una vez cargada.
-
+For display the news I embebed a WebView surface with a loading animation and a close button to collapse the webview.
 
 https://user-images.githubusercontent.com/102058754/231947753-dc0c6eeb-8e60-464b-8168-ff5230f412e5.mp4
 
