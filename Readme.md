@@ -1,4 +1,5 @@
 ## Recetas de Bruno
+--------------------
 
 This is a Real Food recipes app that will help the users to decide what to cook according to the ingredients they have at home.
 
@@ -11,11 +12,15 @@ This reactive menu will be replaced by the best rated recipes once the user puts
 
 https://user-images.githubusercontent.com/102058754/231946102-1fb81bfb-30e1-46ed-95da-1e1c2845c86b.mp4
 
+--------------------
+
 In the lower part of the Home Screen in the News Section I've used the Jsoup library to scrap in real time the articles titles and links. This content is from a public blog about nutrition and healthy food and the order of the titles is in a random mode.
 
 For display the news I embebed a WebView surface with a loading animation and a close button to collapse the webview.
 
 https://user-images.githubusercontent.com/102058754/231947753-dc0c6eeb-8e60-464b-8168-ff5230f412e5.mp4
+
+--------------------
 
 In the second screen there is the main Recycler View with a Text Input to search recipes by name and below we have chip filters to sort recipes by category (summer, winter, salty or sweet). This screen was developed in classical views and XML style.
 
