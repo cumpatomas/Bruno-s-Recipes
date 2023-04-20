@@ -1,5 +1,4 @@
 ## Recetas de Bruno
---------------------
 
 This is a Real Food recipes app that will help the users to decide what to cook according to the ingredients they have at home.
 
@@ -24,15 +23,23 @@ https://user-images.githubusercontent.com/102058754/231947753-dc0c6eeb-8e60-464b
 
 In the second screen there is the main Recycler View with a Text Input to search recipes by name and below we have chip filters to sort recipes by category (summer, winter, salty or sweet). This screen was developed in classical views and XML style.
 
+
+https://user-images.githubusercontent.com/102058754/233264543-7fe1f5da-f0de-4af4-b1ab-34e3731cefdc.mp4
+
 --------------------
 
 The recipes information comes from a JSON file loaded in Firebase and I get it using Retrofit and saving the list in the local DB using Room creating an entity locally.
 
 Te recipe main screen has the photo from a link, a rating star (made in views), the ingredients, category and last date the recipe has been cooked. After the steps to cook the recipe I added a button to save in the local DB the actual date the disjh has been cooked. So then we have a History screen where we can find the recipes and the date it has been cooked listed in a Lazy Column in Compose.
 
+https://user-images.githubusercontent.com/102058754/233264700-4001be61-f940-45d3-b77c-8fea46b1a941.mp4
+
 ----------------------------
 
-Finally the last screen is the What to cook? section. Here the users can input the ingredients they have at home selecting from a sorted list of the ingredients we have captured from the recipes. Once the selected ingredients match a recipes a button will appear and pressing it will open the Bottom Drawer menu from below showing another Lazy Column with the recipes you can actually can cook.
+Finally the last screen is the What can I cook? section. Here the users can input the ingredients they have at home selecting from a sorted list of the ingredients we have captured from the recipes. Once the selected ingredients match a recipes a button will appear and pressing it will open the Bottom Drawer menu from below showing another Lazy Column with the recipes you can actually can cook.
+
+
+https://user-images.githubusercontent.com/102058754/233264961-48cf11bc-d9fc-452f-b250-b18e1a2af19a.mp4
 
 ----------------------------
 
