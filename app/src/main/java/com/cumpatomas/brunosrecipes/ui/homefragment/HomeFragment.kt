@@ -58,9 +58,11 @@ import com.cumpatomas.brunosrecipes.data.network.NetworkConnectivityObserver
 import com.cumpatomas.brunosrecipes.domain.model.NewsModel
 import com.cumpatomas.brunosrecipes.domain.model.RecipesModel
 import com.cumpatomas.brunosrecipes.manualdi.ApplicationModule.applicationContext
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
+@AndroidEntryPoint
 class HomeFragment : Fragment() {
 
     private lateinit var connectivityObserver: ConnectivityObserver

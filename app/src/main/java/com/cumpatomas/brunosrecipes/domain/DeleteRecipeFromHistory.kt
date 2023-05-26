@@ -1,11 +1,12 @@
 package com.cumpatomas.brunosrecipes.domain
 
 import com.cumpatomas.brunosrecipes.manualdi.LocalDatabaseModule
+import javax.inject.Inject
 
-class DeleteRecipeFromHistory {
+class DeleteRecipeFromHistory @Inject constructor(private val saveRecipesUseCase: SaveRecipesUseCase) {
 
     private val dao = LocalDatabaseModule.db.getRecipesDao()
-    val saveRecipesUseCase = SaveRecipesUseCase()
+//    val saveRecipesUseCase = SaveRecipesUseCase()
 
     suspend operator fun invoke(id: Int?, date: String) {
         val recipe = dao.getRecipeById(id)!!

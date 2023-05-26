@@ -8,10 +8,13 @@ import com.cumpatomas.brunosrecipes.data.network.RecipeService
 import com.cumpatomas.brunosrecipes.data.network.ResponseEvent
 import com.cumpatomas.brunosrecipes.data.network.model.RecipeModel
 import com.cumpatomas.brunosrecipes.manualdi.LocalDatabaseModule
+import javax.inject.Inject
+import javax.inject.Provider
 
-class SaveRecipesUseCase {
+class SaveRecipesUseCase @Inject constructor(private val provider: RecipeService) {
 
-    private val provider = RecipeService()
+/*    @Inject
+    lateinit var provider: RecipeService*/
     private val preferences = Preferences()
 
     suspend operator fun invoke() {

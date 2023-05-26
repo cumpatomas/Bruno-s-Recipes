@@ -17,10 +17,11 @@ import com.cumpatomas.brunosrecipes.R
 import com.cumpatomas.brunosrecipes.databinding.HistoryListFragmentBinding
 import com.cumpatomas.brunosrecipes.domain.model.RecipesModel
 import com.cumpatomas.brunosrecipes.ui.adapter.HistoryListAdapter
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
-
+@AndroidEntryPoint
 class HistoryFragment : Fragment() {
     private var _binding: HistoryListFragmentBinding? = null
     private val binding get() = _binding!!

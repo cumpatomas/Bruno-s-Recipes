@@ -24,9 +24,11 @@ import com.cumpatomas.brunosrecipes.manualdi.ApplicationModule.applicationContex
 import com.cumpatomas.brunosrecipes.ui.adapter.RecipeListAdapter
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipDrawable
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
+@AndroidEntryPoint
 class RecipesListFragment : Fragment() {
 
     private var _binding: RecipesListFragmentBinding? = null

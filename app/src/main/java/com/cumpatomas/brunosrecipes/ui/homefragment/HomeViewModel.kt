@@ -9,13 +9,17 @@ import com.cumpatomas.brunosrecipes.domain.ScrapNews
 import com.cumpatomas.brunosrecipes.domain.SearchRecipesUseCase
 import com.cumpatomas.brunosrecipes.domain.model.NewsModel
 import com.cumpatomas.brunosrecipes.domain.model.RecipesModel
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers.Default
 import kotlinx.coroutines.joinAll
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class HomeViewModel : ViewModel() {
-    val searchRecipesUseCase = SearchRecipesUseCase()
-    val saveRecipesUseCase = SaveRecipesUseCase()
+@HiltViewModel
+class HomeViewModel @Inject constructor(
+    private val searchRecipesUseCase: SearchRecipesUseCase,
+    private val saveRecipesUseCase: SaveRecipesUseCase
+) : ViewModel() {
 
     val newestRecipesList = mutableStateOf<List<RecipesModel>>(emptyList())
     val bestRatedRecipesList = mutableStateOf<List<RecipesModel>>(emptyList())

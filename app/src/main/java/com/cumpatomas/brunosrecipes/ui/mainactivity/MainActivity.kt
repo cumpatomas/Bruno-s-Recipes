@@ -15,7 +15,9 @@ import androidx.navigation.ui.*
 import com.cumpatomas.brunosrecipes.R
 import com.cumpatomas.brunosrecipes.databinding.ActivityMainBinding
 import com.cumpatomas.brunosrecipes.manualdi.ApplicationModule
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding

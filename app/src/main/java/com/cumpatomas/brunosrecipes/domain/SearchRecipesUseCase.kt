@@ -4,10 +4,11 @@ import com.cumpatomas.brunosrecipes.core.ex.unaccent
 import com.cumpatomas.brunosrecipes.domain.model.RecipesModel
 import com.cumpatomas.brunosrecipes.domain.model.toDomain
 import com.cumpatomas.brunosrecipes.manualdi.LocalDatabaseModule
+import javax.inject.Inject
 
 private const val EMPTY_STRING = ""
 
-class SearchRecipesUseCase {
+class SearchRecipesUseCase @Inject constructor(){
 
     suspend operator fun invoke(query: String = EMPTY_STRING): List<RecipesModel> {
         val recipesList: List<RecipesModel> =

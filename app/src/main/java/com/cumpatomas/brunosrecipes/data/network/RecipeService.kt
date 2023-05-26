@@ -2,10 +2,12 @@ package com.cumpatomas.brunosrecipes.data.network
 
 import com.cumpatomas.brunosrecipes.data.network.model.RecipeModel
 import com.cumpatomas.brunosrecipes.manualdi.NetworkModule
+import javax.inject.Inject
 
-class RecipeService {
 
-    private val retrofit = NetworkModule.retrofit.create(RecipesAPI::class.java)
+class RecipeService @Inject constructor(private val retrofit: RecipesAPI ) {
+
+//    private val retrofit = NetworkModule.retrofit.create(RecipesAPI::class.java)
 
     suspend fun getRecipes(): ResponseEvent<List<RecipeModel>> {
         return try {

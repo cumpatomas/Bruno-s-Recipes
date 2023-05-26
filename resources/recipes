@@ -222,7 +222,7 @@ Ahora es cuando viene el verdadero truco para elaborar la perfecta carbonara: cu
 }, {
     "category": ["Salado", "Verano", "Invierno"],
     "id": "13",
-    "ingredients": "masa filo, patata, atún, cebolla",
+    "ingredients": "masa filo, patatas, atún, cebolla",
     "name": "Samosas de patata y atún",
     "photo": "https://www.recetasderechupete.com/wp-content/uploads/2022/05/Samosas-antes-de-freir.jpg",
     "pasos": "
@@ -297,7 +297,7 @@ Si la presentación no importa, es momento de sumar las lentejas cocidas, el hue
 
       "category": ["Salado", "Verano"],
       "id": "19",
-      "ingredients": "bonito, patata, tomate, anchoas, judías",
+      "ingredients": "bonito, patatas, tomate, anchoas, judías",
       "name": "Ensalada de patata a la francesa",
       "photo": "https://i.blogs.es/6967aa/ensalada-judias/1366_2000.jpg",
       "pasos": "\r\n\r\n100 g de judías\r\n1/2 cucharadita de bicarbonato\r\n50 g de bonito en aceite de oliva\r\n100 g de patata de guarnición hervida\r\n50 g de tomate cherry\r\n30 g de aceituna negra sin hueso\r\n4 o 5 anchoas y 1 huevo duro\r\nPara la vinagreta:\r\n20 ml de vinagre de manzana\r\n60 ml de aceite de oliva virgen extra\r\n1 cucharadita de mostaza Dijon\r\n1 diente de ajo\r\npimienta negra y sal\r\n\r\n\r\nLavamos las judías y retiramos los extremos. Hervimos agua en una cacerola amplia y le añadimos el bicarbonato, cuando alcance el punto de ebullición, introducimos las judías en la cacerola y las dejamos unos 4 o 5 minutos. Las retiramos del agua y las introducimos en un recipiente con agua helada para cortar la cocción. Dejamos que se enfríen, las escurrimos, secamos y reservamos. Escurrimos el bonito y lo troceamos con las manos, en pedazos del tamaño que más nos guste. Cortamos las patatas en pequeños trozos, cortamos los tomates cherry y las aceitunas por la mitad y cortamos las anchoas en trozos pequeños. Mezclamos todos los ingredientes, excepto el huevo duro, que pelamos, troceamos en cuartos y reservamos, en un cuenco profundo y amplio. Emulsionamos todos los ingredientes d ela vinagreta y aliñamos."
@@ -373,7 +373,7 @@ Dejamos reposar 2 minutos para que se asienten los sabores.
 
       "category": ["Salado", "Invierno"],
       "id": "25",
-      "ingredients": "berenjena, cebolla, zanahoria, carne picada, huevo, patata, salsa de tomate, queso ",
+      "ingredients": "berenjena, cebolla, zanahoria, carne picada, huevo, patatas, salsa de tomate, queso ",
       "name": "Musaka",
       "photo": "https://i.blogs.es/7017f1/musaka/1366_2000.jpg",
       "pasos": "
@@ -447,7 +447,7 @@ Incorpora el atún desmenuzado y los macarrones escurridos a la cazuela de la sa
 
       "category": ["Salado", "Invierno"],
       "id": "27",
-      "ingredients": "jamón serrano, cebolletas, huevo, harina, espinacas, nata",
+      "ingredients": "jamón serrano, cebolletas, huevo, harina, espinaca, nata",
       "name": "Ñoquis de espinacas con jamón",
       "photo": "https://recetasnuestras.com/recetas/pics/40.jpg",
       "pasos": "
@@ -661,5 +661,60 @@ Hornear a 180ºC durante 10 minutos.
 
 "
 
+    } , {
+
+      "category": ["Salado", "Invierno", "Verano"],
+      "id": "34",
+      "ingredients": "guisantes, tahini, limón",
+      "name": "Humus de guisantes",
+      "photo": "https://imag.bonviveur.com/foto-de-la-portada-del-hummus-de-guisantes.webp",
+      "pasos": "
+
+400 g de guisantes frescos desgranados
+2 cucharadas de tahini tostado
+1 cucharadita de comino molido
+1/2 limón
+1 diente de ajo
+10 g de cilantro fresco
+aceite de oliva virgen extra
+sal
+1 cucharada de semillas de sésamo (tostado)
+
+Cuece los guisantes al vapor durante 5 minutos. Reserva el agua de la vaporera por si acaso hay que agregar un poco a la hora de tritúralos.
+
+Pasa los guisantes al vaso americano, agrega el tahini, el comino, el zumo del medio limón, el diente de ajo, las hojas de cilantro, 100/150 ml del agua de la cocción de los guisantes y una pizca de sal. Tritura los ingredientes hasta conseguir una crema homogénea.
+
+Reparte el hummus en 4 platos o recipientes, salpícalos con el sésamo tostado y riégalos con un chorrito de aceite. Acompaña el hummus de guisantes con los bastones de zanahoria y las tostadas de pan
+
+"
+
+    } , {
+
+      "category": ["Salado", "Invierno", "Verano"],
+      "id": "35",
+      "ingredients": "brócoli, queso, masa brisa",
+      "name": "Tarta de brócoli y queso",
+      "photo": "https://www.unileverfoodsolutions.com.ar/dam/global-ufs/mcos/sla/argentina/calcmenu/recipes/AR-recipes/In-Development/tarta-de-br%C3%B3coli/main-header.jpg",
+      "pasos": "
+
+1 lámina de pasta brisa (redonda)
+1 brócoli pequeño (300 g)
+4 huevos
+1 cebolla
+200 g de queso azul
+200 ml de leche
+aceite de oliva virgen extra
+sal
+pimienta
+
+Cubre un molde de silicona con la lámina de pasta brisa. Calienta 2 cucharadas de aceite en una sartén. Pela la cebolla, córtala en daditos, agrégala a la sartén y rehógala durante 6-8 minutos. Trocea el queso, añádelo y mezcla bien hasta que el queso se funda.
+
+Calienta agua en un cazo. Suelta el brócoli en ramilletes pequeños, añádelos al cazo, sazona y cuécelos durante 2-3 minutos. Retira y escúrrelos sobre un plato cubierto con papel absorbente de cocina.
+
+Pon los huevos en un bol, salpimienta y bátelos bien. Agrega la leche y la cebolla con el queso, y mezcla bien. Distribuye el brócoli sobre la tartaleta horneada, vierte encima la mezcla de huevo, cebolla y queso, introdúcela de nuevo en el horno, y hornéala a 180º durante 20 minutos.
+
+"
+
     }
+
 ]

@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.cumpatomas.brunosrecipes.domain.SaveRecipesUseCase
 import com.cumpatomas.brunosrecipes.domain.SearchRecipesUseCase
 import com.cumpatomas.brunosrecipes.domain.model.RecipesModel
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.channels.Channel
@@ -12,12 +13,13 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-
-class RecipesListViewModel : ViewModel() {
+@HiltViewModel
+class RecipesListViewModel @Inject constructor(private val saveRecipesUseCase: SaveRecipesUseCase) : ViewModel() {
 
     private val searchRecipesUseCase = SearchRecipesUseCase()
-    private val saveRecipesUseCase = SaveRecipesUseCase()
+//    private val saveRecipesUseCase = SaveRecipesUseCase()
 
     // Declaramos el Estado de la Vista para actualizar
     private val _viewState = Channel<RecipesListViewState>()

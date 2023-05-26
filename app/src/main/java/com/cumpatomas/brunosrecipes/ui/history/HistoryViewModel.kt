@@ -5,15 +5,18 @@ import androidx.lifecycle.viewModelScope
 import com.cumpatomas.brunosrecipes.domain.GetTimesRecipesHaveBeenCooked
 import com.cumpatomas.brunosrecipes.domain.DeleteRecipeFromHistory
 import com.cumpatomas.brunosrecipes.domain.model.RecipesModel
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class HistoryViewModel : ViewModel() {
+@HiltViewModel
+class HistoryViewModel @Inject constructor(private val deleteRecipeFromHistory: DeleteRecipeFromHistory) : ViewModel() {
 
     private val getTimesRecipesHaveBeenCooked = GetTimesRecipesHaveBeenCooked()
-    private val deleteRecipeFromHistory = DeleteRecipeFromHistory()
+//    private val deleteRecipeFromHistory = DeleteRecipeFromHistory()
 
     private val _recipesCooked = MutableStateFlow<List<RecipesModel>>(emptyList())
     val recipesCooked = _recipesCooked.asStateFlow()
