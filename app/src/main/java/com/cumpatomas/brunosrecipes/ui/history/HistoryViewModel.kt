@@ -13,10 +13,10 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class HistoryViewModel @Inject constructor(private val deleteRecipeFromHistory: DeleteRecipeFromHistory) : ViewModel() {
-
-    private val getTimesRecipesHaveBeenCooked = GetTimesRecipesHaveBeenCooked()
-//    private val deleteRecipeFromHistory = DeleteRecipeFromHistory()
+class HistoryViewModel @Inject constructor(
+    private val deleteRecipeFromHistory: DeleteRecipeFromHistory,
+   private val getTimesRecipesHaveBeenCooked : GetTimesRecipesHaveBeenCooked
+    ) : ViewModel() {
 
     private val _recipesCooked = MutableStateFlow<List<RecipesModel>>(emptyList())
     val recipesCooked = _recipesCooked.asStateFlow()

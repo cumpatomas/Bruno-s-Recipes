@@ -4,6 +4,7 @@ import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.bumptech.glide.Glide.init
 import com.cumpatomas.brunosrecipes.domain.SaveRecipesUseCase
 import com.cumpatomas.brunosrecipes.domain.ScrapNews
 import com.cumpatomas.brunosrecipes.domain.SearchRecipesUseCase
@@ -18,13 +19,13 @@ import javax.inject.Inject
 @HiltViewModel
 class HomeViewModel @Inject constructor(
     private val searchRecipesUseCase: SearchRecipesUseCase,
-    private val saveRecipesUseCase: SaveRecipesUseCase
+    private val saveRecipesUseCase: SaveRecipesUseCase,
+    private val scrapNews: ScrapNews,
 ) : ViewModel() {
 
     val newestRecipesList = mutableStateOf<List<RecipesModel>>(emptyList())
     val bestRatedRecipesList = mutableStateOf<List<RecipesModel>>(emptyList())
     val isLoadingState: MutableState<Boolean> = mutableStateOf(true)
-    val scrapNews = ScrapNews()
     val newsList = mutableStateOf<List<NewsModel>>(emptyList())
     val helpSurfaceState = mutableStateOf(false)
     var helpSurfaceText: String? = null

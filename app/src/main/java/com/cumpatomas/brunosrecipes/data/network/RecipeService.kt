@@ -11,7 +11,7 @@ class RecipeService @Inject constructor(private val retrofit: RecipesAPI ) {
 
     suspend fun getRecipes(): ResponseEvent<List<RecipeModel>> {
         return try {
-//            val response = retrofit.getRecipes("4d513b46-b153-43c5-bd6e-9eed3859aa52") // old Mocky
+//val response = retrofit.getRecipes("4d513b46-b153-43c5-bd6e-9eed3859aa52") // old Mocky
 val response = retrofit.getRecipes("recipes")
             if (response.isSuccessful) {
                 response.body()?.let { recipeList ->

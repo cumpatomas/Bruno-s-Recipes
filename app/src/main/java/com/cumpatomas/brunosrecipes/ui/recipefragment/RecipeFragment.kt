@@ -20,10 +20,13 @@ import com.cumpatomas.brunosrecipes.databinding.RecipeFragmentBinding
 import com.cumpatomas.brunosrecipes.domain.model.RecipesModel
 import com.cumpatomas.brunosrecipes.ui.adapter.HistoryListAdapter
 import com.cumpatomas.brunosrecipes.ui.history.HistoryFragment
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
+
+@AndroidEntryPoint
 class RecipeFragment : Fragment() {
 
     private var _binding: RecipeFragmentBinding? = null

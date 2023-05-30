@@ -1,6 +1,7 @@
 package com.cumpatomas.brunosrecipes.domain
 
 import android.annotation.SuppressLint
+import com.cumpatomas.brunosrecipes.data.localdb.NewsDao
 import com.cumpatomas.brunosrecipes.data.localdb.entities.NewsEntity
 import com.cumpatomas.brunosrecipes.data.localdb.entities.toEntity
 import com.cumpatomas.brunosrecipes.domain.model.NewsModel
@@ -8,8 +9,9 @@ import com.cumpatomas.brunosrecipes.domain.model.toDomain
 import com.cumpatomas.brunosrecipes.manualdi.LocalDatabaseModule
 import kotlinx.coroutines.coroutineScope
 import org.jsoup.Jsoup
+import javax.inject.Inject
 
-class ScrapNews {
+class ScrapNews@Inject constructor(private val newsDao: NewsDao) {
 
     @SuppressLint("SuspiciousIndentation")
     suspend operator fun invoke(): List<NewsModel>{
@@ -34,8 +36,8 @@ class ScrapNews {
                 }
             }
             val newsListEntity: List<NewsEntity> = newsList.map { it.toEntity() }
-            LocalDatabaseModule.db.getNewsDao().insertNews(newsListEntity)
-            val outputList = LocalDatabaseModule.db.getNewsDao().getNewsList().map { it.toDomain() }
+            newsDao.insertNews(newsListEntity)
+            val outputList = newsDao.getNewsList().map { it.toDomain() }
 
             return outputList.shuffled()
 

@@ -38,14 +38,17 @@ import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.fragment.findNavController
 import coil.compose.rememberAsyncImagePainter
 import com.cumpatomas.brunosrecipes.R
 import com.cumpatomas.brunosrecipes.components.LoadingAnimation
 import com.cumpatomas.brunosrecipes.domain.model.RecipesModel
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
+@AndroidEntryPoint
 class InputComposeFragment : Fragment() {
 
     @OptIn(ExperimentalMaterialApi::class)
@@ -59,7 +62,7 @@ class InputComposeFragment : Fragment() {
 
             setContent {
 
-                val viewModel = viewModel<InputComposeViewModel>()
+                val viewModel: InputComposeViewModel by viewModels()
                 val possibleRecipeList = viewModel.posibleRecipesList
                 val modalSheetState = rememberModalBottomSheetState(
                     initialValue = ModalBottomSheetValue.Hidden,
@@ -101,8 +104,6 @@ class InputComposeFragment : Fragment() {
         Scaffold(
             scaffoldState = scaffoldState,
         ) {
-
-
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally,
                 modifier = Modifier.background(colorResource(id = R.color.superlightgray))

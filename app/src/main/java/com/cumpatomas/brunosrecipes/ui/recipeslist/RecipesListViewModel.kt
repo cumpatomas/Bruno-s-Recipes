@@ -16,10 +16,11 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class RecipesListViewModel @Inject constructor(private val saveRecipesUseCase: SaveRecipesUseCase) : ViewModel() {
+class RecipesListViewModel @Inject constructor(
+    private val saveRecipesUseCase: SaveRecipesUseCase,
+    private val searchRecipesUseCase: SearchRecipesUseCase,
+    ) : ViewModel() {
 
-    private val searchRecipesUseCase = SearchRecipesUseCase()
-//    private val saveRecipesUseCase = SaveRecipesUseCase()
 
     // Declaramos el Estado de la Vista para actualizar
     private val _viewState = Channel<RecipesListViewState>()

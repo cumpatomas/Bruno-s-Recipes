@@ -1,12 +1,12 @@
 package com.cumpatomas.brunosrecipes.domain
 
+import com.cumpatomas.brunosrecipes.data.localdb.RecipesDao
 import com.cumpatomas.brunosrecipes.manualdi.LocalDatabaseModule
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
+import javax.inject.Inject
 
-class MarkRecipeCookedUseCase {
-
-    private val dao = LocalDatabaseModule.db.getRecipesDao()
+class MarkRecipeCookedUseCase@Inject constructor(private val dao: RecipesDao) {
 
     suspend operator fun invoke(id: Int?) {
         id ?: return

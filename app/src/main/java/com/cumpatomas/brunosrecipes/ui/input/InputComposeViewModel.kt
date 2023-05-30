@@ -6,16 +6,20 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.cumpatomas.brunosrecipes.domain.SearchRecipesUseCase
 import com.cumpatomas.brunosrecipes.domain.model.RecipesModel
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class InputComposeViewModel : ViewModel() {
+@HiltViewModel
+class InputComposeViewModel@Inject constructor(
+    private val searchRecipesUseCase: SearchRecipesUseCase
+) : ViewModel() {
 
     val selectedIngredientsList = mutableListOf<String>()
     val selectedIngredientsListState = mutableStateOf(true)
     val posibleRecipesNumber = mutableStateOf<Int>(0)
     var posibleRecipesList = mutableStateOf<List<RecipesModel>>(emptyList())
-    private val searchRecipesUseCase = SearchRecipesUseCase()
     val isLoadingState: MutableState<Boolean> = mutableStateOf(true)
     val ingredientsList: MutableState<List<String>> = mutableStateOf(emptyList())
 

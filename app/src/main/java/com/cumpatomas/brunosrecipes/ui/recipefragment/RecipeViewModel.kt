@@ -10,27 +10,26 @@ import com.cumpatomas.brunosrecipes.domain.SetRecipeRating
 import com.cumpatomas.brunosrecipes.domain.model.RecipesModel
 import com.cumpatomas.brunosrecipes.manualdi.LocalDatabaseModule
 import com.cumpatomas.brunosrecipes.ui.adapter.HistoryListAdapter
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import okhttp3.Interceptor.Companion.invoke
+import javax.inject.Inject
 
-
-class RecipeViewModel : ViewModel() {
-
-    private val getRecipeById = GetRecipeById()
-    private val markRecipeCookedUseCase = MarkRecipeCookedUseCase()
-    private val setRecipeRating = SetRecipeRating()
-
+@HiltViewModel
+class RecipeViewModel@Inject constructor(
+    private val getRecipeById : GetRecipeById,
+    private val markRecipeCookedUseCase : MarkRecipeCookedUseCase,
+    private val setRecipeRating : SetRecipeRating
+) : ViewModel() {
 
     var id: Int? = null
         private set
 
     private val _recipe = MutableStateFlow<RecipesModel?>(null)
     val recipe = _recipe.asStateFlow()
-
-
     fun setRecipeRating(stars: Float) {
 
         viewModelScope.launch {
@@ -38,17 +37,13 @@ class RecipeViewModel : ViewModel() {
             _recipe.value = getRecipeById.invoke(this@RecipeViewModel.id)
 
         }
-
-
     }
-
 
     fun receiveArguments(id: Int) {
         this.id = id
         viewModelScope.launch {
             _recipe.value = getRecipeById.invoke(this@RecipeViewModel.id)
         }
-
     }
 
     fun markRecipeAsCooked() {
