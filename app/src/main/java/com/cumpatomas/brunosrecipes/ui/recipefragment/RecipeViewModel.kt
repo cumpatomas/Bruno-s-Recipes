@@ -2,20 +2,14 @@ package com.cumpatomas.brunosrecipes.ui.recipefragment
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.cumpatomas.brunosrecipes.data.network.model.RecipeModel
 import com.cumpatomas.brunosrecipes.domain.GetRecipeById
 import com.cumpatomas.brunosrecipes.domain.MarkRecipeCookedUseCase
-import com.cumpatomas.brunosrecipes.domain.SearchRecipesUseCase
 import com.cumpatomas.brunosrecipes.domain.SetRecipeRating
 import com.cumpatomas.brunosrecipes.domain.model.RecipesModel
-import com.cumpatomas.brunosrecipes.manualdi.LocalDatabaseModule
-import com.cumpatomas.brunosrecipes.ui.adapter.HistoryListAdapter
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
-import okhttp3.Interceptor.Companion.invoke
 import javax.inject.Inject
 
 @HiltViewModel

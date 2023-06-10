@@ -3,7 +3,6 @@ package com.cumpatomas.brunosrecipes.domain
 import com.cumpatomas.brunosrecipes.data.localdb.RecipesDao
 import com.cumpatomas.brunosrecipes.domain.model.RecipesModel
 import com.cumpatomas.brunosrecipes.domain.model.toDomain
-import com.cumpatomas.brunosrecipes.manualdi.LocalDatabaseModule
 import kotlinx.coroutines.flow.channelFlow
 import kotlinx.coroutines.flow.collectLatest
 import javax.inject.Inject

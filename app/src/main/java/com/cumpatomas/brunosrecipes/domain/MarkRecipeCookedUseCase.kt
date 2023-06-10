@@ -1,7 +1,6 @@
 package com.cumpatomas.brunosrecipes.domain
 
 import com.cumpatomas.brunosrecipes.data.localdb.RecipesDao
-import com.cumpatomas.brunosrecipes.manualdi.LocalDatabaseModule
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import javax.inject.Inject

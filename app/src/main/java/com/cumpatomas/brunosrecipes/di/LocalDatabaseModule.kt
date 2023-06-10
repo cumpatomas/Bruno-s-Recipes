@@ -1,9 +1,10 @@
-package com.cumpatomas.brunosrecipes.manualdi
+package com.cumpatomas.brunosrecipes.di
 
 import androidx.room.Room
 import com.cumpatomas.brunosrecipes.data.localdb.LocalDatabase
 import com.cumpatomas.brunosrecipes.data.localdb.NewsDao
 import com.cumpatomas.brunosrecipes.data.localdb.RecipesDao
+import com.cumpatomas.brunosrecipes.manualdi.ApplicationModule
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

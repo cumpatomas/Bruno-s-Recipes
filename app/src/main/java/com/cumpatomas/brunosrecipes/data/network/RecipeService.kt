@@ -1,7 +1,6 @@
 package com.cumpatomas.brunosrecipes.data.network
 
 import com.cumpatomas.brunosrecipes.data.network.model.RecipeModel
-import com.cumpatomas.brunosrecipes.manualdi.NetworkModule
 import javax.inject.Inject
 
 

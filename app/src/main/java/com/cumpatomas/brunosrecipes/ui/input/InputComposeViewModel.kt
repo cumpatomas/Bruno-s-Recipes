@@ -45,6 +45,7 @@ class InputComposeViewModel@Inject constructor(
 
     fun selectedIngredients(ingredient: String) {
 
+
         if (ingredient in selectedIngredientsList) {
             selectedIngredientsList.remove(ingredient)
         } else {

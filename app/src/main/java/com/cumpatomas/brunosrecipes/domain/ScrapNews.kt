@@ -6,7 +6,6 @@ import com.cumpatomas.brunosrecipes.data.localdb.entities.NewsEntity
 import com.cumpatomas.brunosrecipes.data.localdb.entities.toEntity
 import com.cumpatomas.brunosrecipes.domain.model.NewsModel
 import com.cumpatomas.brunosrecipes.domain.model.toDomain
-import com.cumpatomas.brunosrecipes.manualdi.LocalDatabaseModule
 import kotlinx.coroutines.coroutineScope
 import org.jsoup.Jsoup
 import javax.inject.Inject

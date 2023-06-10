@@ -4,7 +4,6 @@ import com.cumpatomas.brunosrecipes.core.ex.unaccent
 import com.cumpatomas.brunosrecipes.data.localdb.RecipesDao
 import com.cumpatomas.brunosrecipes.domain.model.RecipesModel
 import com.cumpatomas.brunosrecipes.domain.model.toDomain
-import com.cumpatomas.brunosrecipes.manualdi.LocalDatabaseModule
 import javax.inject.Inject
 
 private const val EMPTY_STRING = ""
