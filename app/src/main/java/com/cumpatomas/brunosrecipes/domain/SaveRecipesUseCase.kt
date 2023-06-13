@@ -12,13 +12,14 @@ import javax.inject.Inject
 
 class SaveRecipesUseCase @Inject constructor(
     private val provider: RecipeService,
-    private val recipesDao: RecipesDao
+    private val recipesDao: RecipesDao,
+    private val preferences: Preferences
 
     ) {
 
 /*    @Inject
     lateinit var provider: RecipeService*/
-    private val preferences = Preferences()
+    //private val preferences = Preferences()
 
     suspend operator fun invoke() {
         when(val result = provider.getRecipes()) {

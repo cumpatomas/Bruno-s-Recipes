@@ -2,8 +2,9 @@ package com.cumpatomas.brunosrecipes.data.localdb
 
 import android.content.Context
 import com.cumpatomas.brunosrecipes.manualdi.ApplicationModule
+import javax.inject.Inject
 
-class Preferences {
+class Preferences @Inject constructor() {
 
     private val sharedPreferences = ApplicationModule.applicationContext.getSharedPreferences("local_preferences", Context.MODE_PRIVATE)
 

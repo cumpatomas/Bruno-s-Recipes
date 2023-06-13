@@ -10,10 +10,9 @@ import kotlinx.coroutines.coroutineScope
 import org.jsoup.Jsoup
 import javax.inject.Inject
 
-class ScrapNews@Inject constructor(private val newsDao: NewsDao) {
+class ScrapNews @Inject constructor(private val newsDao: NewsDao) {
 
-    @SuppressLint("SuspiciousIndentation")
-    suspend operator fun invoke(): List<NewsModel>{
+    suspend operator fun invoke(): List<NewsModel> {
         val newsList = mutableListOf<NewsModel>()
 
         try {
