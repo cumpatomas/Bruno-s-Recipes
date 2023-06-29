@@ -64,7 +64,6 @@ import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class HomeFragment : Fragment() {
-
     private lateinit var connectivityObserver: ConnectivityObserver
 
     override fun onCreateView(
@@ -86,7 +85,6 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         view.findViewById<ComposeView>(R.id.composeView).setContent {
-
             val internetStatus by connectivityObserver.observe().collectAsState(
                 initial = ConnectivityObserver.Status.Unavailable
             )
@@ -95,7 +93,7 @@ class HomeFragment : Fragment() {
             lifecycleScope.launch {
                 repeatOnLifecycle(Lifecycle.State.CREATED) {
                     connectivityObserver = NetworkConnectivityObserver(applicationContext)
-                    viewModel.getRecipes()
+                    viewModel.getBestRatedRecipes()
                     viewModel.closeNewsCard()
                     viewModel.getNews()
                     viewModel.helpSurfaceState.value = false
@@ -121,7 +119,6 @@ class HomeFragment : Fragment() {
                 .padding(horizontal = 0.dp)
                 .verticalScroll(ScrollState(0))
         ) {
-
             TitleText()
 
             if (bestRecipesList.value.isNotEmpty()) {
@@ -138,9 +135,7 @@ class HomeFragment : Fragment() {
                 || internetStatus == ConnectivityObserver.Status.Lost
             ) {
                 if (newsestRecipesList.value.isEmpty()) {
-
                     // Shows Nothing
-
                 } else {
                     if (viewModel.isLoadingState.value) {
                         HomeSection(title = stringResource(id = R.string.newest_recipes)) {
@@ -149,14 +144,12 @@ class HomeFragment : Fragment() {
                                 circleSize = 12.dp
                             )
                         }
-
                     } else {
                         HomeSection(title = stringResource(id = R.string.newest_recipes)) {
                             NewestRecipesRow(newsestRecipesList)
                         }
                     }
                 }
-
             } else {
                 if (viewModel.isLoadingState.value) {
                     HomeSection(title = stringResource(id = R.string.newest_recipes)) {
@@ -165,7 +158,6 @@ class HomeFragment : Fragment() {
                             circleSize = 12.dp
                         )
                     }
-
                 } else {
                     HomeSection(title = stringResource(id = R.string.newest_recipes)) {
                         NewestRecipesRow(newsestRecipesList)
@@ -176,13 +168,11 @@ class HomeFragment : Fragment() {
             Spacer(modifier = Modifier.height(24.dp))
             if (viewModel.isLoadingState.value) {
                 HomeSection(title = stringResource(id = R.string.news)) {
-
                     LoadingAnimation(
                         circleColor = colorResource(id = R.color.white),
                         circleSize = 12.dp
                     )
                 }
-
             } else {
                 HomeSection(title = stringResource(id = R.string.news)) {
                     NewsColumn(viewModel.newsList.value, internetStatus)
@@ -195,7 +185,7 @@ class HomeFragment : Fragment() {
                 horizontalAlignment = CenterHorizontally,
                 verticalArrangement = Arrangement.Center
             ) {
-                Row() {
+                Row {
                     Surface(
                         modifier = Modifier
                             .fillMaxWidth(0.8f)
@@ -204,8 +194,7 @@ class HomeFragment : Fragment() {
                         shape = RoundedCornerShape(12.dp),
                         color = colorResource(id = R.color.superlightgray),
                         elevation = 20.dp,
-
-                        ) {
+                    ) {
                         Row(
                             horizontalArrangement = Arrangement.End,
                             modifier = Modifier
@@ -223,7 +212,6 @@ class HomeFragment : Fragment() {
         if (internetStatus == ConnectivityObserver.Status.Lost
             && newsestRecipesList.value.isEmpty()
         ) {
-
             viewModel.helpSurfaceState.value = !viewModel.helpSurfaceState.value
 
             Column(
@@ -231,7 +219,7 @@ class HomeFragment : Fragment() {
                 horizontalAlignment = CenterHorizontally,
                 verticalArrangement = Arrangement.Center
             ) {
-                Row() {
+                Row {
                     Surface(
                         modifier = Modifier
                             .fillMaxWidth(0.8f)
@@ -240,8 +228,7 @@ class HomeFragment : Fragment() {
                         shape = RoundedCornerShape(12.dp),
                         color = colorResource(id = R.color.superlightgray),
                         elevation = 20.dp,
-
-                        ) {
+                    ) {
 /*                        Row(
                             horizontalArrangement = Arrangement.End,
                             modifier = Modifier
@@ -257,8 +244,8 @@ class HomeFragment : Fragment() {
         }
     }
 
-    private @Composable
-    fun HelpSurfaceItem(title: String) {
+    @Composable
+    private fun HelpSurfaceItem(title: String) {
         when (title) {
             stringResource(id = R.string.recipes_searcher) -> {
                 Column(horizontalAlignment = CenterHorizontally) {
@@ -271,7 +258,7 @@ class HomeFragment : Fragment() {
                         modifier = Modifier.padding(16.dp),
                     )
                     Text(
-                        text = stringResource(id =R.string.use_the_searchbar),
+                        text = stringResource(id = R.string.use_the_searchbar),
                         fontSize = 16.sp,
                         fontFamily = FontFamily(Font(R.font.marlin_sans)),
                         textAlign = TextAlign.Center,
@@ -289,11 +276,9 @@ class HomeFragment : Fragment() {
                             .clip(RoundedCornerShape(8.dp))
                     )
                 }
-
-
             }
-            stringResource(id = R.string.mark_your_recipes) -> {
 
+            stringResource(id = R.string.mark_your_recipes) -> {
                 Column(horizontalAlignment = CenterHorizontally) {
                     Text(
                         text = title,
@@ -323,8 +308,8 @@ class HomeFragment : Fragment() {
                     )
                 }
             }
-            stringResource(id = R.string.rate_your_recipes) -> {
 
+            stringResource(id = R.string.rate_your_recipes) -> {
                 Column(horizontalAlignment = CenterHorizontally) {
                     Text(
                         text = title,
@@ -354,8 +339,8 @@ class HomeFragment : Fragment() {
                     )
                 }
             }
-            stringResource(id = R.string.what_can_i_cook) -> {
 
+            stringResource(id = R.string.what_can_i_cook) -> {
                 Column(horizontalAlignment = CenterHorizontally) {
                     Text(
                         text = title,
@@ -387,7 +372,6 @@ class HomeFragment : Fragment() {
             }
 
             stringResource(id = R.string.no_internet_conection) -> {
-
                 Column(horizontalAlignment = CenterHorizontally) {
                     Text(
                         text = title,
@@ -420,9 +404,8 @@ class HomeFragment : Fragment() {
         }
     }
 
-
-    private @Composable
-    fun TitleText() {
+    @Composable
+    private fun TitleText() {
         Text(
             text = stringResource(id = R.string.brunos_recipes_dashes),
             fontFamily = FontFamily(Font(R.font.beautiful_people)),
@@ -447,7 +430,6 @@ class HomeFragment : Fragment() {
                 .height(450.dp)
                 .verticalScroll(rememberScrollState())
         ) {
-
             AndroidView(
                 modifier = Modifier.background(Color.White),
                 factory = {
@@ -461,18 +443,17 @@ class HomeFragment : Fragment() {
                                 webViewClient = WebViewClient()
                                 settings.javaScriptEnabled = true
                                 loadUrl(new.link)
-
                             }
                             job.join()
                             delay(2000)
                             loadingState.value = false
                         }
                     }
-                }, /*update = {
-                it.loadUrl(new.link)
-            }*/
+                },
+                /*update = {
+                               it.loadUrl(new.link)
+                           }*/
             )
-
         }
         if (loadingState.value) {
             Row(
@@ -488,7 +469,6 @@ class HomeFragment : Fragment() {
                         .padding(top = 24.dp)
                 )
             }
-
         } else
             Row(
                 horizontalArrangement = Arrangement.End,
@@ -554,14 +534,11 @@ class HomeFragment : Fragment() {
     fun NewsColumn(
         newsList: List<NewsModel>,
         internetStatus: ConnectivityObserver.Status,
-        viewModel: HomeViewModel = viewModel()
     ) {
-
         Column(
             horizontalAlignment = CenterHorizontally,
             verticalArrangement = Arrangement.Center,
         )
-
         {
             if (newsList.isNotEmpty()) {
                 YukaCard()
@@ -577,14 +554,13 @@ class HomeFragment : Fragment() {
                     for (i in 0..9)
                         NewsItem(newsList[i])
                 }
-
             }
         }
     }
 
     @Composable
     private fun YukaCard() {
-        val YukaWebViewState = remember { mutableStateOf(false) }
+        val yukaWebViewState = remember { mutableStateOf(false) }
 
         Card(
             elevation = 8.dp,
@@ -595,11 +571,11 @@ class HomeFragment : Fragment() {
                 .padding(horizontal = 8.dp)
                 .padding(bottom = 16.dp)
                 .clickable {
-                    YukaWebViewState.value = !YukaWebViewState.value
+                    yukaWebViewState.value = !yukaWebViewState.value
                 }
         ) {
-            if (YukaWebViewState.value)
-                YucaWebView(YukaWebViewState)
+            if (yukaWebViewState.value)
+                YucaWebView(yukaWebViewState)
             else {
                 Row(
                     horizontalArrangement = Arrangement.Center,
@@ -651,16 +627,12 @@ class HomeFragment : Fragment() {
                 .height(450.dp)
                 .fillMaxWidth()
                 .verticalScroll(rememberScrollState())
-
-
         ) {
-
             AndroidView(
                 factory = {
                     WebView(it).apply {
                         coroutineScope.launch {
                             val job = launch {
-
                                 layoutParams = ViewGroup.LayoutParams(
                                     ViewGroup.LayoutParams.MATCH_PARENT,
                                     ViewGroup.LayoutParams.MATCH_PARENT
@@ -673,13 +645,11 @@ class HomeFragment : Fragment() {
                             delay(3000)
                             loadingState.value = false
                         }
-
                     }
                 },
                 update = {
                     it.loadUrl("https://yuka.io/es/aplicacion/")
                 }
-
             )
         }
         if (loadingState.value) {
@@ -696,13 +666,11 @@ class HomeFragment : Fragment() {
                         .padding(top = 24.dp)
                 )
             }
-
         } else {
             Row(
                 horizontalArrangement = Arrangement.End,
                 modifier = Modifier.padding(8.dp)
             ) {
-
                 FloatingActionButton(
                     backgroundColor = colorResource(id = R.color.secondaryColor),
                     onClick = {
@@ -773,7 +741,6 @@ class HomeFragment : Fragment() {
                             .paddingFromBaseline(bottom = 8.dp)
                             .padding(horizontal = 8.dp)
                             .clickable {
-
                                 new.state.value = true
                             }
                     )
@@ -787,7 +754,6 @@ class HomeFragment : Fragment() {
     @Composable
     private fun StartRow() {
         val lazyState = rememberLazyListState(initialFirstVisibleItemIndex = 1)
-
         val centerPosition by remember { // caching position for prevent recomposition
             derivedStateOf {
                 val visibleInfo = lazyState.layoutInfo.visibleItemsInfo
@@ -805,10 +771,8 @@ class HomeFragment : Fragment() {
             state = lazyState,
             modifier = Modifier
                 .fillMaxWidth()
-
         ) {
-
-            val sratRowElementsTexts = listOf<Pair<String, Int>>(
+            val sratRowElementsTexts = listOf(
                 Pair(" ", R.drawable.recipe_list_image),
                 Pair("Puntúa tus recetas", R.drawable.rate_recipe),
                 Pair("Buscador de recetas", R.drawable.recipe_list_image),
@@ -839,7 +803,6 @@ class HomeFragment : Fragment() {
         viewModel: HomeViewModel = viewModel(),
         expanded: Boolean
     ) {
-
         Column(
             horizontalAlignment = CenterHorizontally,
             modifier = Modifier
@@ -848,7 +811,6 @@ class HomeFragment : Fragment() {
                 .width(120.dp)
                 .height(150.dp)
         ) {
-
             Surface(
                 elevation = if (text.isBlank()) 0.dp else 14.dp,
                 color = Color.Transparent,
@@ -859,7 +821,6 @@ class HomeFragment : Fragment() {
                         viewModel.helpSurfaceState.value = true
                     }
             ) {
-
                 if (text.isBlank()) {
                     Image(
                         painter = painterResource(id = drawable),
@@ -887,8 +848,6 @@ class HomeFragment : Fragment() {
                             .clip(CircleShape)
                     )
                 }
-
-
             }
 
             Text(
@@ -907,7 +866,6 @@ class HomeFragment : Fragment() {
                         )
                     )
                     .paddingFromBaseline(20.dp)
-
             )
         }
     }
@@ -953,7 +911,6 @@ class HomeFragment : Fragment() {
                 },
             elevation = 12.dp,
             shape = RoundedCornerShape(16.dp)
-
         ) {
             Column(
                 horizontalAlignment = CenterHorizontally,
@@ -966,10 +923,13 @@ class HomeFragment : Fragment() {
                             1.0f -> "1/5"
                             2.0f ->
                                 "2/5"
+
                             3.0f ->
                                 "3/5"
+
                             4.0f ->
                                 "4/5"
+
                             else ->
                                 "5/5"
                         },
@@ -1004,7 +964,6 @@ class HomeFragment : Fragment() {
                     fontFamily = FontFamily(Font(R.font.marlin_sans))
                 )
             }
-
         }
     }
 
@@ -1022,7 +981,6 @@ class HomeFragment : Fragment() {
                     .background(color = colorResource(id = R.color.white))
                     .padding(vertical = 16.dp)
                     .height(140.dp),
-
                 contentPadding = PaddingValues(horizontal = 16.dp),
                 horizontalArrangement = Arrangement.spacedBy(8.dp),
             ) {
@@ -1031,7 +989,6 @@ class HomeFragment : Fragment() {
                         photo = recipe.photo,
                         text = recipe.name,
                         id = recipe.id
-
                     )
                 }
             }
@@ -1054,7 +1011,6 @@ class HomeFragment : Fragment() {
                     findNavController().navigate(action)
                 },
         ) {
-
             Image(
                 painter = rememberAsyncImagePainter(photo),
                 contentDescription = null,
@@ -1075,7 +1031,6 @@ class HomeFragment : Fragment() {
 
     @Composable
     fun HomeSection(title: String, content: @Composable () -> Unit) {
-
         Text(
             text = title,
             fontFamily = FontFamily(Font(R.font.beautiful_people)),
@@ -1087,4 +1042,5 @@ class HomeFragment : Fragment() {
         content()
     }
 }
+
 

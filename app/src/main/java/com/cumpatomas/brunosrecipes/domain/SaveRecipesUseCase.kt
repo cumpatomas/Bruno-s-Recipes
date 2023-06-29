@@ -17,9 +17,10 @@ class SaveRecipesUseCase @Inject constructor(
 
     ) {
 
-/*    @Inject
+/*
     lateinit var provider: RecipeService*/
-    //private val preferences = Preferences()
+/*@Inject
+    private val preferences = Preferences()*/
 
     suspend operator fun invoke() {
         when(val result = provider.getRecipes()) {

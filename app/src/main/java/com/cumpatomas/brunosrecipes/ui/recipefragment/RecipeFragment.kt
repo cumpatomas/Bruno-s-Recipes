@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.RatingBar
-import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
@@ -18,22 +17,16 @@ import com.bumptech.glide.request.RequestOptions
 import com.cumpatomas.brunosrecipes.R
 import com.cumpatomas.brunosrecipes.databinding.RecipeFragmentBinding
 import com.cumpatomas.brunosrecipes.domain.model.RecipesModel
-import com.cumpatomas.brunosrecipes.ui.adapter.HistoryListAdapter
-import com.cumpatomas.brunosrecipes.ui.history.HistoryFragment
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
-
 @AndroidEntryPoint
 class RecipeFragment : Fragment() {
-
     private var _binding: RecipeFragmentBinding? = null
     private val binding get() = _binding!!
     private val navArgs: RecipeFragmentArgs by navArgs()
     private val viewModel: RecipeViewModel by viewModels()
-
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -52,18 +45,15 @@ class RecipeFragment : Fragment() {
     }
 
     private fun setUpRatingBar() {
-
         val ratingBarStars: RatingBar = binding.ratingStars
         ratingBarStars.setOnRatingBarChangeListener { _, rating, _ ->
             setRecipeRating(rating)
-
         }
     }
 
     private fun setRecipeRating(rating: Float) {
         viewModel.setRecipeRating(rating)
     }
-
 
     private fun initListeners() {
         binding.btnMarkedAsCooked.setOnClickListener {
@@ -81,13 +71,11 @@ class RecipeFragment : Fragment() {
                         updateUiWithRecipeInfo(recipeModel)
                         updateLastDateCooked(recipeModel)
                         binding.ratingStars.rating = recipeModel?.rating ?: 0f
-
                     }
                 }
             }
         }
     }
-
 
     private fun updateLastDateCooked(recipeModel: RecipesModel?) {
         if (recipeModel?.datesCooked?.isEmpty() == true) {
@@ -106,7 +94,6 @@ class RecipeFragment : Fragment() {
         binding.tvCategories.text = recipeModel?.category?.joinToString(", ")
         binding.tvIngredients.text = recipeModel?.ingredients
         binding.tvPasosTexto.text = recipeModel?.pasos?.trimIndent()
-
     }
 
     private fun receiveArguments() {
