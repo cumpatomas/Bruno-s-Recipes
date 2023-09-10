@@ -17,7 +17,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Starting"
-        tools:targetApi="31">
+        tools:targetApi="33"
+        android:targetSdkVersion="33">
         <activity
             android:name=".ui.mainactivity.MainActivity"
             android:exported="true"

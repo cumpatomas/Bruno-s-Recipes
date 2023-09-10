@@ -42,7 +42,6 @@ class MainActivity : AppCompatActivity() {
         NavigationUI.setupWithNavController(binding.bottomNavigation, navController)
         setNavigationIcon() // not needed since with the setAppBarConfig function it sets the homeFragment as Home
 
-
     }
 
 

@@ -28,7 +28,7 @@ class HomeViewModelTest {
     private val searchRecipesUseCase: SearchRecipesUseCase = mockk()
     private val saveRecipesUseCase: SaveRecipesUseCase = mockk(relaxed = true)
     private val scrapNews: ScrapNews = mockk(relaxed = true)
-    lateinit var viewModel: HomeViewModel
+    private lateinit var viewModel: HomeViewModel
     private val newsList = listOf(
         NewsModel(id = null, title = "vidisse", link = "turpis", state = mutableStateOf(true)),
         NewsModel(id = null, title = "new new", link = "http...etc", state = mutableStateOf(true)),

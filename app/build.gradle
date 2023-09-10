@@ -9,14 +9,14 @@ plugins {
 
 android {
     //noinspection GradleCompatible
-    compileSdk 32
+    compileSdk 33
 
     defaultConfig {
         applicationId "com.cumpatomas.brunosrecipes"
         minSdk 28
-        targetSdk 32
-        versionCode 44
-        versionName '1.0'
+        targetSdk 33
+        versionCode 46
+        versionName '1.2'
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -28,11 +28,11 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
     }
     kotlinOptions {
-        jvmTarget = '1.8'
+        jvmTarget = 11
     }
     buildFeatures {
         compose true
@@ -62,7 +62,6 @@ dependencies {
     testImplementation 'junit:junit:4.13.2'
     testImplementation "com.google.truth:truth:1.0.1"
     androidTestImplementation "com.google.truth:truth:1.0.1"
-    testImplementation "io.mockk:mockk:1.12.2"
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
     testImplementation "androidx.test:core:1.5.0"
@@ -85,6 +84,15 @@ dependencies {
 
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1"
     implementation "androidx.activity:activity-ktx:1.5.1"
+
+
+    // mockito
+    androidTestImplementation "org.mockito:mockito-core:2.25.0"
+    testImplementation "org.mockito:mockito-core:2.25.0"
+    implementation "org.mockito:mockito-core:2.25.0"
+    testImplementation "io.mockk:mockk:1.12.2"
+    implementation "io.mockk:mockk:1.12.2"
+    androidTestImplementation "io.mockk:mockk:1.12.2"
 
     //glide
     implementation 'com.github.bumptech.glide:glide:4.13.2'

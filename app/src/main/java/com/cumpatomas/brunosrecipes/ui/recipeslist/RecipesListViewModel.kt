@@ -2,11 +2,11 @@ package com.cumpatomas.brunosrecipes.ui.recipeslist
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.bumptech.glide.Glide.init
 import com.cumpatomas.brunosrecipes.domain.SaveRecipesUseCase
 import com.cumpatomas.brunosrecipes.domain.SearchRecipesUseCase
 import com.cumpatomas.brunosrecipes.domain.model.RecipesModel
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.channels.Channel
@@ -36,45 +36,49 @@ class RecipesListViewModel @Inject constructor(
 
     init {
         viewModelScope.launch(IO) {
-            _viewState.send(RecipesListViewState(loading = true)) // funcion SEND es del tipo Channel
+            launch { _viewState.send(RecipesListViewState(loading = true)) }
             val saveRecipesJob = launch {
                 saveRecipesUseCase.invoke()
             }
             saveRecipesJob.join()
 
-            searchRecipesUseCase.invoke().also { recipeList ->
-                _recipesList.value = recipeList
+            launch {
+                searchRecipesUseCase.invoke().also { recipeList ->
+                    _recipesList.value = recipeList
 
-                _categoryList.value = recipeList.flatMap { recipe ->
-                    recipe.category
-                }.distinct()
+                    _categoryList.value = recipeList.flatMap { recipe ->
+                        recipe.category
+                    }.distinct()
+                }
             }
-            _viewState.send(RecipesListViewState(loading = false))
+            launch { _viewState.send(RecipesListViewState(loading = false)) }
         }
     }
 
     fun searchList(query: String = this.query) {
+
         this.query = query
         searchJob?.cancel()
 
         searchJob = viewModelScope.launch(IO) {
-            _viewState.send(RecipesListViewState(loading = true))
+            launch { _viewState.send(RecipesListViewState(loading = true)) }
             val newList =
                 if (categoriesSelected.isEmpty()) {
                     searchRecipesUseCase.invoke(this@RecipesListViewModel.query)
-                } else  {
+                } else {
                     searchRecipesUseCase.invoke(this@RecipesListViewModel.query).filter { recipe ->
                         recipe.category.containsAll(categoriesSelected)
                     }
                 }
             updateRecipesList(newList)
-            _viewState.send(RecipesListViewState(loading = false))
+            launch { _viewState.send(RecipesListViewState(loading = false)) }
         }
     }
 
-    private fun updateRecipesList(newList: List<RecipesModel>) {
+    fun updateRecipesList(newList: List<RecipesModel>) {
         _recipesList.value = newList
         testList = newList
+
     }
 
     fun addCategoriesSelected(category: String) {
