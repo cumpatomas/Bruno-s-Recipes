@@ -36,6 +36,10 @@ class RecipesListViewModel @Inject constructor(
 
     init {
         viewModelScope.launch(IO) {
+            /** as the viewState is a CHANNEL I had to put it
+             * in different threads with launch{} so the TEST
+             * can succeed. When is a MutableState we don't have to
+             * */
             launch { _viewState.send(RecipesListViewState(loading = true)) }
             val saveRecipesJob = launch {
                 saveRecipesUseCase.invoke()

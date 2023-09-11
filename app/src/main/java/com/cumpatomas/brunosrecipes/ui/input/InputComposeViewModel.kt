@@ -26,7 +26,7 @@ class InputComposeViewModel@Inject constructor(
     init {
         viewModelScope.launch {
             searchRecipesUseCase.invoke().also { recipeList ->
-                isLoadingState.value = true
+               isLoadingState.value = true
 
                 val tempList = recipeList.toMutableList()
                 val splittedIngredients = mutableListOf<String>()
@@ -37,7 +37,7 @@ class InputComposeViewModel@Inject constructor(
                             splittedIngredients.add(ingredient)
                 }
                 ingredientsList.value = splittedIngredients.sorted()
-                isLoadingState.value = false
+               isLoadingState.value = false
             }
         }
 
